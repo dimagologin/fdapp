@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
+    "@kaigorod/charm": "npm:@jsr/kaigorod__charm@^0.1.24",
     "@tailwindcss/forms": "^0.5.7",
     "clsx": "^2.1.1",
     "lucide-react": "^0.414.0",

@@ -1,10 +1,14 @@
 import clsx from "clsx";
-import { LucideBuilding, LucideCircleCheckBig, LucideCopy, LucideDownload, LucideForward, LucideServer, LucideSmartphone } from "lucide-react";
+import { LucideBuilding, LucideCircleCheckBig, LucideServer, LucideSmartphone } from "lucide-react";
 import { useState } from "react";
+import BalanceSectionHeading from "./BalanceSectionHeading";
+import CreateProxyListBox from "./CreateProxyListBox";
 import { TopNav } from "./TopNav";
+import { login, useUser } from "./state";
 
 
-export function ProxyTypeRadioBox({ isActive = false, title, description, Icon, onSelect }) {
+
+export function ProxyTypeRadioBox({ isActive = false, proxyType, title, description, Icon, onSelect }) {
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1  rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
@@ -13,10 +17,13 @@ export function ProxyTypeRadioBox({ isActive = false, title, description, Icon, 
   })}
     onClick={onSelect}
   >
-    <span className="flex-1 text-gray-900">
-      <strong className="font-medium text-gray-700">{title}</strong>
+    <span className="flex-1">
+      <strong className="font-semibold text-gray-800">{title}</strong>
       <br />
       {description}
+      <br />
+      <span className="text-gray-800 font-semibold">${priceByProxyType[proxyType]}.00</span>{" "}
+      <span className="text-gray-400">/ GB</span>
     </span>
     <Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
   </div>
@@ -52,6 +59,9 @@ function TrafficAmountBox({ isActive = false, gb = 1, description, onSelect, }) 
   </div>
 }
 
+const h2Classes = "text-gray-800 font-semibold ";
+const h3Classes = "text-gray-700 font-medium ";
+
 export default function GbInput({ value, setValue }) {
   return (
     <div className="w-40 ">
@@ -65,7 +75,7 @@ export default function GbInput({ value, setValue }) {
           type="text"
           placeholder="100"
           aria-describedby="trafic-gb"
-          className="block w-full border-0 py-1.5 pl-3 pr-4 text font-semibold leading-10 rounded-md text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          className="block w-full border border-transparent py-2 pl-3 pr-4 text font-semibold leading-10 rounded-md text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
           value={value}
           onChange={e => setValue(e.target.value)}
         />
@@ -75,17 +85,24 @@ export default function GbInput({ value, setValue }) {
           </span>
         </div>
       </div>
-      <label htmlFor="trafficNumberInput" className="block font-medium leading-6 text-gray-900 text-fuchsia-600">
-        Custom
+      <label htmlFor="trafficNumberInput" className="block font-regular text-gray-600">
+        Custom trafic
       </label>
 
     </div>
   )
 }
 
+function SectionHeading({ title }) {
+  return <div className="mt-10 pb-5 border-b border-gray-200 ">
+    <h3 className="font-semibold leading-6 text-gray-900">{title}</h3>
+  </div>
+}
+
 export function TwoColumnsLayout() {
   const [proxyType, setProxyType] = useState("mobile")
   const [trafic, setTrafic] = useState(1)
+  const user = useUser()
 
   return <div className="bg-gray-50 text-gray-900">
     <TopNav />
@@ -96,24 +113,24 @@ export function TwoColumnsLayout() {
             Dashboard
           </h1>
 
-          <p className="text-gray-500">
+          <p className="text-sm text-gray-500">
             Currently, you have <MoneyAmount>0.00</MoneyAmount> on your proxy account.
             Please, add credits to your account to enable proxies.
           </p>
         </div>
 
-        <div>
-          <h1 className="mt-6 mb-4 text-lg font-semibold text-gray-900">
-            Add credits
-          </h1>
+        <BalanceSectionHeading />
+
+        <div className="mt-5">
+          <h3 className={"mb-1.5 font-medium "}>
+            Proxy type
+          </h3>
         </div>
 
-        <h3 className="mt-2 mb-4 font-medium">
-          Choose proxy type
-        </h3>
         <div className="grid  grid-cols-1 md:grid-cols-3  gap-4">
           <ProxyTypeRadioBox
             title="Mobile"
+            proxyType="mobile"
             description={"Best anti-detect"}
             isActive={proxyType === 'mobile'}
             Icon={LucideSmartphone}
@@ -122,21 +139,25 @@ export function TwoColumnsLayout() {
           <ProxyTypeRadioBox
             title="Residential"
             description={"Best anti-detect"}
+            proxyType="residential"
             isActive={proxyType === 'residential'}
             Icon={LucideBuilding}
             onSelect={() => setProxyType('residential')}
           />
           <ProxyTypeRadioBox
             title="Data center"
+            proxyType="dataCenter"
             description={"More affordable"}
             isActive={proxyType === 'dataCenter'}
             Icon={LucideServer}
             onSelect={() => setProxyType('dataCenter')}
           />
         </div>
-        <h2 className="mt-6 mb-4 font-regular">
-          Traffic, Gb
-        </h2>
+
+        <div className="mt-5"></div>
+        <h3 className={"mb-1.5 font-medium "}>
+          Trafic
+        </h3>
         <div className="flex flex-col md:flex-row w-full gap-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
@@ -180,10 +201,12 @@ export function TwoColumnsLayout() {
           </span>
         </div>
 
-        <div className="px-4 w-[336px] py-6 mt-8 bg-white border rounded-xl">
-          <h1 className="pb-2 font-semibold text-lg text-gray-900">Order summary</h1>
+        <div className="px-8 w-[500px] py-4 mt-8 bg-white border rounded-xl">
+          <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
+            Order summary
+          </h2>
 
-          <div className="grid my-4 grid-cols-2 gap-2">
+          <div className="grid my-4 grid-cols-2 gap-2 leading-7">
             <div className="min-2-60">
               <strong className="font-semibold">
                 Proxy type
@@ -199,7 +222,7 @@ export function TwoColumnsLayout() {
               </strong>
             </div>
             <div>
-              ${priceByProxyType[proxyType]}
+              ${priceByProxyType[proxyType]}.00
               {" "}<span className="text-gray-400">/ GB</span>
             </div>
 
@@ -232,81 +255,63 @@ export function TwoColumnsLayout() {
           Proceed to checkout
         </button> */}
 
+        {!user &&
 
+          <div className="pt-8">
 
-        <h2 className="mt-6 mb-4 font-medium">
-          Proceed to checkout
+            <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
+              Create account and complete checkout
+            </h2>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Email
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                Password
+              </label>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="***"
+                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+
+              <div className="pt-4">
+                <button
+                  className="py-1.5 px-4 border bg-sky-700 text-fuchsia-100 rounded-lg font-semibold"
+                  onClick={login}
+                >
+                  Sign in
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+
+        {
+          user &&
+          <div>Loged in as {user.name}</div>
+        }
+
+        <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
+          Proxy list
         </h2>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-            Email
-          </label>
-          <div className="mt-2">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-          </div>
-        </div>
-        <h1 className="mt-6 mb-4 text-lg font-semibold text-gray-900">
-          Proxy list
-        </h1>
-
-        <p>Select proxy locations and number of unique IPs to generate list of proxy server.</p>
-
-        <div>
-          <h2 className="mt-6 mb-4 font-medium">
-            Proxy location
-          </h2>
-
-
-        </div>
-
-
-        <div>
-          <h3 className="mt-6 mb-2 font-regular">
-            Number of proxies
-          </h3>
-          <input
-            className="bg-white border p-2 mb-2 rounded"
-            value={10}>
-          </input>
-        </div>
-
-
-        <div>
-          <button className="py-2 px-4 border bg-fuchsia-600 text-fuchsia-100 rounded-lg">
-            Generate proxies
-          </button>
-        </div>
-
-        <h3 className="mt-6 mb-2 font-regular">
-          Proxy list
-        </h3>
-        <textarea rows={10} cols={40} className="w-full border rounded my-2" />
-
-        <div>
-          <button className="inline-block py-1 px-2 mr-2 border border-fuchsia-600 text-sm text-fuchsia-600 font-semibold rounded-lg">
-            Copy proxy list <LucideCopy className="inline-block h-4" />
-          </button>
-          <button className="inline-block py-1 px-2 mr-2 border border-fuchsia-600 text-sm text-fuchsia-600 font-semibold rounded-lg">
-            Download as txt<LucideDownload className="inline-block h-4" />
-          </button>
-          <button className="inline-block py-1 px-2 mr-2 border border-fuchsia-600 text-sm text-fuchsia-600 font-semibold rounded-lg">
-            Share via email<LucideForward className="inline-block h-4" />
-          </button>
-        </div>
-
+        <CreateProxyListBox />
       </div>
-
-
-
-    </div>
-    <div>
     </div>
   </div>
 }
