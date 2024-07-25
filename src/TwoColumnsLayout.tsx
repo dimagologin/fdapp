@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import { LucideBuilding, LucideCircleCheckBig, LucideServer, LucideSmartphone } from "lucide-react";
-import { useState } from "react";
 import BalanceSectionHeading from "./BalanceSectionHeading";
 import CreateProxyListBox from "./CreateProxyListBox";
 import { TopNav } from "./TopNav";
-import { login, useUser } from "./state";
+import { priceByProxyType, setProxyType, setTrafic, startCheckout, useProxyType, useTrafic, useUser } from "./state";
 
 
 
@@ -28,13 +27,6 @@ export function ProxyTypeRadioBox({ isActive = false, proxyType, title, descript
     <Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
   </div>
 }
-
-const priceByProxyType = {
-  mobile: 7,
-  residential: 7,
-  dataCenter: 1,
-} as const;
-
 function MoneyAmount({ children }) {
   return <strong className="font-medium text-gray-600 tabular-nums">
     ${children}
@@ -100,9 +92,9 @@ function SectionHeading({ title }) {
 }
 
 export function TwoColumnsLayout() {
-  const [proxyType, setProxyType] = useState("mobile")
-  const [trafic, setTrafic] = useState(1)
   const user = useUser()
+  const proxyType = useProxyType()
+  const trafic = useTrafic()
 
   return <div className="bg-gray-50 text-gray-900">
     <TopNav />
@@ -193,118 +185,20 @@ export function TwoColumnsLayout() {
 
           <span>
             <GbInput value={trafic} setValue={setTrafic} ></GbInput>
-            {/* <input
-                className="border-gray-300 w-16 px-2 py-2 mx-2 border rounded"
-                type="number"
-                value={trafic}
-                />&nbsp;Gb */}
           </span>
         </div>
 
-        <div className="px-8 w-[500px] py-4 mt-8 bg-white border rounded-xl">
-          <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
-            Order summary
-          </h2>
+        <button
+          onClick={startCheckout}
+          className="my-6 px-4 py-1.5 leading-5 text-sm  bg-fuchsia-600 text-fuchsia-100 font-semibold rounded-lg"
+        >
+          CONTINUE TO CHECKOUT
+        </button>
 
-          <div className="grid my-4 grid-cols-2 gap-2 leading-7">
-            <div className="min-2-60">
-              <strong className="font-semibold">
-                Proxy type
-              </strong>
-            </div>
-            <div>
-              {proxyType}
-            </div>
-
-            <div className="min-2-60">
-              <strong className="font-semibold">
-                Price, per GB
-              </strong>
-            </div>
-            <div>
-              ${priceByProxyType[proxyType]}.00
-              {" "}<span className="text-gray-400">/ GB</span>
-            </div>
-
-            <div className="min-2-60">
-              <strong className="font-semibold">
-                Quantity
-              </strong>
-            </div>
-            <div>
-              {trafic} GB
-            </div>
-
-            <div className="col-span-2 mb-1 py-1 border-b border-gray-300"></div>
-
-            <div className="min-2-60">
-              <strong className="font-semibold text-gray-900">
-                Total
-              </strong>
-            </div>
-            <div>
-              ${priceByProxyType[proxyType] * trafic}.00
-            </div>
-          </div>
-          <div>
-          </div>
-
-        </div>
 
         {/* <button className="mt-4 py-2 px-4 border bg-fuchsia-600 text-fuchsia-100 rounded-lg">
           Proceed to checkout
         </button> */}
-
-        {!user &&
-
-          <div className="pt-8">
-
-            <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
-              Create account and complete checkout
-            </h2>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                Password
-              </label>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="***"
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-
-              <div className="pt-4">
-                <button
-                  className="py-1.5 px-4 border bg-sky-700 text-fuchsia-100 rounded-lg font-semibold"
-                  onClick={login}
-                >
-                  Sign in
-                </button>
-              </div>
-            </div>
-          </div>
-        }
-
-        {
-          user &&
-          <div>Loged in as {user.name}</div>
-        }
 
         <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
           Proxy list
