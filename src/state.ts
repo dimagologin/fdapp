@@ -1,8 +1,8 @@
-import { charm, useCharm } from "@kaigorod/charm";
+import { Charm, charm, useCharm } from "@kaigorod/charm";
 
-const userCharm = charm<undefined | { name: string }>(undefined);
+const userCharm = charm<undefined | { email: string }>(undefined);
 
-const exportLikeCharm = (aCharm) => {
+const exportLikeCharm = <T>(aCharm: Charm<T>) => {
   return {
     use: () => useCharm(aCharm),
     set: aCharm.set,
@@ -10,7 +10,7 @@ const exportLikeCharm = (aCharm) => {
   }
 }
 
-export const login = () => userCharm.set({ name: "Dima" })
+export const login = () => userCharm.set({ email: "dima.kaigorodov@gmail.com" })
 export const logout = () => userCharm.set(undefined)
 export const useUser = () => useCharm(userCharm)
 export const getUser = () => userCharm.get();
@@ -42,3 +42,10 @@ export const {
   use: useTrafic
 } = exportLikeCharm(traficCharm);
 
+
+const balanceCharm = charm<number>(0);
+export const {
+  set: setBalance,
+  get: getBalance,
+  use: useBalance
+} = exportLikeCharm(balanceCharm);

@@ -18,7 +18,7 @@ export default function CreateProxyListBox() {
           strokeLinejoin="round"
         />
       </svg>
-      <h3 className="mt-2 text-sm font-semibold text-gray-900">No proxy lists</h3>
+      <h3 className="mt-2 text-sm font-semibold text-gray-900">No proxy lists yet</h3>
       <p className="mt-1 text-sm text-gray-500">Get started by creating a new proxy list.</p>
       <div className="mt-6">
         <button

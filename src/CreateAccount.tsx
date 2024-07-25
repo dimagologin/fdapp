@@ -4,17 +4,19 @@ export function CreateAccount() {
   const user = useUser();
 
   if (user) {
-    return <div>Loggen in as <strong>user</strong></div>
+    return <div className="mt-4 pb-4 border-b border-gray-200">
+      <strong className="font-medium">{user.email}</strong>
+    </div>
   }
 
-  return <div className="pt-8">
+  return <div className="">
 
-    <h2 className={"mt-6 mb-4 text-lg "}>
+    <h2 className={"mt-4 mb-4 text-lg "}>
       Create account
     </h2>
 
-    <p className="text-gray-500 text-sm">
-      You balance refill will be saved into the current account.
+    <p className="my-4 text-gray-500 text-sm">
+      Your account stores credit balance info and proxy list settings.
     </p>
 
     <div>
