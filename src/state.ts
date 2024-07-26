@@ -21,27 +21,10 @@ export const cancelCheckout = () => isStartedCheckoutCharm.set(false)
 export const useIsStartedCheckout = () => useCharm(isStartedCheckoutCharm)
 export const isStartedCheckout = () => isStartedCheckoutCharm.get();
 
-export const priceByProxyType = {
-  mobile: 7,
-  residential: 7,
-  dataCenter: 1,
-} as const;
-
-const proxyTypeCharm = charm<'mobile' | 'residential' | 'dataCenter'>('mobile');
-export const {
-  set: setProxyType,
-  get: getProxyType,
-  use: useProxyType
-} = exportLikeCharm(proxyTypeCharm);
-
-
 const traficCharm = charm<number>(1);
-export const {
-  set: setTrafic,
-  get: getTrafic,
-  use: useTrafic
-} = exportLikeCharm(traficCharm);
-
+export const setTrafic = (value: number) => traficCharm.set(value);
+export const getTrafic = () => traficCharm.get();
+export const useTrafic = () => useCharm(traficCharm);
 
 const balanceCharm = charm<number>(0);
 export const {

@@ -1,13 +1,15 @@
 import { CalculatorForm, MoneyAmount } from "./CalculatorForm";
 import CreateProxyListBox from "./CreateProxyListBox";
-import { startCheckout, useIsStartedCheckout, useProxyType, useTrafic, useUser } from "./state";
+import { HardButton } from "./HardButton";
+import { setTrafic, startCheckout, useIsStartedCheckout, useTrafic, useUser } from "./state";
 
-export const h2Classes = "text-gray-800 font-semibold ";
-const h3Classes = "text-gray-700 font-medium ";
+export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
+export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";
 
-export default function GbInput({ value, setValue }) {
+export default function GbInput() {
+  const value = useTrafic();
   return (
-    <div className="w-40 ">
+    <div className="w-40 mb-8">
       <div className="relative  rounded-md">
         {/* <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <span className="text-gray-500 sm:text-sm">Trafic</span>
@@ -20,7 +22,7 @@ export default function GbInput({ value, setValue }) {
           aria-describedby="trafic-gb"
           className="block w-full border border-transparent py-2 pl-3 pr-4 text font-semibold leading-10 rounded-md text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setTrafic(e.target.value)}
         />
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           <span id="trafic-gb" className="text-gray-500 font-semibold">
@@ -28,9 +30,9 @@ export default function GbInput({ value, setValue }) {
           </span>
         </div>
       </div>
-      <label htmlFor="trafficNumberInput" className="block font-regular text-gray-600">
+      {/* <label htmlFor="trafficNumberInput" className="block font-regular text-gray-600">
         Custom trafic
-      </label>
+      </label> */}
 
     </div>
   )
@@ -44,7 +46,6 @@ function SectionHeading({ title }) {
 
 export function DashboardPage() {
   const user = useUser()
-  const proxyType = useProxyType()
   const trafic = useTrafic()
   const isStartedCheckout = useIsStartedCheckout()
 
@@ -61,12 +62,11 @@ export function DashboardPage() {
     </div>
     <CalculatorForm />
 
-    <button
+    <HardButton
       onClick={startCheckout}
-      className="my-6 px-4 py-1.5 leading-5 text-sm  bg-fuchsia-600 text-white font-semibold rounded"
     >
       PROCEED TO CHECKOUT
-    </button>
+    </HardButton>
 
     <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
       Proxy lists

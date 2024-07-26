@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { priceByProxyType, useIsStartedCheckout, useProxyType, useTrafic } from "./state"
+import { formatUsd, useProxyType } from "./proxyType"
+import { useIsStartedCheckout, useTrafic } from "./state"
 
-export function OrderSummary() {
+export function OrderSummary({ isOpened: isOpenedProp = false }) {
   const isStartedCheckout = useIsStartedCheckout()
   const proxyType = useProxyType()
   const trafic = useTrafic()
-  const [isOpened, setOpened] = useState(false)
+  const [isOpened, setOpened] = useState(isOpenedProp)
 
   useEffect(() => {
     if (isStartedCheckout) {
@@ -14,19 +15,22 @@ export function OrderSummary() {
   }, [isStartedCheckout]);
 
   if (!isOpened) {
-    return <div className="bg-gray-100 py-4 -mx-4 my-4 px-4 border-t border-b border-gray-200">
+    return <div
+      onClick={() => setOpened(true)}
+      className="bg-gray-100 py-4 -mx-4 my-4 px-4 border-t border-b border-gray-200"
+    >
       <div className="flex justify-between w-full">
         <span>
           Show order summary
         </span>
         <span className="font-bold">
-          ${priceByProxyType[proxyType] * trafic}.00
+          {proxyType.priceStr}
         </span>
       </div>
     </div>
   }
 
-  return <div className="border-b border-red-500 pb-6 mb-6">
+  return <div className="pb-6 mb-6">
     <h2 className={"mt-6 mb-4 font-semibold text-gray-900 "}>
       Order summary
     </h2>
@@ -38,17 +42,17 @@ export function OrderSummary() {
         </strong>
       </div>
       <div>
-        {proxyType}
+        {proxyType.title}
       </div>
 
-      <div className="min-2-60">
+      <div className="min-w-44">
         <strong className="font-medium text-gray-800">
           Price, per GB
         </strong>
       </div>
       <div>
-        ${priceByProxyType[proxyType]}.00
-        {" "}<span className="text-gray-400">/ GB</span>
+        <span className="text-gray-700 font-semibold">{proxyType.priceStr}</span>
+        {" "}<span className="text-gray-500 font-medium">/ GB</span>
       </div>
 
       <div className="min-2-60">
@@ -68,10 +72,8 @@ export function OrderSummary() {
         </strong>
       </div>
       <div>
-        ${priceByProxyType[proxyType] * trafic}.00
+        ${formatUsd(proxyType.price * trafic)}
       </div>
-    </div>
-    <div>
     </div>
 
   </div>

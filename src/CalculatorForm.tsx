@@ -1,26 +1,29 @@
-import clsx from "clsx"
-import { LucideBuilding, LucideCircleCheckBig, LucideServer, LucideSmartphone } from "lucide-react"
-import GbInput from "./DashboardPage"
-import { priceByProxyType, setProxyType, setTrafic, useProxyType, useTrafic } from "./state"
+import clsx from "clsx";
+import { LucideCircleCheckBig } from "lucide-react";
+import GbInput, { h2Classes } from "./DashboardPage";
+import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./proxyType";
+import { setTrafic, useTrafic } from "./state";
 
-export function ProxyTypeRadioBox({ isActive = false, proxyType, title, description, Icon, onSelect }) {
+export function ProxyTypeRadioBox({ proxyType }) {
+  const selectedProxyType = useProxyType();
+  const isActive = proxyType === selectedProxyType;
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1  rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
     "border-gray-200 ring-transparent hover:border-transparent hover:ring-fuchsia-500/50": !isActive,
     "border-transparent  ring-fuchsia-500": isActive,
   })}
-    onClick={onSelect}
+    onClick={() => setProxyType(proxyType)}
   >
     <span className="flex-1">
-      <strong className="font-semibold text-gray-800">{title}</strong>
+      <strong className="font-semibold text-gray-800">{proxyType.title}</strong>
       <br />
-      {description}
+      {proxyType.description}
       <br />
-      <span className="text-gray-800 font-semibold">${priceByProxyType[proxyType]}.00</span>{" "}
-      <span className="text-gray-400">/ GB</span>
+      <span className="text-gray-800 font-semibold">{proxyType.priceStr}</span>{" "}
+      <span className="text-gray-400 font-regular">/ GB</span>
     </span>
-    <Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
+    <proxyType.Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
   </div>
 }
 
@@ -30,14 +33,16 @@ export function MoneyAmount({ children }) {
   </strong>
 }
 
-function TrafficAmountBox({ isActive = false, gb = 1, description, onSelect, }) {
+function TrafficAmountBox({ gb = 1, description, }) {
+  const trafic = useTrafic();
+  const isActive = trafic === gb;
 
   return <div className={clsx({
-    "flex w-40 p-4 bg-white border border-1 rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
+    "flex p-4 bg-white border border-1 rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
     "border-gray-200 ring-transparent hover:border-transparent hover:ring-fuchsia-500/50": !isActive,
     "border-transparent  ring-fuchsia-500": isActive,
   })}
-    onClick={onSelect}
+    onClick={() => setTrafic(gb)}
   >
     <span className="flex-1 text-gray-900">
       <strong className="">{gb} GB<br /></strong>
@@ -49,83 +54,54 @@ function TrafficAmountBox({ isActive = false, gb = 1, description, onSelect, }) 
 }
 
 export function CalculatorForm() {
-  const proxyType = useProxyType()
   const trafic = useTrafic()
 
   return <div>
     <div className="mt-5">
-      <h3 className={"mb-1.5 font-medium "}>
+      <h2 className={h2Classes}>
         Proxy type
-      </h3>
+      </h2>
     </div>
 
-    <div className="grid  grid-cols-1 md:grid-cols-3  gap-4">
-      <ProxyTypeRadioBox
-        title="Mobile"
-        proxyType="mobile"
-        description={"Best anti-detect"}
-        isActive={proxyType === 'mobile'}
-        Icon={LucideSmartphone}
-        onSelect={() => setProxyType('mobile')}
-      />
-      <ProxyTypeRadioBox
-        title="Residential"
-        description={"Best anti-detect"}
-        proxyType="residential"
-        isActive={proxyType === 'residential'}
-        Icon={LucideBuilding}
-        onSelect={() => setProxyType('residential')}
-      />
-      <ProxyTypeRadioBox
-        title="Data center"
-        proxyType="dataCenter"
-        description={"More affordable"}
-        isActive={proxyType === 'dataCenter'}
-        Icon={LucideServer}
-        onSelect={() => setProxyType('dataCenter')}
-      />
+    <div className="grid grid-cols-1 md:grid-cols-3  gap-4">
+      <ProxyTypeRadioBox proxyType={mobile} />
+      <ProxyTypeRadioBox proxyType={residential} />
+      <ProxyTypeRadioBox proxyType={dataCenter} />
     </div>
 
-    <div className="mt-5"></div>
-    <h3 className={"mb-1.5 font-medium "}>
-      Trafic
-    </h3>
-    <div className="flex flex-col md:flex-row w-full gap-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-
+    <div className="mt-5">
+      <h2 className={h2Classes}>
+        Trafic amount
+      </h2>
+      <div className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <TrafficAmountBox
-          gb={1}
-          description="Hobby"
-          isActive={trafic === 1}
-          onSelect={() => setTrafic(1)}
-        />
-        <TrafficAmountBox
-          gb={7}
-          description="Startup"
-          isActive={trafic === 7}
-          onSelect={() => setTrafic(7)}
-        />
-        <TrafficAmountBox
-          gb={30}
-          description="Business"
-          isActive={trafic === 30}
-          onSelect={() => setTrafic(30)}
-        />
-        <TrafficAmountBox
-          gb={120}
-          description="Enterprize"
-          isActive={trafic === 120}
-          onSelect={() => setTrafic(120)}
-        />
+            gb={12}
+            description="Startup"
+          />
+          <TrafficAmountBox
+            gb={48}
+            description="Business"
+          />
+          <TrafficAmountBox
+            gb={96}
+            description="Business"
+          />
+          <TrafficAmountBox
+            gb={120}
+            description="Enterprize"
+          />
+        </div>
       </div>
-
-      <div className="relative flex pl-1 border-r-2 border-fuchsia-500 mr-1">
-        <span className="absolute left-[-2px] top-[28px] bg-gray-50">or</span>
+      <div>
+        <h2 className={h2Classes + " mt-4"}>
+          Need more trafic?
+        </h2>
+        <p className="text-gray-500 mb-2">
+          Type exact amount of you need
+        </p>
+        <GbInput />
       </div>
-
-      <span>
-        <GbInput value={trafic} setValue={setTrafic} ></GbInput>
-      </span>
     </div>
   </div>
 }

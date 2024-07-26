@@ -1,8 +1,8 @@
+import { HardButton } from "./HardButton"
 
 const paymentMethods = [
   { id: 'credit-card', title: 'Credit card' },
-  { id: 'paypal', title: 'PayPal' },
-  { id: 'etransfer', title: 'eTransfer' },
+  { id: 'crypto', title: 'Crypto' },
 ]
 
 
@@ -103,9 +103,9 @@ export function PaymentForm() {
 
     </div>
     <div className="mt-4">
-      <button className="border border-2 px-4 py-2 rounded cursor-pointer hover:border-fuchsia-400">
+      <HardButton>
         PAY NOW
-      </button>
+      </HardButton>
     </div>
   </div>
 }
