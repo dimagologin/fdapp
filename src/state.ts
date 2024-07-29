@@ -21,14 +21,13 @@ export const cancelCheckout = () => isStartedCheckoutCharm.set(false)
 export const useIsStartedCheckout = () => useCharm(isStartedCheckoutCharm)
 export const isStartedCheckout = () => isStartedCheckoutCharm.get();
 
-const traficCharm = charm<number>(1);
+const traficCharm = charm<number>(12);
 export const setTrafic = (value: number) => traficCharm.set(value);
 export const getTrafic = () => traficCharm.get();
 export const useTrafic = () => useCharm(traficCharm);
 
-const balanceCharm = charm<number>(10);
-export const {
-  set: setBalance,
-  get: getBalance,
-  use: useBalance
-} = exportLikeCharm(balanceCharm);
+const balanceCharm = charm<number>(0);
+export const setBalance = (value: number) => balanceCharm.set(value);
+export const getBalance = () => balanceCharm.get();
+export const useIsBalancePositive = () => balanceCharm.get() > 0;
+export const useBalance = () => useCharm(balanceCharm);

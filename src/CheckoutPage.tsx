@@ -2,12 +2,13 @@ import { LucideX } from "lucide-react";
 import { CreateAccount } from "./CreateAccount";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentForm } from "./PaymentForm";
-import { cancelCheckout } from "./state";
+import { cancelCheckout, useUser } from "./state";
 
 export function CheckoutPage() {
+  const user = useUser()
   return <div>
     <span
-      className="inline-block float-right text-base font-extralight text-fuchsia-800 cursor-pointer hover:text-fuchsia-900 "
+      className="inline-block float-right text-base font-extralight text-indigo-800 cursor-pointer hover:text-indigo-900 "
       style={{ cursor: 'pointer' }}
       onClick={cancelCheckout}
     >
@@ -18,6 +19,7 @@ export function CheckoutPage() {
     </h1>
     <OrderSummary />
     <CreateAccount />
-    <PaymentForm />
+
+    {user && <PaymentForm />}
   </div>
 }

@@ -31,47 +31,49 @@ export function OrderSummary({ isOpened: isOpenedProp = false }) {
   }
 
   return <div className="pb-6 mb-6">
-    <h2 className={"mt-6 mb-4 font-semibold text-gray-900 "}>
+    <h2 className={"mt-6 mb-4 font-medium text-gray-900 "}>
       Order summary
     </h2>
 
-    <div className="grid my-4 grid-cols-2 gap-2 leading-7">
+    <div className="grid my-4 grid-cols-2 gap-2 justify-between leading-7">
       <div className="min-2-60">
-        <strong className="font-medium text-gray-800">
+        <span >
           Proxy type
-        </strong>
+        </span>
       </div>
-      <div>
+      <div className="font-medium text-gray-900">
         {proxyType.title}
       </div>
 
       <div className="min-w-44">
-        <strong className="font-medium text-gray-800">
+        <span >
           Price, per GB
-        </strong>
+        </span>
       </div>
       <div>
-        <span className="text-gray-700 font-semibold">{proxyType.priceStr}</span>
-        {" "}<span className="text-gray-500 font-medium">/ GB</span>
+        <span className="text-gray-900 font-medium">{proxyType.priceStr}</span>
+        {" "}<span className=" ">/ GB</span>
       </div>
 
       <div className="min-2-60">
-        <strong className="font-medium text-gray-800">
+        <span >
           Quantity
-        </strong>
+        </span>
       </div>
       <div>
-        {trafic} GB
+        <span className="font-medium text-gray-900">
+          {trafic} GB
+        </span>
       </div>
 
-      <div className="col-span-2 mb-1 py-1 border-b border-gray-300"></div>
+      <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
 
-      <div className="min-2-60">
-        <strong className="font-medium text-gray-900">
+      <div className="">
+        <span className="font-medium text-gray-900">
           Total
-        </strong>
+        </span>
       </div>
-      <div>
+      <div className="font-medium text-gray-900">
         ${formatUsd(proxyType.price * trafic)}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { LucideCircleCheckBig } from "lucide-react";
 import GbInput, { h2Classes } from "./DashboardPage";
+import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
 import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./proxyType";
 import { setTrafic, useTrafic } from "./state";
 
@@ -10,27 +11,27 @@ export function ProxyTypeRadioBox({ proxyType }) {
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1  rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
-    "border-gray-200 ring-transparent hover:border-transparent hover:ring-fuchsia-500/50": !isActive,
-    "border-transparent  ring-fuchsia-500": isActive,
+    "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
+    "border-transparent  ring-indigo-500": isActive,
   })}
     onClick={() => setProxyType(proxyType)}
   >
     <span className="flex-1">
-      <strong className="font-semibold text-gray-800">{proxyType.title}</strong>
+      <span className="font-semibold text-gray-800">{proxyType.title}</span>
       <br />
       {proxyType.description}
       <br />
       <span className="text-gray-800 font-semibold">{proxyType.priceStr}</span>{" "}
       <span className="text-gray-400 font-regular">/ GB</span>
     </span>
-    <proxyType.Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
+    <proxyType.Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
   </div>
 }
 
 export function MoneyAmount({ children }) {
-  return <strong className="font-medium text-gray-600 tabular-nums">
+  return <span className="font-medium  tabular-nums">
     ${children}
-  </strong>
+  </span>
 }
 
 function TrafficAmountBox({ gb = 1, description, }) {
@@ -39,17 +40,17 @@ function TrafficAmountBox({ gb = 1, description, }) {
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1 rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
-    "border-gray-200 ring-transparent hover:border-transparent hover:ring-fuchsia-500/50": !isActive,
-    "border-transparent  ring-fuchsia-500": isActive,
+    "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
+    "border-transparent  ring-indigo-500": isActive,
   })}
     onClick={() => setTrafic(gb)}
   >
-    <span className="flex-1 text-gray-900">
-      <strong className="">{gb} GB<br /></strong>
+    <span className="flex-1 ">
+      <span className="text-gray-900 font-medium">{gb} GB<br /></span>
       {description}
     </span>
 
-    <LucideCircleCheckBig className={clsx({ 'stroke-gray-200': !isActive, "stroke-fuchsia-600": isActive })} />
+    <LucideCircleCheckBig className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
   </div>
 }
 
@@ -92,6 +93,12 @@ export function CalculatorForm() {
             description="Enterprize"
           />
         </div>
+      </div>
+      <div className="mt-5">
+        <h2 className={h2Classes + " mb-4"}>
+          Repeatable order
+        </h2>
+        <MonthlySubcribtionCheckbox />
       </div>
       <div>
         <h2 className={h2Classes + " mt-4"}>

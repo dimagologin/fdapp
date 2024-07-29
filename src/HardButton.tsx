@@ -1,9 +1,9 @@
 export function HardButton({ children, className = "", ...props }) {
   return <button
     className={
-      "px-5 my-4 py-3 text-sm leading-[14px] bg-fuchsia-900 text-white  " +
-      "border border-[2px] border-fuchsia-900 hover:bg-fuchsia-50 hover:text-fuchsia-900 " +
-      className
+      "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+
+      + className
     }
     {...props} >
     {children}

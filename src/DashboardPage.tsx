@@ -30,7 +30,7 @@ export default function GbInput() {
           </span>
         </div>
       </div>
-      {/* <label htmlFor="trafficNumberInput" className="block font-regular text-gray-600">
+      {/* <label htmlFor="trafficNumberInput" className="block font-regular ">
         Custom trafic
       </label> */}
 
