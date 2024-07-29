@@ -55,7 +55,6 @@ function TrafficAmountBox({ gb = 1, description, }) {
 }
 
 export function CalculatorForm() {
-  const trafic = useTrafic()
 
   return <div>
     <div className="mt-5">

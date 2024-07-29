@@ -49,7 +49,7 @@ export function ZeroBalancePage() {
         </div>
 
         {
-          !isBalancePositive && hasPreviousPurchases &&
+          !isBalancePositive && !hasPreviousPurchases &&
           <div className="mt-10">
             <h2 className={h2Classes + " mt-4"}>
               Still not sure?
@@ -57,18 +57,14 @@ export function ZeroBalancePage() {
             <p className="text-sm text-gray-700">
               Try our proxies risk-free! Sign up now and get 1&nbsp;GB of mobile proxy traffic for just $0.99!
               <div className="my-4">
-                <button className="border border-2 rounded font-semibol px-3 py-1">
+                  <a className="border-b border-indigo-600 text-indigo-700 font-semibol py-1 cursor-pointer">
                   Start one dollar trial now
-                </button>
+                  </a>
               </div>
             </p>
           </div>
         }
       </div>
-    </div>
-
-    <div>
-
     </div>
   </div>
 }
