@@ -1,17 +1,18 @@
 import { useProxyType } from "./proxyType";
-import { useFormattedTotal, useTrafic } from "./state";
+import { useFormattedTotal, useIsSubscription, useTrafic } from "./state";
 
 export function OrderSummary({ }) {
   const proxyType = useProxyType();
   const trafic = useTrafic();
   const formattedTotal = useFormattedTotal()
+  const isSubscription = useIsSubscription();
 
   return <div className="pb-4 ">
     <h2 className={"mt-6 mb-4 font-medium text-gray-900 "}>
       Order summary
     </h2>
 
-    <div className="grid my-4 grid-cols-2 gap-x-8 gap-y-2 justify-between leading-7">
+    <div className="grid my-4 grid-cols-2 gap-x-20 gap-y-2 justify-between leading-7">
       <div className="min-2-60">
         <span >
           Proxy type
@@ -31,7 +32,7 @@ export function OrderSummary({ }) {
         {" "}<span className=" ">/ GB</span>
       </div>
 
-      <div className="min-2-60">
+      <div>
         <span >
           Quantity
         </span>
@@ -41,6 +42,18 @@ export function OrderSummary({ }) {
           {trafic} GB
         </span>
       </div>
+
+      <div>
+        <span >
+          Subscription
+        </span>
+      </div>
+      <div>
+        <span className="font-medium text-gray-900">
+          {isSubscription ? "Monthly" : "None"}
+        </span>
+      </div>
+
 
       <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
 

@@ -105,7 +105,7 @@ export function CalculatorForm() {
           Need more trafic?
         </h2>
         <p className="text-gray-500 mb-2">
-          Type exact amount of you need
+          Specify amount you need
         </p>
         <GbInput />
       </div>

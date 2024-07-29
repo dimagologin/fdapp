@@ -14,7 +14,7 @@ export function ZeroBalancePage() {
   const hasPreviousPurchases = false;
 
   return <div>
-    <div className="lg:flex gap-6">
+    <div className="lg:flex gap-y-6 gap-x-20">
     <div>
         <div>
           <h1 className="mb-4 text-2xl leading-7 font-semibold text-gray-900">

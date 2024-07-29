@@ -12,7 +12,7 @@ export function CheckoutPage() {
       style={{ cursor: 'pointer' }}
       onClick={cancelCheckout}
     >
-      CLOSE <LucideX className="inline-block h-5 stroke-1 relative -top-px" />
+      BACK <LucideX className="inline-block h-5 stroke-1 relative -top-px -mr-2" />
     </span>
     <h1 className="mt-6 mb-4 text-2xl leading-7 font-semibold text-gray-900">
       Checkout
