@@ -1,65 +1,72 @@
-import { httpApi } from "./api";
-import { authUser } from "./state";
+import { httpApi } from './api';
+import { authUser } from './state';
 
-export const signup = async (username: string, password: string, password_confirmation: string) => {
+export const signup = async (
+  username: string,
+  password: string,
+  password_confirmation: string,
+) => {
   const result = await httpApi(
-    "user/signup",
+    'user/signup',
     {
       username,
       password,
-      password_confirmation
+      password_confirmation,
     },
     {
-      auth: false
-    }
+      auth: false,
+    },
   );
   if (result.token) {
     localStorage.auth = JSON.stringify({
       username,
-      token: result.token
-    })
-    authUser(username)
+      token: result.token,
+    });
+    authUser(username);
     return {
       ok: 1,
-      username
-    }
+      username,
+    };
   } else {
     return {
       ok: 0,
-      message: result.message
-    }
+      message: result.message,
+    };
   }
-}
+};
 
-
-export const login = async (username: string, password: string, password_confirmation: string) => {
+export const login = async (
+  username: string,
+  password: string,
+  password_confirmation: string,
+) => {
   const result = await httpApi(
-    "user/signin",
+    'user/signin',
     {
       username,
       password,
     },
     {
-      auth: false
-    }
+      auth: false,
+    },
   );
   if (result.token) {
     localStorage.auth = JSON.stringify({
       username,
-      token: result.token
-    })
-    authUser(username)
+      token: result.token,
+    });
+    authUser(username);
     return {
       ok: 1,
-      username
-    }
+      username,
+    };
   } else {
     return {
       ok: 0,
-      message: result.message
-    }
+      message: result.message,
+    };
   }
-}
+};
 
 export const signin = async (username: string, password: string) => {
   try {
@@ -71,11 +78,11 @@ export const signin = async (username: string, password: string) => {
     console.error(e);
   }
   return await login(username, password, password);
-}
+};
 
 export const getAuthStorage = () => {
-  return JSON.parse(localStorage.auth)
-}
+  return JSON.parse(localStorage.auth);
+};
 export const getUsername = () => {
   return getAuthStorage().username;
-}
+};

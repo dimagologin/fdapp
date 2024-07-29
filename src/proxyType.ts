@@ -1,5 +1,5 @@
-import { charm, useCharm } from "@kaigorod/charm";
-import { LucideBuilding, LucideServer, LucideSmartphone } from "lucide-react";
+import { charm, useCharm } from '@kaigorod/charm';
+import { LucideBuilding, LucideServer, LucideSmartphone } from 'lucide-react';
 
 export const mobile = {
   name: 'mobile',
@@ -21,7 +21,7 @@ export const residential = {
 
 export const dataCenter = {
   name: 'dataCenter',
-  price: 0.90,
+  price: 0.9,
   priceStr: '$0.90',
   title: 'Data center',
   description: 'More affordable',
@@ -29,11 +29,13 @@ export const dataCenter = {
 } as const;
 
 export const ProxyTypesByName = {
-  mobile, residential, dataCenter
+  mobile,
+  residential,
+  dataCenter,
 } as const;
 
-export type ProxyType = (typeof ProxyTypesByName)[keyof typeof ProxyTypesByName];
-
+export type ProxyType =
+  (typeof ProxyTypesByName)[keyof typeof ProxyTypesByName];
 
 const proxyTypeCharm = charm<ProxyType>(mobile);
 export const setProxyType = (value: ProxyType) => proxyTypeCharm.set(value);
@@ -41,8 +43,8 @@ export const getProxyType = () => proxyTypeCharm.get();
 export const useProxyType = () => useCharm(proxyTypeCharm);
 
 export function formatUsd(usd: number) {
-  return Intl.NumberFormat("en-US", {
+  return Intl.NumberFormat('en-US', {
     maximumFractionDigits: 2,
-    minimumFractionDigits: 2
-  }).format(usd)
+    minimumFractionDigits: 2,
+  }).format(usd);
 }
