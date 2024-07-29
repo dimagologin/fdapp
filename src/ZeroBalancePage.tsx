@@ -38,7 +38,7 @@ export function ZeroBalancePage() {
       <div className="md:max-w-80">
         <div className=" pb-6 px-6 border bg-white rounded-xl">
 
-          <OrderSummary isOpened={true} />
+          <OrderSummary />
           <HardButton
             // style={{ display: 'block' }}
             className="block w-full"

@@ -1,4 +1,5 @@
 import { Charm, charm, useCharm } from "@kaigorod/charm";
+import { formatUsd, useProxyType } from "./proxyType";
 
 const userCharm = charm<undefined | { email: string }>(undefined);
 
@@ -25,6 +26,13 @@ const traficCharm = charm<number>(12);
 export const setTrafic = (value: number) => traficCharm.set(value);
 export const getTrafic = () => traficCharm.get();
 export const useTrafic = () => useCharm(traficCharm);
+
+export const useFormattedTotal = () => {
+  const proxyType = useProxyType()
+  const trafic = useTrafic()
+
+  return `\$${formatUsd(proxyType.price * trafic)}`
+}
 
 const balanceCharm = charm<number>(0);
 export const setBalance = (value: number) => balanceCharm.set(value);

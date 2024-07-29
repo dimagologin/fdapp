@@ -1,41 +1,17 @@
-import { useEffect, useState } from "react"
-import { formatUsd, useProxyType } from "./proxyType"
-import { useIsStartedCheckout, useTrafic } from "./state"
+import { useProxyType } from "./proxyType";
+import { useFormattedTotal, useTrafic } from "./state";
 
-export function OrderSummary({ isOpened: isOpenedProp = false }) {
-  const isStartedCheckout = useIsStartedCheckout()
-  const proxyType = useProxyType()
-  const trafic = useTrafic()
-  const [isOpened, setOpened] = useState(isOpenedProp)
+export function OrderSummary({ }) {
+  const proxyType = useProxyType();
+  const trafic = useTrafic();
+  const formattedTotal = useFormattedTotal()
 
-  useEffect(() => {
-    if (isStartedCheckout) {
-      setOpened(false);
-    }
-  }, [isStartedCheckout]);
-
-  if (!isOpened) {
-    return <div
-      onClick={() => setOpened(true)}
-      className="bg-gray-100 py-4 -mx-4 my-4 px-4 border-t border-b border-gray-200"
-    >
-      <div className="flex justify-between w-full">
-        <span>
-          Show order summary
-        </span>
-        <span className="font-bold">
-          {proxyType.priceStr}
-        </span>
-      </div>
-    </div>
-  }
-
-  return <div className="pb-6 mb-6">
+  return <div className="pb-4 ">
     <h2 className={"mt-6 mb-4 font-medium text-gray-900 "}>
       Order summary
     </h2>
 
-    <div className="grid my-4 grid-cols-2 gap-2 justify-between leading-7">
+    <div className="grid my-4 grid-cols-2 gap-x-8 gap-y-2 justify-between leading-7">
       <div className="min-2-60">
         <span >
           Proxy type
@@ -74,7 +50,7 @@ export function OrderSummary({ isOpened: isOpenedProp = false }) {
         </span>
       </div>
       <div className="font-medium text-gray-900">
-        ${formatUsd(proxyType.price * trafic)}
+        {formattedTotal}
       </div>
     </div>
 
