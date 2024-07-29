@@ -1,7 +1,7 @@
-import { CalculatorForm, MoneyAmount } from "./CalculatorForm";
+import { MoneyAmount } from "./CalculatorForm";
 import CreateProxyListBox from "./CreateProxyListBox";
 import { HardButton } from "./HardButton";
-import { setTrafic, startCheckout, useIsStartedCheckout, useTrafic, useUser } from "./state";
+import { setTrafic, startCheckout, useBalance, useIsStartedCheckout, useTrafic, useUser } from "./state";
 
 export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
 export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";
@@ -48,6 +48,7 @@ export function DashboardPage() {
   const user = useUser()
   const trafic = useTrafic()
   const isStartedCheckout = useIsStartedCheckout()
+  const balance = useBalance()
 
   return <div className="">
     <div>
@@ -56,21 +57,21 @@ export function DashboardPage() {
       </h1>
 
       <p className="text-sm text-gray-500">
-        Currently, you have <MoneyAmount>0.00</MoneyAmount> on your proxy account.
+        Currently, you have <MoneyAmount>{balance}</MoneyAmount> on your proxy account.
         Please, add credits to your account to enable proxies.
       </p>
     </div>
-    <CalculatorForm />
 
     <HardButton
       onClick={startCheckout}
     >
-      PROCEED TO CHECKOUT
+      BUY MORE TRAFIC
     </HardButton>
 
     <h2 className={"mt-6 mb-4 text-lg " + h2Classes}>
       Proxy lists
     </h2>
+
 
     <CreateProxyListBox />
   </div>

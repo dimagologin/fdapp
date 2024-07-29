@@ -1,7 +1,13 @@
-import { login, useUser } from "./state";
+import { useState } from "react";
+import { generateSingleProxy } from "./api";
+import { signin } from "./auth";
+import { useUser } from "./state";
 
 export function CreateAccount() {
   const user = useUser();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [errorMessage, setErrorMesage] = useState("")
 
   if (user) {
     return <div className="mt-4 pb-4 border-b border-gray-200">
@@ -26,6 +32,11 @@ export function CreateAccount() {
       <div className="mt-2">
         <input
           id="email"
+          value={email}
+          onChange={e => {
+            setErrorMesage("");
+            setEmail(e.target.value);
+          }}
           name="email"
           type="email"
           placeholder="name@example.com"
@@ -40,15 +51,34 @@ export function CreateAccount() {
           id="password"
           name="password"
           type="password"
+
+          value={password}
+          onChange={e => {
+            setErrorMesage("");
+            setPassword(e.target.value);
+          }}
           placeholder="***"
           className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
       </div>
 
+      {errorMessage &&
+        <div className="p-2 my-2 bg-red-100 border-red-300 text-red-700 rounded">
+          {errorMessage}
+        </div>
+      }
+
       <div className="pt-4">
         <button
           className="py-1.5 px-4 border bg-indigo-600 text-fuchsia-100 rounded-lg font-semibold"
-          onClick={login}
+          onClick={async (e) => {
+            setErrorMesage("")
+            const result = await signin(email, password)
+            if (!result.ok) {
+              setErrorMesage(result.message)
+            }
+            console.log(await generateSingleProxy({}))
+          }}
         >
           Sign in
         </button>

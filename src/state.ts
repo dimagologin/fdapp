@@ -10,8 +10,8 @@ const exportLikeCharm = <T>(aCharm: Charm<T>) => {
   }
 }
 
-export const login = () => userCharm.set({ email: "dima.kaigorodov@gmail.com" })
-export const logout = () => userCharm.set(undefined)
+export const authUser = (email: string) => userCharm.set({ email })
+export const clearUser = () => userCharm.set(undefined)
 export const useUser = () => useCharm(userCharm)
 export const getUser = () => userCharm.get();
 
@@ -26,7 +26,7 @@ export const setTrafic = (value: number) => traficCharm.set(value);
 export const getTrafic = () => traficCharm.get();
 export const useTrafic = () => useCharm(traficCharm);
 
-const balanceCharm = charm<number>(0);
+const balanceCharm = charm<number>(10);
 export const {
   set: setBalance,
   get: getBalance,
