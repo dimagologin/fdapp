@@ -1,6 +1,6 @@
 import { LucideCopy, LucideDownload, LucideForward } from "lucide-react";
 
-function ExistingProxyList() {
+export function ExistingProxyList() {
   return <div>
     <p>Select proxy locations and number of unique IPs to generate list of proxy server.</p>
 
