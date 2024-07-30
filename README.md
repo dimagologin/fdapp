@@ -1,4 +1,6 @@
-# React + TypeScript + Vite
+# floppydata.com web app
+
+Based on React + TypeScript + Vite
 
 Currently, two official plugins are available:
 

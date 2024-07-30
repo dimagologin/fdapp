@@ -99,8 +99,8 @@ export function Footer() {
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="space-y-8">
               <img
-                alt="Company name"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                alt="FloppyData"
+                src=""
                 className="h-7"
               />
               <p className="text-sm leading-6 text-gray-300">

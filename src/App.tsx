@@ -2,13 +2,13 @@ import './App.css'
 import { CheckoutPage } from './CheckoutPage'
 import { DashboardPage } from './DashboardPage'
 import { Layout } from './Layout'
-import { useBalance, useIsStartedCheckout } from './state'
+import { useAvailableCountries, useIsStartedCheckout } from './state'
 import { ZeroBalancePage } from './ZeroBalancePage'
 
 
 function Navigation() {
   const isStartedCheckout = useIsStartedCheckout();
-  const balance = useBalance();
+  const balance = useAvailableCountries();
 
   if (isStartedCheckout) {
     return <CheckoutPage />;

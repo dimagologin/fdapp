@@ -4,29 +4,8 @@ import GbInput, { h2Classes } from "./DashboardPage";
 import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
 import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./proxyType";
 import { setTrafic, useTrafic } from "./state";
+import { CalculatorProxyTypeSelector } from "./ProxyTypeSelector";
 
-export function ProxyTypeRadioBox({ proxyType }) {
-  const selectedProxyType = useProxyType();
-  const isActive = proxyType === selectedProxyType;
-
-  return <div className={clsx({
-    "flex p-4 bg-white border border-1  rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
-    "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
-    "border-transparent  ring-indigo-500": isActive,
-  })}
-    onClick={() => setProxyType(proxyType)}
-  >
-    <span className="flex-1">
-      <span className="font-semibold text-gray-800">{proxyType.title}</span>
-      <br />
-      {proxyType.description}
-      <br />
-      <span className="text-gray-800 font-semibold">{proxyType.priceStr}</span>{" "}
-      <span className="text-gray-400 font-regular">/ GB</span>
-    </span>
-    <proxyType.Icon className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
-  </div>
-}
 
 export function MoneyAmount({ children }) {
   return <span className="font-medium  tabular-nums">
@@ -63,11 +42,7 @@ export function CalculatorForm() {
       </h2>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-3  gap-4">
-      <ProxyTypeRadioBox proxyType={mobile} />
-      <ProxyTypeRadioBox proxyType={residential} />
-      <ProxyTypeRadioBox proxyType={dataCenter} />
-    </div>
+    <CalculatorProxyTypeSelector />
 
     <div className="mt-5">
       <h2 className={h2Classes}>

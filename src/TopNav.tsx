@@ -1,12 +1,12 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { clearUser } from './state'
+import { clearUser, setAvailableCountries } from './state'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
+  { name: 'Dashboard', href: '#', onClick: () => setAvailableCountries(0), current: true },
   { name: 'Balance', href: '#', current: false },
   { name: 'Account', href: '#', current: false },
-  { name: 'Generate proxy list', href: '#', current: false },
+  { name: 'Generate proxy list', href: '#', onClick: () => setAvailableCountries(10), current: false },
 ]
 
 function classNames(...classes) {
@@ -30,8 +30,8 @@ export function TopNav() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <img
-                alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                alt="FloppyData"
+                src=""
                 className="h-8 w-auto"
               />
             </div>
@@ -41,6 +41,7 @@ export function TopNav() {
                   <a
                     key={item.name}
                     href={item.href}
+                    onClick={() => item.onClick?.()}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
                       item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',

@@ -44,3 +44,11 @@ const isSubscriptionCharm = charm<boolean>(false);
 export const useIsSubscription = () => useCharm(isSubscriptionCharm);
 export const setIsSubscription = (value: boolean) =>
   isSubscriptionCharm.set(value);
+
+
+type Country = {
+
+}
+const availableCountriesCharm = charm<Country[]>([])
+export const setAvailableCountries = (value: Country[]) => availableCountriesCharm.set(value);
+export const useAvailableCountries = () => useCharm(availableCountriesCharm);

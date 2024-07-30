@@ -37,14 +37,22 @@ export const ProxyTypesByName = {
 export type ProxyType =
   (typeof ProxyTypesByName)[keyof typeof ProxyTypesByName];
 
-const proxyTypeCharm = charm<ProxyType>(mobile);
-export const setProxyType = (value: ProxyType) => proxyTypeCharm.set(value);
-export const getProxyType = () => proxyTypeCharm.get();
-export const useProxyType = () => useCharm(proxyTypeCharm);
+const calculatorProxyTypeCharm = charm<ProxyType>(mobile);
+export const setProxyType = (value: ProxyType) => calculatorProxyTypeCharm.set(value);
+export const getProxyType = () => calculatorProxyTypeCharm.get();
+export const useProxyType = () => useCharm(calculatorProxyTypeCharm);
 
 export function formatUsd(usd: number) {
   return Intl.NumberFormat('en-US', {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   }).format(usd);
+}
+
+export const createProxyTypePickerApi = () => {
+  const proxyTypeCharm = charm<ProxyType>(mobile);
+  return {
+    setProxyType: (value: ProxyType) => proxyTypeCharm.set(value),
+    useProxyType: () => useCharm(proxyTypeCharm)
+  }
 }

@@ -6,10 +6,8 @@ function ExistingProxyList() {
 
     <div>
       <h2 className={"mt-6 mb-4 text-lg "}>
-        Proxy location
+        Proxy locations
       </h2>
-
-
     </div>
 
 
