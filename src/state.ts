@@ -41,8 +41,10 @@ export const setIsSubscription = (value: boolean) =>
 
 
 type Country = {
-
 }
+
+
+
 const availableCountriesCharm = charm<Country[]>([])
 export const setAvailableCountries = (value: Country[]) => availableCountriesCharm.set(value);
 export const useAvailableCountries = () => useCharm(availableCountriesCharm);

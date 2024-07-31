@@ -26,7 +26,7 @@ import { ZeroBalancePage } from "./ZeroBalancePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardPage />,
+    element: <ZeroBalancePage />,
     errorElement: <ErrorBoundary />
   },
   {

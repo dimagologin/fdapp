@@ -104,7 +104,7 @@ export function Footer() {
                 className="h-7"
               />
               <p className="text-sm leading-6 text-gray-300">
-                Making the world a better place through constructing elegant hierarchies.
+                Reliable proxies and data services which are super easy to integrate.
               </p>
               <div className="flex space-x-6">
                 {navigation.social.map((item) => (

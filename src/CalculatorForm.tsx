@@ -12,7 +12,7 @@ export function MoneyAmount({ children }) {
   </span>
 }
 
-function TrafficAmountBox({ gb = 1, description, }) {
+function TrafficAmountBox({ gb = 1, description, discount }) {
   const trafic = useTrafic();
   const isActive = trafic === gb;
 
@@ -26,6 +26,9 @@ function TrafficAmountBox({ gb = 1, description, }) {
     <span className="flex-1 ">
       <span className="text-gray-900 font-medium">{gb} GB<br /></span>
       {description}
+      <div>
+        {discount}
+      </div>
     </span>
 
     <LucideCircleCheckBig className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
@@ -37,7 +40,7 @@ export function CalculatorForm() {
   return <div>
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Proxy type
+        Select proxy type
       </h2>
     </div>
 
@@ -45,31 +48,35 @@ export function CalculatorForm() {
 
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Trafic amount
+        Select trafic amount
       </h2>
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <TrafficAmountBox
+          <TrafficAmountBox
             gb={12}
-            description="Startup"            
+            description="Startup"
+            discount={""}
           />
           <TrafficAmountBox
             gb={48}
             description="Business"
+            discount={"10% Discount"}
           />
           <TrafficAmountBox
             gb={96}
             description="Business"
+            discount={"20% Discount"}
           />
           <TrafficAmountBox
             gb={120}
             description="Enterprize"
+            discount={"30% Discount"}
           />
         </div>
       </div>
       <div className="mt-5">
         <h2 className={h2Classes + " mb-4"}>
-          Repeatable order
+          Select payment period
         </h2>
         <MonthlySubcribtionCheckbox />
       </div>

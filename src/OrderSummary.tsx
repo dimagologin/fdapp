@@ -1,11 +1,64 @@
+import { oneTimePayment, usePaymentPeriod } from "./paymentPeriod";
 import { useProxyType } from "./proxyType";
-import { useFormattedTotal, useIsSubscription, useTrafic } from "./state";
+import { useFormattedTotal, useTrafic } from "./state";
+
+function PaymentPeriodLineItem({ paymentPeriod }) {
+  if (paymentPeriod === oneTimePayment) {
+    return <>
+      <div>
+        <span >
+          Payment
+        </span>
+      </div>
+      <div>
+        <span className="font-medium text-gray-900">
+          one-time
+        </span>
+      </div>
+    </>
+  }
+
+  return <>
+    <div>
+      <span >
+        Subscription
+      </span>
+    </div>
+    <div>
+      <span className="font-medium text-gray-900">
+        {paymentPeriod.short}
+      </span>
+    </div>
+  </>
+}
+
+function SubtotalAndDiscount({ subtotal, discount }) {
+  return <>
+    <div className="">
+      <span className="font-regular text-gray-800">
+        Subtotal
+      </span>
+    </div>
+    <div className="font-regular text-gray-800">
+      {subtotal}
+    </div>
+    <div className="">
+      <span className="font-regular text-gray-800">
+        Discount
+      </span>
+    </div>
+    <div className="font-regular text-gray-800">
+      {discount}
+    </div>
+    <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
+  </>
+}
 
 export function OrderSummary({ }) {
   const proxyType = useProxyType();
   const trafic = useTrafic();
   const formattedTotal = useFormattedTotal()
-  const isSubscription = useIsSubscription();
+  const paymentPeriod = usePaymentPeriod();
 
   return <div className="pb-4 ">
     <h2 className={"mt-6 mb-4 font-medium text-gray-900 "}>
@@ -43,20 +96,11 @@ export function OrderSummary({ }) {
         </span>
       </div>
 
-      <div>
-        <span >
-          Subscription
-        </span>
-      </div>
-      <div>
-        <span className="font-medium text-gray-900">
-          {isSubscription ? "Monthly" : "None"}
-        </span>
-      </div>
-
+      <PaymentPeriodLineItem paymentPeriod={paymentPeriod} />
 
       <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
 
+      <SubtotalAndDiscount discount={"50%"} subtotal="$1000.00" />
       <div className="">
         <span className="font-medium text-gray-900">
           Total
