@@ -22,7 +22,7 @@ export function CreateAccount() {
     </h2>
 
     <p className="my-4 text-gray-500 text-sm">
-      Your account stores credit balance info and proxy list settings.
+      Your account stores credit balance info and proxy pool settings.
     </p>
 
     <div>

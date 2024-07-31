@@ -29,13 +29,13 @@ export function ExistingProxyList() {
     </div>
 
     <h3 className="mt-6 mb-2 font-regular">
-      Proxy list
+      Proxy pool
     </h3>
     <textarea rows={10} cols={40} className="w-full border rounded my-2" />
 
     <div>
       <button className="inline-block py-1 px-2 mr-2 border border-indigo-600 text-sm text-indigo-600 font-semibold rounded-lg">
-        Copy proxy list <LucideCopy className="inline-block h-4" />
+        Copy proxy pool <LucideCopy className="inline-block h-4" />
       </button>
       <button className="inline-block py-1 px-2 mr-2 border border-indigo-600 text-sm text-indigo-600 font-semibold rounded-lg">
         Download as txt<LucideDownload className="inline-block h-4" />

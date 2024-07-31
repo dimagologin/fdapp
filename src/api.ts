@@ -61,7 +61,8 @@ export const generateSingleProxy = async ({
     // "city": "string",
     isMobile: proxyType === 'mobile',
     isDC: proxyType === 'dataCenter',
-    provider: 'floppydata',
+    // provider: 'dataimpulse',
+    // provider: 'floppydata',
     tags: [
       {
         proxy_username: username,

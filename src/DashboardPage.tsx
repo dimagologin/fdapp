@@ -1,15 +1,16 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import { MoneyAmount } from "./CalculatorForm";
-import { HardButton } from "./HardButton";
+import { HardButton, hardButtonStyles } from "./HardButton";
 import { LocationPicker } from "./LocationPicker";
 import { GeneratorProxyTypeSelector } from "./ProxyTypeSelector";
 import { SoftButton } from "./SoftButton";
-import { setTrafic, startCheckout, useAvailableCountries, useIsStartedCheckout, useTrafic, useUser } from "./state";
+import { setTrafic, useBalance, useTrafic, useUser } from "./state";
 
 export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
 export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";
 
-export default function GbInput() {
+export function GbInput() {
   const value = useTrafic();
   return (
     <div className="w-40 mb-8">
@@ -50,8 +51,7 @@ function SectionHeading({ title }) {
 export function DashboardPage() {
   const user = useUser()
   const trafic = useTrafic()
-  const isStartedCheckout = useIsStartedCheckout()
-  const balance = useAvailableCountries()
+  const balance = useBalance()
 
   return <div className="">
     <div>
@@ -65,19 +65,18 @@ export function DashboardPage() {
       </p>
     </div>
 
-    <SoftButton
-      className="mt-4"
-      onClick={startCheckout}
-    >
-      Add balance
-    </SoftButton>
+    <NavLink
+      className={hardButtonStyles + " mt-8 "}
+      to={"/proxies/buy"} >
+      Buy more proxy trafic
+    </NavLink>
 
     <h2 className={"mt-6 mb-4 " + h2Classes}>
-      Generate proxy list
+      Generate proxy pool
     </h2>
 
     <p className="text-gray">
-      You have no proxy lists yet. Let's create your first proxy list.
+      You have no proxy pools yet. Let's create your first proxy pool.
     </p>
 
     <div>
@@ -107,7 +106,7 @@ export function DashboardPage() {
 
       <div>
         <SoftButton className="mr-4 ">
-          Copy proxy list <LucideCopy className="inline-block h-4" />
+          Copy proxy pool <LucideCopy className="inline-block h-4" />
         </SoftButton>
         <SoftButton className="mr-4 ">
           Download as txt<LucideDownload className="inline-block h-4" />

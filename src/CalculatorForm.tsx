@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import { LucideCircleCheckBig } from "lucide-react";
-import GbInput, { h2Classes } from "./DashboardPage";
+import { GbInput, h2Classes } from "./DashboardPage";
 import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
-import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./proxyType";
-import { setTrafic, useTrafic } from "./state";
 import { CalculatorProxyTypeSelector } from "./ProxyTypeSelector";
+import { setTrafic, useTrafic } from "./state";
 
 
 export function MoneyAmount({ children }) {
@@ -52,7 +51,7 @@ export function CalculatorForm() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <TrafficAmountBox
             gb={12}
-            description="Startup"
+            description="Startup"            
           />
           <TrafficAmountBox
             gb={48}

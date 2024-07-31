@@ -4,12 +4,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CreateAccount } from './CreateAccount';
 import { OrderSummary } from './OrderSummary';
 import { PaymentForm } from './PaymentForm';
-import { cancelCheckout } from './state';
 
-export function Drawer() {
-  const open =
-    false
-    // useIsStartedCheckout()
+export function OUTDATED_Drawer() {
+  const open = false
     ;
 
   return (

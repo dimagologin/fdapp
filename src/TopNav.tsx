@@ -1,12 +1,13 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { clearUser, setAvailableCountries } from './state'
+import { clearUser } from './state'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', onClick: () => setAvailableCountries(0), current: true },
-  { name: 'Balance', href: '#', current: false },
+  { name: 'Dashboard', href: '/', current: true },
+  { name: 'Buy proxies', href: '/proxies/buy', current: false },
+  { name: 'Balance', href: '/account/balance', current: false },
+  { name: 'Generate proxy pool', href: '/proxies/generate', current: false },
   { name: 'Account', href: '#', current: false },
-  { name: 'Generate proxy list', href: '#', onClick: () => setAvailableCountries(10), current: false },
 ]
 
 function classNames(...classes) {

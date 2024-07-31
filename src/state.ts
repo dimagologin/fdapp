@@ -16,12 +16,6 @@ export const clearUser = () => userCharm.set(undefined);
 export const useUser = () => useCharm(userCharm);
 export const getUser = () => userCharm.get();
 
-const isStartedCheckoutCharm = charm(false);
-export const startCheckout = () => isStartedCheckoutCharm.set(true);
-export const cancelCheckout = () => isStartedCheckoutCharm.set(false);
-export const useIsStartedCheckout = () => useCharm(isStartedCheckoutCharm);
-export const isStartedCheckout = () => isStartedCheckoutCharm.get();
-
 const traficCharm = charm<number>(12);
 export const setTrafic = (value: number) => traficCharm.set(value);
 export const getTrafic = () => traficCharm.get();

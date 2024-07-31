@@ -1,17 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { OrderSummary } from "./OrderSummary"
-import { useFormattedTotal, useIsStartedCheckout } from "./state"
+import { useFormattedTotal } from "./state"
 
 export function ExpandableOrderSummary({ isOpened: isOpenedProp = false }) {
-  const isStartedCheckout = useIsStartedCheckout()
   const [isOpened, setOpened] = useState(isOpenedProp)
   const formattedTotal = useFormattedTotal()
-
-  useEffect(() => {
-    if (isStartedCheckout) {
-      setOpened(false);
-    }
-  }, [isStartedCheckout]);
 
   if (!isOpened) {
     return <div

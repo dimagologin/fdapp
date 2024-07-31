@@ -1,15 +1,11 @@
+import { NavLink } from "react-router-dom";
 import { CalculatorForm, MoneyAmount } from "./CalculatorForm";
 import { h2Classes } from "./DashboardPage";
-import { HardButton } from "./HardButton";
+import { hardButtonStyles } from "./HardButton";
 import { OrderSummary } from "./OrderSummary";
-import { useProxyType } from "./proxyType";
-import { startCheckout, useIsBalancePositive, useIsStartedCheckout, useTrafic, useUser } from "./state";
+import { useIsBalancePositive } from "./state";
 
 export function ZeroBalancePage() {
-  const user = useUser()
-  const proxyType = useProxyType()
-  const trafic = useTrafic()
-  const isStartedCheckout = useIsStartedCheckout()
   const isBalancePositive = useIsBalancePositive()
   const hasPreviousPurchases = false;
 
@@ -39,13 +35,12 @@ export function ZeroBalancePage() {
         <div className=" pb-6 px-6 border bg-white rounded-xl">
 
           <OrderSummary />
-          <HardButton
-            // style={{ display: 'block' }}
-            className="block w-full"
-            onClick={startCheckout}
+          <NavLink
+            className={"block w-full " + hardButtonStyles}
+            to={'/checkout'}
           >
             PROCEED TO CHECKOUT
-          </HardButton>
+          </NavLink>
         </div>
 
         {

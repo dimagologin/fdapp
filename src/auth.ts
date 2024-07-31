@@ -38,7 +38,6 @@ export const signup = async (
 export const login = async (
   username: string,
   password: string,
-  password_confirmation: string,
 ) => {
   const result = await httpApi(
     'user/signin',
@@ -77,7 +76,7 @@ export const signin = async (username: string, password: string) => {
   } catch (e) {
     console.error(e);
   }
-  return await login(username, password, password);
+  return await login(username, password);
 };
 
 export const getAuthStorage = () => {
