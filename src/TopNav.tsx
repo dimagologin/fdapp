@@ -2,7 +2,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { pageMainColumnClassName } from './layout/Layout'
 import { Logo } from './Logo'
-import { clearUser } from './state/state'
+import { clearUser } from './state/user'
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },

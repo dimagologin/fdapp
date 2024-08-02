@@ -1,4 +1,4 @@
-import { authUser } from '../state/state';
+import { authentificateUser } from '../state/user';
 import { httpApi } from './api';
 
 export const signup = async (
@@ -22,7 +22,7 @@ export const signup = async (
       username,
       token: result.token,
     });
-    authUser(username);
+    authentificateUser(username);
     return {
       ok: 1,
       username,
@@ -54,7 +54,7 @@ export const login = async (
       username,
       token: result.token,
     });
-    authUser(username);
+    authentificateUser(username);
     return {
       ok: 1,
       username,

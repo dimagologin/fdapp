@@ -1,7 +1,8 @@
 import { LucideArrowRight } from "lucide-react"
 import { NavLink } from "react-router-dom"
 import { hardButtonStyles } from "./HardButton"
-import { useBalance, useUser } from "./state/state"
+import { useBalance } from "./state/balance"
+import { useUser } from "./state/user"
 
 
 export function OnboardingBlock() {

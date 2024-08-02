@@ -6,8 +6,9 @@ import { LocationPicker } from "./LocationPicker";
 import { OnboardingBlock } from "./OnboardingBlock";
 import { GeneratorProxyTypeSelector } from "./ProxyTypeSelector";
 import { SoftButton } from "./SoftButton";
-import { useBalance, useUser } from "./state/state";
+import { useBalance } from "./state/balance";
 import { useTrafic } from "./state/trafic";
+import { useUser } from "./state/user";
 
 
 export function GenerateProxiesPage() {

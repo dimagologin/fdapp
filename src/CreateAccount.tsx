@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { generateSingleProxy, getCountries } from "./api/api";
 import { signin } from "./api/auth";
-import { useUser } from "./state/state";
+import { useUser } from "./state/user";
 
 export function CreateAccount() {
   const user = useUser();

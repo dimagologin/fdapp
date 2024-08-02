@@ -2,8 +2,9 @@ import { LucideArrowRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { PageBody, PageHeading } from "./layout/Layout";
 import { OnboardingBlock } from "./OnboardingBlock";
-import { useBalance, useUser } from "./state/state";
+import { useBalance } from "./state/balance";
 import { setTrafic, useTrafic } from "./state/trafic";
+import { useUser } from "./state/user";
 import TraficUsageTable from "./TraficUsageTable";
 
 export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";

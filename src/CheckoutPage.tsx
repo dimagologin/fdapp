@@ -4,7 +4,7 @@ import { CreateAccount } from "./CreateAccount";
 import { ExpandableOrderSummary } from "./ExpandableOrderSummary";
 import { PageBody, PageHeading } from "./layout/Layout";
 import { PaymentForm } from "./PaymentForm";
-import { useUser } from "./state/state";
+import { useUser } from "./state/user";
 
 export function CheckoutPage() {
   const user = useUser()

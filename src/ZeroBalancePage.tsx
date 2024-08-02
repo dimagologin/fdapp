@@ -4,7 +4,7 @@ import { h2Classes } from "./DashboardPage";
 import { hardButtonStyles } from "./HardButton";
 import { PageBody, PageHeading } from "./layout/Layout";
 import { OrderSummary } from "./OrderSummary";
-import { useIsBalancePositive } from "./state/state";
+import { useIsBalancePositive } from "./state/balance";
 
 export function ZeroBalancePage() {
   const isBalancePositive = useIsBalancePositive()
