@@ -3,7 +3,7 @@ import { LucideCircleCheckBig } from "lucide-react";
 import { GbInput, h2Classes } from "./DashboardPage";
 import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
 import { CalculatorProxyTypeSelector } from "./ProxyTypeSelector";
-import { setTrafic, useTrafic } from "./state";
+import { setTrafic, traficTiers, TraficTierType, useTrafic } from "./state/trafic";
 
 
 export function MoneyAmount({ children }) {
@@ -11,24 +11,27 @@ export function MoneyAmount({ children }) {
     ${children}
   </span>
 }
-
-function TrafficAmountBox({ gb = 1, description, discount }) {
+type TrafficAmountBoxParams = {
+  traficTier: TraficTierType,
+  description: string
+}
+function TrafficAmountBox({ traficTier, description }: TrafficAmountBoxParams) {
   const trafic = useTrafic();
-  const isActive = trafic === gb;
+  const isActive = trafic === traficTier.amountGb;
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1 rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
     "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
     "border-transparent  ring-indigo-500": isActive,
   })}
-    onClick={() => setTrafic(gb)}
+    onClick={() => setTrafic(traficTier.amountGb)}
   >
     <span className="flex-1 ">
-      <span className="text-gray-900 font-medium">{gb} GB<br /></span>
-      {description}
+      <span className="text-gray-900 font-medium">{traficTier.amountGb} GB<br /></span>
       <div>
-        {discount}
+        {traficTier.discountPct}% discount
       </div>
+      
     </span>
 
     <LucideCircleCheckBig className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
@@ -40,7 +43,7 @@ export function CalculatorForm() {
   return <div>
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Select proxy type
+        Proxy type
       </h2>
     </div>
 
@@ -48,35 +51,31 @@ export function CalculatorForm() {
 
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Select trafic amount
+        Tier of monthly trafic volume
       </h2>
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <TrafficAmountBox
-            gb={12}
+            traficTier={traficTiers[0]}
             description="Startup"
-            discount={""}
           />
           <TrafficAmountBox
-            gb={48}
+            traficTier={traficTiers[1]}
             description="Business"
-            discount={"10% Discount"}
           />
           <TrafficAmountBox
-            gb={96}
+            traficTier={traficTiers[2]}
             description="Business"
-            discount={"20% Discount"}
           />
           <TrafficAmountBox
-            gb={120}
+            traficTier={traficTiers[3]}
             description="Enterprize"
-            discount={"30% Discount"}
           />
         </div>
       </div>
       <div className="mt-5">
         <h2 className={h2Classes + " mb-4"}>
-          Select payment period
+          Payment period
         </h2>
         <MonthlySubcribtionCheckbox />
       </div>

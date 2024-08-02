@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { OrderSummary } from "./OrderSummary"
-import { useFormattedTotal } from "./state"
+import { useTotals } from "./state/pricing"
 
 export function ExpandableOrderSummary({ isOpened: isOpenedProp = false }) {
   const [isOpened, setOpened] = useState(isOpenedProp)
-  const formattedTotal = useFormattedTotal()
+  const totals = useTotals()
 
   if (!isOpened) {
     return <div
@@ -16,7 +16,7 @@ export function ExpandableOrderSummary({ isOpened: isOpenedProp = false }) {
           Show order summary
         </span>
         <span className="font-bold">
-          {formattedTotal}
+          {totals.totalPriceText}
         </span>
       </div>
     </div>

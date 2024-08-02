@@ -5,7 +5,8 @@ import { HardButton, hardButtonStyles } from "./HardButton";
 import { LocationPicker } from "./LocationPicker";
 import { GeneratorProxyTypeSelector } from "./ProxyTypeSelector";
 import { SoftButton } from "./SoftButton";
-import { setTrafic, useBalance, useTrafic, useUser } from "./state";
+import { useBalance, useUser } from "./state/state";
+import { setTrafic, useTrafic } from "./state/trafic";
 
 export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
 export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";

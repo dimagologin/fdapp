@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./proxyType";
+import { dataCenter, mobile, residential, setProxyType, useProxyType } from "./state/proxyType";
 
 export function ProxyTypeRadioBox({ proxyType, selectedProxyType, setProxyType }) {
   const isActive = proxyType === selectedProxyType;

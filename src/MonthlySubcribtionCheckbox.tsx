@@ -3,7 +3,7 @@ import { Field, Label, Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import { LucideCircleCheckBig } from 'lucide-react';
 import { annualSubscription, monthlySubscription, oneTimePayment, setPaymentPeriod, usePaymentPeriod } from './paymentPeriod';
-import { setIsSubscription, useIsSubscription } from './state';
+import { setIsSubscription, useIsSubscription } from './state/state';
 
 
 function PaymentPeriodBox({ paymentPeriod, description, discountMultiplier }) {
@@ -40,12 +40,12 @@ export function MonthlySubcribtionCheckbox() {
       />
       <PaymentPeriodBox
         paymentPeriod={monthlySubscription}
-        description={<>Monthy subscription</>}
+        description={<>Recurring payments with traffic rollover.</>}
         discountMultiplier={1}
       />
       <PaymentPeriodBox
         paymentPeriod={oneTimePayment}
-        description="Don't forget to renew"
+        description={<>For one month. <br />We'll remind to renew.</>}
         discountMultiplier={1}
       />
 

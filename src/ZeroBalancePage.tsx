@@ -3,7 +3,7 @@ import { CalculatorForm, MoneyAmount } from "./CalculatorForm";
 import { h2Classes } from "./DashboardPage";
 import { hardButtonStyles } from "./HardButton";
 import { OrderSummary } from "./OrderSummary";
-import { useIsBalancePositive } from "./state";
+import { useIsBalancePositive } from "./state/state";
 
 export function ZeroBalancePage() {
   const isBalancePositive = useIsBalancePositive()
@@ -36,7 +36,7 @@ export function ZeroBalancePage() {
 
           <OrderSummary />
           <NavLink
-            className={"block w-full " + hardButtonStyles}
+            className={"block w-full text-center " + hardButtonStyles}
             to={'/checkout'}
           >
             PROCEED TO CHECKOUT

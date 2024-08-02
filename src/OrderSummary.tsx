@@ -1,6 +1,7 @@
 import { oneTimePayment, usePaymentPeriod } from "./paymentPeriod";
-import { useProxyType } from "./proxyType";
-import { useFormattedTotal, useTrafic } from "./state";
+import { useTotals } from "./state/pricing";
+import { useProxyType } from "./state/proxyType";
+import { useTrafic } from "./state/trafic";
 
 function PaymentPeriodLineItem({ paymentPeriod }) {
   if (paymentPeriod === oneTimePayment) {
@@ -32,7 +33,10 @@ function PaymentPeriodLineItem({ paymentPeriod }) {
   </>
 }
 
-function SubtotalAndDiscount({ subtotal, discount }) {
+function SubtotalAndDiscount({ totals }) {
+  if (totals.paymentPeriodDiscountPct) {
+
+  } 
   return <>
     <div className="">
       <span className="font-regular text-gray-800">
@@ -40,16 +44,34 @@ function SubtotalAndDiscount({ subtotal, discount }) {
       </span>
     </div>
     <div className="font-regular text-gray-800">
-      {subtotal}
+      {totals.subtotalPriceText}
     </div>
-    <div className="">
-      <span className="font-regular text-gray-800">
-        Discount
-      </span>
-    </div>
-    <div className="font-regular text-gray-800">
-      {discount}
-    </div>
+    {
+      !!totals.tierDiscountPct && <>
+        <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
+        <div className="min-w-80">
+          <span className="font-regular text-gray-800">
+            Tier discount
+          </span>
+        </div>
+        <div className="font-regular text-gray-800">
+          {totals.tierDiscountPct}%
+        </div>
+      </>
+    }
+    {
+      !!totals.paymentPeriodDiscountPct && <>
+        <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
+        <div className="min-w-80">
+          <span className="font-regular text-gray-800">
+            Annual discount
+          </span>
+        </div>
+        <div className="font-regular text-gray-800">
+          {totals.paymentPeriodDiscountPct}%
+        </div>
+      </>
+    }
     <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
   </>
 }
@@ -57,7 +79,7 @@ function SubtotalAndDiscount({ subtotal, discount }) {
 export function OrderSummary({ }) {
   const proxyType = useProxyType();
   const trafic = useTrafic();
-  const formattedTotal = useFormattedTotal()
+  const totals = useTotals()
   const paymentPeriod = usePaymentPeriod();
 
   return <div className="pb-4 ">
@@ -66,7 +88,7 @@ export function OrderSummary({ }) {
     </h2>
 
     <div className="grid my-4 grid-cols-2 gap-x-20 gap-y-2 justify-between leading-7">
-      <div className="min-2-60">
+      <div className="">
         <span >
           Proxy type
         </span>
@@ -75,14 +97,13 @@ export function OrderSummary({ }) {
         {proxyType.title}
       </div>
 
-      <div className="min-w-44">
+      <div className="min-w-80">
         <span >
-          Price, per GB
+          Cost, per GB
         </span>
       </div>
       <div>
         <span className="text-gray-900 font-medium">{proxyType.priceStr}</span>
-        {" "}<span className=" ">/ GB</span>
       </div>
 
       <div>
@@ -99,15 +120,14 @@ export function OrderSummary({ }) {
       <PaymentPeriodLineItem paymentPeriod={paymentPeriod} />
 
       <div className="col-span-2 mb-2 py-1 border-b border-gray-200"></div>
-
-      <SubtotalAndDiscount discount={"50%"} subtotal="$1000.00" />
+      <SubtotalAndDiscount totals={totals} />
       <div className="">
         <span className="font-medium text-gray-900">
           Total
         </span>
       </div>
       <div className="font-medium text-gray-900">
-        {formattedTotal}
+        {totals.totalPriceText}
       </div>
     </div>
 

@@ -42,13 +42,6 @@ export const setProxyType = (value: ProxyType) => calculatorProxyTypeCharm.set(v
 export const getProxyType = () => calculatorProxyTypeCharm.get();
 export const useProxyType = () => useCharm(calculatorProxyTypeCharm);
 
-export function formatUsd(usd: number) {
-  return Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(usd);
-}
-
 export const createProxyTypePickerApi = () => {
   const proxyTypeCharm = charm<ProxyType>(mobile);
   return {

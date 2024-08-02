@@ -28,7 +28,7 @@ export const httpApi = async (
     try {
       console.error(resp.statusText);
       console.error(resp.text);
-    } catch (e) {}
+    } catch (e) { }
     throw new Error('Request failed: ' + resp.status);
   }
   const result = await resp.json();

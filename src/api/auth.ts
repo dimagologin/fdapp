@@ -1,5 +1,5 @@
+import { authUser } from '../state/state';
 import { httpApi } from './api';
-import { authUser } from './state';
 
 export const signup = async (
   username: string,

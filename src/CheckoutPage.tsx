@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { CreateAccount } from "./CreateAccount";
 import { ExpandableOrderSummary } from "./ExpandableOrderSummary";
 import { PaymentForm } from "./PaymentForm";
-import { useUser } from "./state";
+import { useUser } from "./state/state";
 
 export function CheckoutPage() {
   const user = useUser()
