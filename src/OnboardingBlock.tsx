@@ -16,7 +16,7 @@ export function OnboardingBlock() {
         </h2>
 
         <p>
-          First, select proxies you want to use.
+          Start by selecting proxies you want to use.
         </p>
 
         <div>

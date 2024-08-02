@@ -1,7 +1,10 @@
+import { LucideArrowRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import { PageBody, PageHeading } from "./layout/Layout";
 import { OnboardingBlock } from "./OnboardingBlock";
 import { useBalance, useUser } from "./state/state";
 import { setTrafic, useTrafic } from "./state/trafic";
+import TraficUsageTable from "./TraficUsageTable";
 
 export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
 export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";
@@ -53,28 +56,57 @@ export function DashboardPage() {
     <PageHeading>Dashboard</PageHeading>
     <PageBody>
       <OnboardingBlock />
+      <TraficUsageTable />
 
       <div>
         <h2 className={"mt-6 mb-4 " + h2Classes}>
-          Trafic this month
+          Subscription and discounts
         </h2>
-
-        <p className="my-4">
-          You have user 14Gb of mobile proxy traffic.
-        </p>
-        <p className="my-4">
-          You have user 0.2Gb of data center proxy traffic.
+        <p>
+          Currently, you are on <strong>120Gb</strong> subscription tier. Which give you <strong>30%</strong> discount. Mobile traffic costs you <strong><s>$2.95</s></strong> <strong>$2.07</strong> per 1GB.
         </p>
       </div>
+
       <div>
         <h2 className={"mt-6 mb-4 " + h2Classes}>
-
+        Quick actions
         </h2>
         <p className="my-4">
+          <NavLink
+            className="text-indigo-600 underline"
+            to={"/proxies/buy"}
+          >
+
           Buy more proxy trafic
+            <LucideArrowRight className="inline-block h-4" />
+          </NavLink>
         </p>
         <p className="my-4">
-          Create new proxy pool.
+          <NavLink
+            className="text-indigo-600 underline"
+            to={"/proxies/buy"}
+          >
+            Create new proxy pool
+            <LucideArrowRight className="inline-block h-4" />
+          </NavLink>
+        </p>
+        <p className="my-4">
+          <NavLink
+            className="text-indigo-600 underline"
+            to={"/proxies/buy"}
+          >
+            Change password
+            <LucideArrowRight className="inline-block h-4" />
+          </NavLink>
+        </p>
+        <p className="my-4">
+          <NavLink
+            className="text-indigo-600 underline"
+            to={"/proxies/buy"}
+          >
+            Contact support
+            <LucideArrowRight className="inline-block h-4" />
+          </NavLink>
         </p>
 
       </div>

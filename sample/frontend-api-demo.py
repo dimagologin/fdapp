@@ -188,3 +188,6 @@ if __name__ == "__main__":
     print()
     for proxy in api.list_proxies("demo_tag_r"):
         print(proxy)
+
+# api.add_tag_value("demo_tag_r", "PAID_TRAFFIC_USED", 10485760)
+ 
