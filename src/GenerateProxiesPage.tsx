@@ -8,12 +8,21 @@ import { OnboardingBlock } from "./OnboardingBlock";
 import { GeneratorProxyKindSelector } from "./ProxyKindSelector";
 import { SoftButton } from "./SoftButton";
 import { useBalance } from "./state/balance";
+import { ProxyType } from "./state/proxyKind";
 import { useProxyList } from "./state/proxyList";
 import { useTrafic } from "./state/trafic";
 import { useUser } from "./state/user";
 
-const proxyListToString = (proxyList) => {
-  return proxyList.map(JSON.stringify).join("\n")
+/*
+  username: 'XLpraELOLNYEAD7W',
+  password: 'cl6bBsh1Njm62pTm',
+  port: 10080,
+  host: 'geo-dc.floppydata.com',
+*/
+const proxyListToString = (proxyList: ProxyType[]) => {
+  return proxyList.map(
+    proxy => `https://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}/`
+  ).join("\n");
 }
 
 export function GenerateProxiesPage() {
@@ -58,7 +67,11 @@ export function GenerateProxiesPage() {
 
         <h2 className={h2Classes}>List of proxy server (with credentials)</h2>
 
-        <textarea rows={10} cols={40} className="w-full border rounded my-2" value={proxyListToString(proxyList)} />
+        <textarea
+          className="my-2 p-2 w-full text-sm leading-7 font-mono border rounded"
+          rows={10} cols={40}
+          value={proxyListToString(proxyList)}
+        />
 
         <div>
           <SoftButton className="mr-4 ">

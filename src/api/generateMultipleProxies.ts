@@ -3,7 +3,7 @@ import { setProxyList } from "../state/proxyList";
 import { httpApi } from "./api";
 
 export async function generateMultipleProxies() {
-  const result = await httpGenerateMultipleProxies(getProxyKind(), "US", 10)
+  const result = await httpGenerateMultipleProxies2(getProxyKind(), "US", 10)
   if (!result.success) {
     throw new Error("Failed to create proxies")
   }
@@ -31,6 +31,9 @@ export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryC
       }
     ]
   }, { auth: true }) as PROXY_GENERATE_BATCH_ResponseType;
+}
+export async function httpGenerateMultipleProxies2(proxyKind: ProxyKind, countryCode: string, quantity: number) {
+  return generateProxiesResponseSample;
 }
 
 const generateProxiesRequestSample = {
