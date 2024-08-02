@@ -51,7 +51,7 @@ export function CalculatorForm() {
 
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Tier of monthly trafic volume
+        Monthly trafic volume and discount
       </h2>
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -74,7 +74,7 @@ export function CalculatorForm() {
         </div>
       </div>
       <div className="mt-5">
-        <h2 className={h2Classes + " mb-4"}>
+        <h2 className={h2Classes + " "}>
           Payment period
         </h2>
         <MonthlySubcribtionCheckbox />

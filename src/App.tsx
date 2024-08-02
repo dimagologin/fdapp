@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import './App.css'
-import { Layout } from './Layout'
+import { Layout } from './layout/Layout'
 import { AppRouter } from './Router'
 
 function App() {

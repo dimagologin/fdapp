@@ -2,6 +2,7 @@ import { LucideCopy, LucideDownload } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { MoneyAmount } from "./CalculatorForm";
 import { HardButton, hardButtonStyles } from "./HardButton";
+import { PageBody, PageHeading } from "./layout/Layout";
 import { LocationPicker } from "./LocationPicker";
 import { GeneratorProxyTypeSelector } from "./ProxyTypeSelector";
 import { SoftButton } from "./SoftButton";
@@ -54,11 +55,10 @@ export function DashboardPage() {
   const trafic = useTrafic()
   const balance = useBalance()
 
-  return <div className="">
-    <div>
-      <h1 className="mt-6 mb-4 text-2xl leading-7 font-semibold text-gray-900">
-        Dashboard
-      </h1>
+  return <>
+    <PageHeading>Dashboard</PageHeading>
+    <PageBody>
+      <div>
 
       <p className="text-sm text-gray-500">
         Currently, you have <MoneyAmount>{balance}</MoneyAmount> on your proxy account.
@@ -119,6 +119,7 @@ export function DashboardPage() {
 
 
     </div>
+    </PageBody>
 
-  </div>
+  </>
 }

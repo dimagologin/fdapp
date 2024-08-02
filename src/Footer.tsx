@@ -1,3 +1,6 @@
+import { pageMainColumnClassName } from "./layout/Layout"
+import { Logo } from "./Logo"
+
 const navigation = {
   solutions: [
     { name: 'Marketing', href: '#' },
@@ -91,18 +94,19 @@ const navigation = {
 export function Footer() {
   return (
     <footer aria-labelledby="footer-heading" className="bg-gray-900 mt-12">
-      <div className="container mx-auto max-w-7xl">
+      <div className={pageMainColumnClassName}>
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
-        <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+        <div className="mx-auto max-w-7xl pb-8 pt-16 sm:pt-24 lg:pt-32">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="space-y-8">
-              <img
+              <Logo />
+              {/* <img
                 alt="FloppyData"
                 src=""
                 className="h-7"
-              />
+              /> */}
               <p className="text-sm leading-6 text-gray-300">
                 Reliable proxies and data services which are super easy to integrate.
               </p>

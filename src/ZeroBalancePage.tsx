@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { CalculatorForm, MoneyAmount } from "./CalculatorForm";
+import { CalculatorForm } from "./CalculatorForm";
 import { h2Classes } from "./DashboardPage";
 import { hardButtonStyles } from "./HardButton";
+import { PageBody, PageHeading } from "./layout/Layout";
 import { OrderSummary } from "./OrderSummary";
 import { useIsBalancePositive } from "./state/state";
 
@@ -9,25 +10,18 @@ export function ZeroBalancePage() {
   const isBalancePositive = useIsBalancePositive()
   const hasPreviousPurchases = false;
 
-  return <div>
+  return <>
+    <PageHeading>Buy proxies</PageHeading>
+    <PageBody>
+
+
     <div className="lg:flex gap-y-6 gap-x-20">
-    <div>
         <div>
-          <h1 className="mb-4 text-2xl leading-7 font-semibold text-gray-900">
-        Add credits
-      </h1>
+          <p className="text-sm text-gray-500 mb-1">
+            Pick proxies you need and proceed to checkout.
+          </p>
 
-      <p className="text-sm text-gray-500 mb-1">
-        Currently, you have <MoneyAmount>0.00</MoneyAmount> on your proxy account.
-        Please, add credits to your account to generate proxies.
-      </p>
-
-      <p className="text-sm text-gray-500 ">
-        Pick proxy type and amount of trafic you need and then proceed to checkout.
-      </p>
-    </div>
-
-    <CalculatorForm />
+          <CalculatorForm />
 
 
       </div>
@@ -60,6 +54,8 @@ export function ZeroBalancePage() {
           </div>
         }
       </div>
-    </div>
-  </div>
+      </div>
+    </PageBody>
+
+  </>
 }

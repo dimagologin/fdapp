@@ -35,12 +35,12 @@ export function MonthlySubcribtionCheckbox() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <PaymentPeriodBox
         paymentPeriod={annualSubscription}
-        description={<>Pay upfront, <br />get 50% discount</>}
+        description={<>Pay upfront, get 50% discount</>}
         discountMultiplier={0.50}
       />
       <PaymentPeriodBox
         paymentPeriod={monthlySubscription}
-        description={<>Recurring payments with traffic rollover.</>}
+        description={<>Recurring payments. <span className='inline-block'>Monthly traffic rollover.</span></>}
         discountMultiplier={1}
       />
       <PaymentPeriodBox
