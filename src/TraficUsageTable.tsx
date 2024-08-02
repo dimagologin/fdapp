@@ -60,15 +60,15 @@ export default function TraficUsageTable() {
             </tr>
           </thead>
           <tbody>
-            {proxyPoolList.map((project) => (
-              <tr key={project.id} className="border-b border-gray-200">
+            {proxyPoolList.map((proxyPool) => (
+              <tr key={proxyPool.id} className="border-b border-gray-200">
                 <td className="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
-                  <div className="font-medium text-gray-900">{project.name}</div>
-                  <div className="mt-1 truncate text-gray-500">{project. }</div>
+                  <div className="font-medium text-gray-900">{proxyPool.name}</div>
+                  <div className="mt-1 truncate text-gray-500">{proxyPool.description}</div>
                 </td>
-                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${project.pricePerGb}</td>
-                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{project.traficGb} GB</td>
-                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${project.priceTotal}</td>
+                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${proxyPool.pricePerGb}</td>
+                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{proxyPool.traficGb} GB</td>
+                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${proxyPool.priceTotal}</td>
               </tr>
             ))}
           </tbody>
