@@ -43,14 +43,6 @@ export function CalculatorForm() {
   return <div>
     <div className="mt-5">
       <h2 className={h2Classes}>
-        Proxy type
-      </h2>
-    </div>
-
-    <CalculatorProxyTypeSelector />
-
-    <div className="mt-5">
-      <h2 className={h2Classes}>
         Monthly trafic volume and discount
       </h2>
       <div className="w-full">
@@ -73,21 +65,31 @@ export function CalculatorForm() {
           />
         </div>
       </div>
-      <div className="mt-5">
-        <h2 className={h2Classes + " "}>
-          Payment period
-        </h2>
-        <MonthlySubcribtionCheckbox />
-      </div>
-      <div>
-        <h2 className={h2Classes + " mt-4"}>
-          Need more trafic?
-        </h2>
-        <p className="text-gray-500 mb-2">
-          Specify amount you need
-        </p>
-        <GbInput />
-      </div>
+    </div>
+
+    <div className="mt-5">
+      <h2 className={h2Classes}>
+        Proxy type
+      </h2>
+      <CalculatorProxyTypeSelector />
+    </div>
+
+
+
+    <div className="mt-5">
+      <h2 className={h2Classes + " "}>
+        Payment period
+      </h2>
+      <MonthlySubcribtionCheckbox />
+    </div>
+    <div className="mt-5">
+      <h2 className={h2Classes + " "}>
+        Need more trafic?
+      </h2>
+      <p className="text-gray-500 mb-2">
+        Specify amount you need
+      </p>
+      <GbInput />
     </div>
   </div>
 }

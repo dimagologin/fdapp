@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { CheckoutPage } from "./CheckoutPage";
 import { DashboardPage } from "./DashboardPage";
+import { GenerateProxiesPage } from "./GenerateProxiesPage";
 import { ZeroBalancePage } from "./ZeroBalancePage";
 
 /*
@@ -26,7 +27,7 @@ import { ZeroBalancePage } from "./ZeroBalancePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ZeroBalancePage />,
+    element: <DashboardPage />,
     errorElement: <ErrorBoundary />
   },
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/proxies/generate",
-    element: <DashboardPage />,
+    element: <GenerateProxiesPage />,
     errorElement: <ErrorBoundary />
   },
 ]);

@@ -7,7 +7,6 @@ import { clearUser } from './state/state'
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
   { name: 'Buy proxies', href: '/proxies/buy', current: false },
-  { name: 'Balance', href: '/account/balance', current: false },
   { name: 'Generate proxy pool', href: '/proxies/generate', current: false },
   { name: 'Account', href: '#', current: false },
 ]
