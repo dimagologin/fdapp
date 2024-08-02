@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { LucideCircleCheckBig } from "lucide-react";
 import { GbInput, h2Classes } from "./DashboardPage";
 import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
-import { CalculatorProxyTypeSelector } from "./ProxyTypeSelector";
+import { CalculatorProxyKindSelector } from "./ProxyKindSelector";
 import { setTrafic, traficTiers, TraficTierType, useTrafic } from "./state/trafic";
 
 
@@ -71,7 +71,7 @@ export function CalculatorForm() {
       <h2 className={h2Classes}>
         Proxy type
       </h2>
-      <CalculatorProxyTypeSelector />
+      <CalculatorProxyKindSelector />
     </div>
 
 

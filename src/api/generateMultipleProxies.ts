@@ -1,3 +1,38 @@
+import { dataCenter, getProxyKind, mobile, ProxyKind, ProxyType } from "../state/proxyKind";
+import { setProxyList } from "../state/proxyList";
+import { httpApi } from "./api";
+
+export async function generateMultipleProxies() {
+  const result = await httpGenerateMultipleProxies(getProxyKind(), "US", 10)
+  if (!result.success) {
+    throw new Error("Failed to create proxies")
+  }
+  setProxyList(result.proxies)
+}
+
+export type PROXY_GENERATE_BATCH_ResponseType = {
+  "success": true,
+  "countryCode": "US",
+  "isWifi": true,
+  proxies: ProxyType[]
+}
+
+export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryCode: string, quantity: number):
+  Promise<PROXY_GENERATE_BATCH_ResponseType> {
+  return await httpApi('proxy/generate_batch', {
+    "countryCode": countryCode,
+    "isDC": proxyKind === dataCenter,
+    "isMobile": proxyKind === mobile,
+    // "provider": "dataimpulse",
+    "number": quantity,
+    "tags": [
+      {
+        "tag_name": proxyKind.httpTagName
+      }
+    ]
+  }, { auth: true }) as PROXY_GENERATE_BATCH_ResponseType;
+}
+
 const generateProxiesRequestSample = {
   countryCode: 'US',
   isDC: true,

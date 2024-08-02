@@ -31,7 +31,7 @@ export const PaymentPeriodList = {
 export type PaymentPeriodType =
   (typeof PaymentPeriodList)[keyof typeof PaymentPeriodList];
 
-const calculatorProxyTypeCharm = charm<PaymentPeriodType>(annualSubscription);
-export const setPaymentPeriod = (value: PaymentPeriodType) => calculatorProxyTypeCharm.set(value);
-export const usePaymentPeriod = () => useCharm(calculatorProxyTypeCharm);
+const calculatorProxyKindCharm = charm<PaymentPeriodType>(annualSubscription);
+export const setPaymentPeriod = (value: PaymentPeriodType) => calculatorProxyKindCharm.set(value);
+export const usePaymentPeriod = () => useCharm(calculatorProxyKindCharm);
 

@@ -934,4 +934,4 @@ export const availableCountries = [
     countryName: 'Zimbabwe',
     proxiesCount: 2,
   },
-];
+] as const;

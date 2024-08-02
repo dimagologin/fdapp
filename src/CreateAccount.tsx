@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { generateSingleProxy, getCountries } from "./api/api";
 import { signin } from "./api/auth";
+import { generateSingleProxy } from "./api/generateSingleProxy";
+import { loadCountryList } from "./api/loadCountryList";
 import { useUser } from "./state/user";
 
 export function CreateAccount() {
@@ -77,7 +78,7 @@ export function CreateAccount() {
             if (!result.ok) {
               setErrorMesage(result.message)
             }
-            console.log(await getCountries({}))
+            console.log(await loadCountryList({}))
             console.log(await generateSingleProxy({}))
           }}
         >
