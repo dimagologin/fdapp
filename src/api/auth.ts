@@ -35,10 +35,7 @@ export const signup = async (
   }
 };
 
-export const login = async (
-  username: string,
-  password: string,
-) => {
+export const login = async (username: string, password: string) => {
   const result = await httpApi(
     'user/signin',
     {

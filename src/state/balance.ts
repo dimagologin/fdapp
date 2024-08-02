@@ -1,4 +1,4 @@
-import { charm, useCharm } from "@kaigorod/charm";
+import { charm, useCharm } from '@kaigorod/charm';
 
 const balanceCharm = charm<number>(0);
 export const setBalance = (value: number) => balanceCharm.set(value);

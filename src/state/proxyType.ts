@@ -38,7 +38,8 @@ export type ProxyType =
   (typeof ProxyTypesByName)[keyof typeof ProxyTypesByName];
 
 const calculatorProxyTypeCharm = charm<ProxyType>(mobile);
-export const setProxyType = (value: ProxyType) => calculatorProxyTypeCharm.set(value);
+export const setProxyType = (value: ProxyType) =>
+  calculatorProxyTypeCharm.set(value);
 export const getProxyType = () => calculatorProxyTypeCharm.get();
 export const useProxyType = () => useCharm(calculatorProxyTypeCharm);
 
@@ -46,6 +47,6 @@ export const createProxyTypePickerApi = () => {
   const proxyTypeCharm = charm<ProxyType>(mobile);
   return {
     setProxyType: (value: ProxyType) => proxyTypeCharm.set(value),
-    useProxyType: () => useCharm(proxyTypeCharm)
-  }
-}
+    useProxyType: () => useCharm(proxyTypeCharm),
+  };
+};
