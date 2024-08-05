@@ -1,5 +1,5 @@
-import { annualSubscription, PaymentPeriodType, usePaymentPeriod } from "../paymentPeriod";
 import { guessCurrency } from "./localeToCurrency";
+import { annualSubscription, PaymentPeriodType, usePaymentPeriod } from "./paymentPeriod";
 import { ProxyKind, useProxyKind } from "./proxyKind";
 import { findFloorTraficTier, useTrafic } from "./trafic";
 

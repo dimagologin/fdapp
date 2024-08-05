@@ -1,4 +1,4 @@
-import { authentificateUser } from '../state/user';
+import { authentificateUser } from '../model/user';
 import { httpApi } from './api';
 
 export const signup = async (
@@ -77,8 +77,12 @@ export const signin = async (username: string, password: string) => {
 };
 
 export const getAuthStorage = () => {
-  return JSON.parse(localStorage.auth);
+  return JSON.parse(localStorage?.auth);
 };
 export const getUsername = () => {
   return getAuthStorage().username;
 };
+export const getUserFromLocalStorage = () => {
+  const auth = getAuthStorage();
+  return (auth && auth.username) ? { email: auth.username } : undefined;
+}

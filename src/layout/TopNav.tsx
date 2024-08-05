@@ -1,14 +1,15 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { pageMainColumnClassName } from './layout/Layout'
+import { NavLink } from 'react-router-dom'
+import { clearUser, useUser } from '../model/user'
+import { pageMainColumnClassName } from './AppLayout'
 import { Logo } from './Logo'
-import { clearUser } from './state/user'
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
   { name: 'Buy proxies', href: '/proxies/buy', current: false },
-  { name: 'Generate proxy pool', href: '/proxies/generate', current: false },
-  { name: 'Account', href: '#', current: false },
+  { name: 'Setup proxies', href: '/proxies/generate', current: false },
+  { name: 'Account', href: '/account/login', current: false },
 ]
 
 function classNames(...classes) {
@@ -16,6 +17,8 @@ function classNames(...classes) {
 }
 
 export function TopNav() {
+  const user = useUser();
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className={pageMainColumnClassName}>
@@ -41,18 +44,17 @@ export function TopNav() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <NavLink
                     key={item.name}
-                    href={item.href}
-                    onClick={() => item.onClick?.()}
+                    to={item.href}
                     aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    className={({ isActive, isPending }) => classNames(
+                      isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
                     {item.name}
-                  </a>
+                  </NavLink>
                 ))}
               </div>
             </div>
@@ -72,29 +74,56 @@ export function TopNav() {
                   />
                 </MenuButton>
               </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-              >
-                <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a href="#"
-                    onClick={clearUser}
-                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
+              {!!user &&
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <MenuItem>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      Your Profile
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      Settings
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a href="#"
+                      onClick={clearUser}
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    >
+                      Sign out
+                    </a>
+                  </MenuItem>
+                </MenuItems>
+              }
+              {!user &&
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <MenuItem>
+                    <a href="/proxies/buy" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      Buy proxies
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a href="/account/login" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      Login
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a href="/account/signup"
+                      onClick={clearUser}
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    >
+                      Sign up
+                    </a>
+                  </MenuItem>
+                </MenuItems>
+              }
             </Menu>
           </div>
         </div>

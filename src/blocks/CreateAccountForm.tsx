@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { signin } from "./api/auth";
-import { generateSingleProxy } from "./api/generateSingleProxy";
-import { loadCountryList } from "./api/loadCountryList";
-import { useUser } from "./state/user";
+import { NavLink } from "react-router-dom";
+import { signin } from "../api/auth";
+import { generateSingleProxy } from "../api/generateSingleProxy";
+import { loadCountryList } from "../api/loadCountryList";
+import { useUser } from "../model/user";
+import { linkClassName } from "../reusable/styles";
 
-export function CreateAccount() {
+export function CreateAccountForm() {
   const user = useUser();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -17,13 +19,13 @@ export function CreateAccount() {
   }
 
   return <div className="">
+    <p className="my-4 text-gray-500 ">
+      Account stores proxy settings, info about amount of trafic available and payment settings.
+    </p>
 
-    <h2 className={"mt-4 mb-4 text-lg "}>
-      Create account and checkout
-    </h2>
-
-    <p className="my-4 text-gray-500 text-sm">
-      Your account stores credit balance info and proxy pool settings.
+    <p className="my-4 text-gray-500 ">
+      <NavLink to={"/proxies/buy"} className={linkClassName}>Select proxies you want to use</NavLink>
+      {" "}or create fresh account first.
     </p>
 
     <div>

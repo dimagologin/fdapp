@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { dataCenter, mobile, residential, setProxyKind, useProxyKind } from "./state/proxyKind";
+import { dataCenter, mobile, residential, setProxyKind, useProxyKind } from "../model/proxyKind";
 
 export function ProxyKindRadioBox({ proxyKind, selectedProxyKind, setProxyKind }) {
   const isActive = proxyKind === selectedProxyKind;

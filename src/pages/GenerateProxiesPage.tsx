@@ -1,17 +1,17 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
-import { generateMultipleProxies } from "./api/generateMultipleProxies";
-import { h2Classes } from "./DashboardPage";
-import { HardButton } from "./HardButton";
-import { PageBody, PageHeading } from "./layout/Layout";
-import { LocationPicker } from "./LocationPicker";
-import { OnboardingBlock } from "./OnboardingBlock";
-import { GeneratorProxyKindSelector } from "./ProxyKindSelector";
-import { SoftButton } from "./SoftButton";
-import { useBalance } from "./state/balance";
-import { ProxyType } from "./state/proxyKind";
-import { useProxyList } from "./state/proxyList";
-import { useTrafic } from "./state/trafic";
-import { useUser } from "./state/user";
+import { generateMultipleProxies } from "../api/generateMultipleProxies";
+import { OnboardingBlock } from "../blocks/OnboardingBlock";
+import { LocationPicker } from "../blocks/Outdated_LocationPicker";
+import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";
+import { PageBody, PageHeading } from "../layout/AppLayout";
+import { useBalance } from "../model/balance";
+import { ProxyType } from "../model/proxyKind";
+import { useProxyList } from "../model/proxyList";
+import { useTrafic } from "../model/trafic";
+import { useUser } from "../model/user";
+import { HardButton } from "../reusable/HardButton";
+import { SoftButton } from "../reusable/SoftButton";
+import { h2ClassName } from "../reusable/styles";
 
 /*
   username: 'XLpraELOLNYEAD7W',
@@ -36,7 +36,7 @@ export function GenerateProxiesPage() {
     <PageBody>
       <OnboardingBlock />
 
-      <h2 className={"mt-6 mb-4 " + h2Classes}>
+      <h2 className={"mt-6 mb-4 " + h2ClassName}>
         Generate proxy pool
       </h2>
 
@@ -45,12 +45,12 @@ export function GenerateProxiesPage() {
       </p>
 
       <div>
-        <h2 className={h2Classes}>Proxy type</h2>
+        <h2 className={h2ClassName}>Proxy type</h2>
         <div className="mt-2 mb-4">
           <GeneratorProxyKindSelector />
         </div>
         <div className="mb-4">
-          <h2 className={h2Classes}>
+          <h2 className={h2ClassName}>
             Proxy locations
           </h2>
 
@@ -65,7 +65,7 @@ export function GenerateProxiesPage() {
           </HardButton>
         </div>
 
-        <h2 className={h2Classes}>List of proxy server (with credentials)</h2>
+        <h2 className={h2ClassName}>List of proxy server (with credentials)</h2>
 
         <textarea
           className="my-2 p-2 w-full text-sm leading-7 font-mono border rounded"

@@ -1,6 +1,6 @@
 import { useState } from "react"
+import { useTotals } from "../model/pricing"
 import { OrderSummary } from "./OrderSummary"
-import { useTotals } from "./state/pricing"
 
 export function ExpandableOrderSummary({ isOpened: isOpenedProp = false }) {
   const [isOpened, setOpened] = useState(isOpenedProp)

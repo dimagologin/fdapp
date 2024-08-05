@@ -1,4 +1,4 @@
-import { HardButton } from "./HardButton"
+import { HardButton } from "../reusable/HardButton"
 
 const paymentMethods = [
   { id: 'credit-card', title: 'Credit card' },

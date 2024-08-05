@@ -1,9 +1,9 @@
-import { dataCenter, getProxyKind, mobile, ProxyKind, ProxyType } from "../state/proxyKind";
-import { setProxyList } from "../state/proxyList";
+import { dataCenter, getProxyKind, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
+import { setProxyList } from "../model/proxyList";
 import { httpApi } from "./api";
 
 export async function generateMultipleProxies() {
-  const result = await httpGenerateMultipleProxies2(getProxyKind(), "US", 10)
+  const result = await httpGenerateMultipleProxies(getProxyKind(), "US", 10)
   if (!result.success) {
     throw new Error("Failed to create proxies")
   }

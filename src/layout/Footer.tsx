@@ -1,4 +1,4 @@
-import { pageMainColumnClassName } from "./layout/Layout"
+import { pageMainColumnClassName } from "./AppLayout"
 import { Logo } from "./Logo"
 
 const navigation = {

@@ -1,4 +1,4 @@
-import { h2Classes } from "./DashboardPage"
+import { h2ClassName } from "../reusable/styles"
 
 const proxyPoolList = [
   { name: 'Mobile proxy pool (system)', title: 'mobile', traficGb: 12, pricePerGb: 2.95, priceTotal: 35.4 },
@@ -12,7 +12,7 @@ export default function TraficUsageTable() {
     <div className="">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h2 className={"mt-6 mb-4 " + h2Classes}>
+          <h2 className={"mt-6 mb-4 " + h2ClassName}>
             Trafic this month
           </h2>
           <p className="mt-2 text-sm text-gray-700">

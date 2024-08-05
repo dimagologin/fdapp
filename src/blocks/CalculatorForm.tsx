@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import { LucideCircleCheckBig } from "lucide-react";
-import { GbInput, h2Classes } from "./DashboardPage";
-import { MonthlySubcribtionCheckbox } from "./MonthlySubcribtionCheckbox";
+import { setTrafic, traficTiers, TraficTierType, useTrafic } from "../model/trafic";
+import { GbInput } from "../pages/DashboardPage";
+import { MonthlySubcribtionCheckbox } from "./MonthlySubscriptionCheckbox";
 import { CalculatorProxyKindSelector } from "./ProxyKindSelector";
-import { setTrafic, traficTiers, TraficTierType, useTrafic } from "./state/trafic";
+import { h2ClassName } from "../reusable/styles";
 
 
 export function MoneyAmount({ children }) {
@@ -31,7 +32,7 @@ function TrafficAmountBox({ traficTier, description }: TrafficAmountBoxParams) {
       <div>
         {traficTier.discountPct}% discount
       </div>
-      
+
     </span>
 
     <LucideCircleCheckBig className={clsx({ 'stroke-gray-200': !isActive, "stroke-indigo-600": isActive })} />
@@ -42,7 +43,7 @@ export function CalculatorForm() {
 
   return <div>
     <div className="mt-5">
-      <h2 className={h2Classes}>
+      <h2 className={h2ClassName}>
         Monthly trafic volume and discount
       </h2>
       <div className="w-full">
@@ -68,7 +69,7 @@ export function CalculatorForm() {
     </div>
 
     <div className="mt-5">
-      <h2 className={h2Classes}>
+      <h2 className={h2ClassName}>
         Proxy type
       </h2>
       <CalculatorProxyKindSelector />
@@ -77,13 +78,13 @@ export function CalculatorForm() {
 
 
     <div className="mt-5">
-      <h2 className={h2Classes + " "}>
+      <h2 className={h2ClassName + " "}>
         Payment period
       </h2>
       <MonthlySubcribtionCheckbox />
     </div>
     <div className="mt-5">
-      <h2 className={h2Classes + " "}>
+      <h2 className={h2ClassName + " "}>
         Need more trafic?
       </h2>
       <p className="text-gray-500 mb-2">

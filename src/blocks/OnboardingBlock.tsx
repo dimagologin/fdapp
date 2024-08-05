@@ -1,16 +1,14 @@
 import { LucideArrowRight } from "lucide-react"
 import { NavLink } from "react-router-dom"
-import { hardButtonStyles } from "./HardButton"
-import { useBalance } from "./state/balance"
-import { useUser } from "./state/user"
+import { useBalance } from "../model/balance"
+import { useUser } from "../model/user"
+import { hardButtonStyles } from "../reusable/HardButton"
 
 
-export function OnboardingBlock() {
-  const user = useUser()
-  const balance = useBalance()
+export function NoAccountInfoBlock() {
 
-  return <div>
-    {!user &&
+  return (
+    <div>
       <div className="mb-8 py-6 px-6 border border-orange-500 rounded-lg bg-orange-100">
         <h2 className={"font-medium text-text-orange-800 text-lg mb-3"}>
           You are not logged in
@@ -32,11 +30,28 @@ export function OnboardingBlock() {
           Have an account?{" "}
           <NavLink
             className={" text-indigo-600 font-semibold inline-block mt-2 "}
-            to={"/proxies/buy"} >
+            to={"/account/login"} >
             Login<LucideArrowRight className="inline h-4" />
           </NavLink>
         </p>
       </div>
-    }
-  </div>
+    </div>
+  )
+}
+export function OnboardingBlock() {
+  const user = useUser()
+  const balance = useBalance()
+
+  if (!user) {
+    return <NoAccountInfoBlock />
+  }
+
+  // TODO if negative balance
+
+  // TODO if no subscription with not repeat
+
+  // TODO if 
+
+
+
 }

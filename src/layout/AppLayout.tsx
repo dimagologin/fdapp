@@ -1,5 +1,6 @@
-import { Footer } from "../Footer";
-import { TopNav } from "../TopNav";
+import { Outlet } from "react-router-dom";
+import { Footer } from "./Footer";
+import { TopNav } from "./TopNav";
 
 export const pageMainColumnClassName = " container w-[80rem] mx-auto "
 
@@ -20,10 +21,10 @@ export function PageBody({ children }) {
   </div>
 }
 
-export function Layout({ children }) {
+export function AppLayout({ }) {
   return <div className="bg-gray-50 text-gray-900">
     <TopNav />
-    {children}
+    <Outlet />
     <Footer />
   </div>
 }

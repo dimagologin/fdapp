@@ -1,14 +1,12 @@
 import { LucideArrowRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { PageBody, PageHeading } from "./layout/Layout";
-import { OnboardingBlock } from "./OnboardingBlock";
-import { useBalance } from "./state/balance";
-import { setTrafic, useTrafic } from "./state/trafic";
-import { useUser } from "./state/user";
-import TraficUsageTable from "./TraficUsageTable";
-
-export const h2Classes = "text-gray-800 text-lg font-semibold mt-8 mb-1";
-export const h3Classes = "text-gray-800 text-base font-medium mt-4 mb-1";
+import { OnboardingBlock } from "../blocks/OnboardingBlock";
+import TraficUsageTable from "../blocks/TraficUsageTable";
+import { PageBody, PageHeading } from "../layout/AppLayout";
+import { useBalance } from "../model/balance";
+import { setTrafic, useTrafic } from "../model/trafic";
+import { useUser } from "../model/user";
+import { h2ClassName } from "../reusable/styles";
 
 export function GbInput() {
   const value = useTrafic();
@@ -60,7 +58,7 @@ export function DashboardPage() {
       <TraficUsageTable />
 
       <div>
-        <h2 className={"mt-6 mb-4 " + h2Classes}>
+        <h2 className={"mt-6 mb-4 " + h2ClassName}>
           Subscription and discounts
         </h2>
         <p>
@@ -69,8 +67,8 @@ export function DashboardPage() {
       </div>
 
       <div>
-        <h2 className={"mt-6 mb-4 " + h2Classes}>
-        Quick actions
+        <h2 className={"mt-6 mb-4 " + h2ClassName}>
+          Quick actions
         </h2>
         <p className="my-4">
           <NavLink
@@ -78,7 +76,7 @@ export function DashboardPage() {
             to={"/proxies/buy"}
           >
 
-          Buy more proxy trafic
+            Buy more proxy trafic
             <LucideArrowRight className="inline-block h-4" />
           </NavLink>
         </p>

@@ -3,10 +3,12 @@ import {
   RouterProvider,
   useRouteError,
 } from "react-router-dom";
-import { CheckoutPage } from "./CheckoutPage";
-import { DashboardPage } from "./DashboardPage";
-import { GenerateProxiesPage } from "./GenerateProxiesPage";
-import { ZeroBalancePage } from "./ZeroBalancePage";
+import { AppLayout } from "./layout/AppLayout";
+import { AccountLoginPage } from "./pages/AccountLoginPage";
+import { CheckoutPage } from "./pages/CheckoutPage";
+import { DashboardPage } from "./pages/DashboardPage";
+import { GenerateProxiesPage } from "./pages/GenerateProxiesPage";
+import { ZeroBalancePage } from "./pages/ZeroBalancePage";
 
 /*
 
@@ -24,7 +26,9 @@ import { ZeroBalancePage } from "./ZeroBalancePage";
 /account/invite
 
 */
-const router = createBrowserRouter([
+const router = createBrowserRouter([{
+  element: <AppLayout />,
+  children: [
   {
     path: "/",
     element: <DashboardPage />,
@@ -50,7 +54,18 @@ const router = createBrowserRouter([
     element: <GenerateProxiesPage />,
     errorElement: <ErrorBoundary />
   },
-]);
+    {
+      path: "/account/login",
+      element: <AccountLoginPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/account/signup",
+      element: <AccountLoginPage />,
+      errorElement: <ErrorBoundary />
+    },
+  ]
+}]);
 
 
 function ErrorBoundary() {

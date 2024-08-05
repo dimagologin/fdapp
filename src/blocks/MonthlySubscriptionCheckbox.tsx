@@ -1,7 +1,7 @@
 
 import clsx from 'clsx';
 import { LucideCircleCheckBig } from 'lucide-react';
-import { annualSubscription, monthlySubscription, oneTimePayment, setPaymentPeriod, usePaymentPeriod } from './paymentPeriod';
+import { annualSubscription, monthlySubscription, oneTimePayment, setPaymentPeriod, usePaymentPeriod } from '../model/paymentPeriod';
 
 
 function PaymentPeriodBox({ paymentPeriod, description, discountMultiplier }) {

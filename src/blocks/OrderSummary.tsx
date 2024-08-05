@@ -1,7 +1,7 @@
-import { oneTimePayment, usePaymentPeriod } from "./paymentPeriod";
-import { useTotals } from "./state/pricing";
-import { useProxyKind } from "./state/proxyKind";
-import { useTrafic } from "./state/trafic";
+import { oneTimePayment, usePaymentPeriod } from "../model/paymentPeriod";
+import { useTotals } from "../model/pricing";
+import { useProxyKind } from "../model/proxyKind";
+import { useTrafic } from "../model/trafic";
 
 function PaymentPeriodLineItem({ paymentPeriod }) {
   if (paymentPeriod === oneTimePayment) {
@@ -36,7 +36,7 @@ function PaymentPeriodLineItem({ paymentPeriod }) {
 function SubtotalAndDiscount({ totals }) {
   if (totals.paymentPeriodDiscountPct) {
 
-  } 
+  }
   return <>
     <div className="">
       <span className="font-regular text-gray-800">
