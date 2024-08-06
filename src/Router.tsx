@@ -7,6 +7,7 @@ import { AppLayout } from "./layout/AppLayout";
 import { AccountLoginPage } from "./pages/AccountLoginPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { DebugPage } from "./pages/DebugPage";
 import { GenerateProxiesPage } from "./pages/GenerateProxiesPage";
 import { ZeroBalancePage } from "./pages/ZeroBalancePage";
 
@@ -62,6 +63,11 @@ const router = createBrowserRouter([{
     {
       path: "/account/signup",
       element: <AccountLoginPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/debug",
+      element: <DebugPage />,
       errorElement: <ErrorBoundary />
     },
   ]

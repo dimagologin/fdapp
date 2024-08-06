@@ -20,12 +20,11 @@ export function CreateAccountForm() {
 
   return <div className="">
     <p className="my-4 text-gray-500 ">
-      Account stores proxy settings, info about amount of trafic available and payment settings.
+      {/* Account stores proxy settings, info about amount of traffic available and payment settings. */}
     </p>
 
     <p className="my-4 text-gray-500 ">
-      <NavLink to={"/proxies/buy"} className={linkClassName}>Select proxies you want to use</NavLink>
-      {" "}or create fresh account first.
+      <NavLink to={"/proxies/buy"} className={linkClassName}>Buy proxies</NavLink>
     </p>
 
     <div>

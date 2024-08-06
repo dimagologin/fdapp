@@ -2,27 +2,14 @@
 
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
 import { availableCountries } from '../model/availableCountriesSample'
-
-// const people = [
-//   { name: 'Wade Cooper', username: '@wadecooper' },
-//   { name: 'Arlene Mccoy', username: '@arlenemccoy' },
-//   { name: 'Devon Webb', username: '@devonwebb' },
-//   { name: 'Tom Cook', username: '@tomcook' },
-//   { name: 'Tanya Fox', username: '@tanyafox' },
-//   { name: 'Hellen Schmidt', username: '@hellenschmidt' },
-//   { name: 'Caroline Schultz', username: '@carolineschultz' },
-//   { name: 'Mason Heaney', username: '@masonheaney' },
-//   { name: 'Claudie Smitham', username: '@claudiesmitham' },
-//   { name: 'Emil Schaefer', username: '@emilschaefer' },
-// ]
+import { setProxyCountry, useProxyCountry } from '../model/proxyCountry'
 
 export function LocationPicker() {
-  const [selected, setSelected] = useState(availableCountries[3])
+  const selected = useProxyCountry()
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selected} onChange={setProxyCountry}>
       <Label className="block text-sm font-medium leading-6 text-gray-900">Pick locations where you want to create proxies</Label>
       <div className="relative mt-2">
         <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">

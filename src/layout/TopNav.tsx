@@ -1,16 +1,20 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
+import { isLocalhost } from '../api/api'
 import { clearUser, useUser } from '../model/user'
 import { pageMainColumnClassName } from './AppLayout'
 import { Logo } from './Logo'
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
-  { name: 'Buy proxies', href: '/proxies/buy', current: false },
-  { name: 'Setup proxies', href: '/proxies/generate', current: false },
-  { name: 'Account', href: '/account/login', current: false },
-]
+  { name: 'Dashboard', href: '/' },
+  { name: 'Buy proxies', href: '/proxies/buy' },
+  { name: 'Setup proxies', href: '/proxies/generate' },
+  { name: 'Account', href: '/account/login' },
+];
+if (isLocalhost) {
+  navigation.push({ name: 'Debug', href: '/debug' })
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -47,7 +51,7 @@ export function TopNav() {
                   <NavLink
                     key={item.name}
                     to={item.href}
-                    aria-current={item.current ? 'page' : undefined}
+                    // aria-current={item.current ? 'page' : undefined}
                     className={({ isActive, isPending }) => classNames(
                       isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',

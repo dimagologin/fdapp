@@ -8,7 +8,7 @@ export const mobile = {
   title: 'Mobile',
   description: 'Best anti-detect',
   Icon: LucideSmartphone,
-  httpTagName: 'demo_tag_m',
+  postfix: '_m',
 } as const;
 
 export const residential = {
@@ -18,7 +18,7 @@ export const residential = {
   title: 'Residential',
   description: 'Best anti-detect',
   Icon: LucideBuilding,
-  httpTagName: 'demo_tag_r',
+  postfix: '_r',
 } as const;
 
 export const dataCenter = {
@@ -28,7 +28,7 @@ export const dataCenter = {
   title: 'Data center',
   description: 'More affordable',
   Icon: LucideServer,
-  httpTagName: 'demo_tag_dc',
+  postfix: '_dc',
 } as const;
 
 export const ProxyKindsByName = {

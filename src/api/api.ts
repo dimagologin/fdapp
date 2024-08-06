@@ -1,5 +1,6 @@
 
-const isProd = false;
+export const isLocalhost = window.location.hostname === 'localhost';
+export const isProd = window.location.hostname === 'floppydata.com';
 const base = isProd ? 'https://api.floppydata.com/v1/' : 'http://139.162.187.132:10082/v1/';
 
 export const httpApi = async (

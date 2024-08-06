@@ -1,7 +1,7 @@
 import { oneTimePayment, usePaymentPeriod } from "../model/paymentPeriod";
 import { useTotals } from "../model/pricing";
 import { useProxyKind } from "../model/proxyKind";
-import { useTrafic } from "../model/trafic";
+import { useTrafic } from "../model/traffic";
 
 function PaymentPeriodLineItem({ paymentPeriod }) {
   if (paymentPeriod === oneTimePayment) {
@@ -78,7 +78,7 @@ function SubtotalAndDiscount({ totals }) {
 
 export function OrderSummary({ }) {
   const proxyKind = useProxyKind();
-  const trafic = useTrafic();
+  const traffic = useTrafic();
   const totals = useTotals()
   const paymentPeriod = usePaymentPeriod();
 
@@ -113,7 +113,7 @@ export function OrderSummary({ }) {
       </div>
       <div>
         <span className="font-medium text-gray-900">
-          {trafic} GB
+          {traffic} GB
         </span>
       </div>
 

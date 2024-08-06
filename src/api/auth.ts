@@ -77,7 +77,8 @@ export const signin = async (username: string, password: string) => {
 };
 
 export const getAuthStorage = () => {
-  return JSON.parse(localStorage?.auth);
+  const auth = localStorage?.auth
+  return auth ? JSON.parse(auth) : undefined;
 };
 export const getUsername = () => {
   return getAuthStorage().username;

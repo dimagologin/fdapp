@@ -1,18 +1,18 @@
 import { guessCurrency } from "./localeToCurrency";
 import { annualSubscription, PaymentPeriodType, usePaymentPeriod } from "./paymentPeriod";
 import { ProxyKind, useProxyKind } from "./proxyKind";
-import { findFloorTraficTier, useTrafic } from "./trafic";
+import { findFloorTraficTier, useTrafic } from "./traffic";
 
 
-const calculateTotals = (traficGb: number, paymentPeriod: PaymentPeriodType, proxyKind: ProxyKind) => {
-  const tier = findFloorTraficTier(traficGb);
+const calculateTotals = (trafficGb: number, paymentPeriod: PaymentPeriodType, proxyKind: ProxyKind) => {
+  const tier = findFloorTraficTier(trafficGb);
   const tierDiscountPct = tier.discountPct;
-  const traficDiscountMultiplier = discountPctToMultiplier(tier.discountPct);
+  const trafficDiscountMultiplier = discountPctToMultiplier(tier.discountPct);
   const paymentPeriodDiscountPct = paymentPeriod === annualSubscription ? 50 : 0;
   const paymentPeriodDiscountMultiplier = discountPctToMultiplier(paymentPeriodDiscountPct);
 
-  const subtotalPrice = traficGb * proxyKind.price * paymentPeriod.billingPeriods;
-  const totalPrice = subtotalPrice * traficDiscountMultiplier * paymentPeriodDiscountMultiplier;
+  const subtotalPrice = trafficGb * proxyKind.price * paymentPeriod.billingPeriods;
+  const totalPrice = subtotalPrice * trafficDiscountMultiplier * paymentPeriodDiscountMultiplier;
 
   return {
     subtotalPrice,
@@ -32,9 +32,9 @@ export const discountPctToMultiplier = (discountPct: number) => {
 
 export function useTotals() {
   const paymentPeriod = usePaymentPeriod();
-  const traficGb = useTrafic();
+  const trafficGb = useTrafic();
   const proxyKind = useProxyKind();
-  return calculateTotals(traficGb, paymentPeriod, proxyKind);
+  return calculateTotals(trafficGb, paymentPeriod, proxyKind);
 }
 
 export function formatCurrency(usd: number) {

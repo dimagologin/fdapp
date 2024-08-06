@@ -1,9 +1,11 @@
-import { dataCenter, getProxyKind, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
+import { dateToString } from "../model/dateToString";
+import { dataCenter, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
 import { setProxyList } from "../model/proxyList";
 import { httpApi } from "./api";
+import { getUserFromLocalStorage } from "./auth";
 
-export async function generateMultipleProxies() {
-  const result = await httpGenerateMultipleProxies(getProxyKind(), "US", 10)
+export async function generateMultipleProxies(proxyKind: ProxyKind, countryCode: string, amount: number) {
+  const result = await httpGenerateMultipleProxies(proxyKind, countryCode, amount)
   if (!result.success) {
     throw new Error("Failed to create proxies")
   }
@@ -15,6 +17,30 @@ export type PROXY_GENERATE_BATCH_ResponseType = {
   "countryCode": "US",
   "isWifi": true,
   proxies: ProxyType[]
+}
+
+export const createDefaultProxyPool = async (kind: ProxyKind) => {
+  return await createEmptyProxyPool(getUserFromLocalStorage()?.email + kind.postfix)
+}
+
+export const listAllProxyPools = async () => {
+  return await httpApi('user/tag_list', {});
+}
+
+const createEmptyProxyPool = async (name: string) => {
+  //     "valid_from": "0001-01-01T00:00:00Z",
+
+  return await httpApi('tags/create', {
+    "proxy_username": getUserFromLocalStorage()?.email,
+    "tag_name": name,
+    "repeat_interval": "hourly",
+    "valid_from": dateToString(new Date()),
+    "valid_till": dateToString(new Date("2050-01-01")),
+    "tag_values": [
+      {
+      }
+    ]
+  });
 }
 
 export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryCode: string, quantity: number):
@@ -30,7 +56,7 @@ export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryC
         "tag_name": proxyKind.httpTagName
       }
     ]
-  }, { auth: true }) as PROXY_GENERATE_BATCH_ResponseType;
+  }) as PROXY_GENERATE_BATCH_ResponseType;
 }
 export async function httpGenerateMultipleProxies2(proxyKind: ProxyKind, countryCode: string, quantity: number) {
   return generateProxiesResponseSample;

@@ -1,13 +1,14 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
-import { generateMultipleProxies } from "../api/generateMultipleProxies";
+import { generateMultipleProxies } from "../api/createProxyPool";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
 import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
-import { ProxyType } from "../model/proxyKind";
+import { getProxyCountry } from "../model/proxyCountry";
+import { getProxyKind, ProxyType } from "../model/proxyKind";
 import { useProxyList } from "../model/proxyList";
-import { useTrafic } from "../model/trafic";
+import { useTrafic } from "../model/traffic";
 import { useUser } from "../model/user";
 import { HardButton } from "../reusable/HardButton";
 import { SoftButton } from "../reusable/SoftButton";
@@ -18,7 +19,7 @@ import { h2ClassName } from "../reusable/styles";
   password: 'cl6bBsh1Njm62pTm',
   port: 10080,
   host: 'geo-dc.floppydata.com',
-*/
+*/  
 const proxyListToString = (proxyList: ProxyType[]) => {
   return proxyList.map(
     proxy => `https://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}/`
@@ -27,7 +28,7 @@ const proxyListToString = (proxyList: ProxyType[]) => {
 
 export function GenerateProxiesPage() {
   const user = useUser()
-  const trafic = useTrafic()
+  const traffic = useTrafic()
   const balance = useBalance()
   const proxyList = useProxyList()
 
@@ -60,7 +61,7 @@ export function GenerateProxiesPage() {
         </div>
 
         <div>
-          <HardButton onClick={() => generateMultipleProxies()}>
+          <HardButton onClick={() => generateMultipleProxies(getProxyKind(), getProxyCountry().countryCode, 5)}>
             Generate proxy
           </HardButton>
         </div>

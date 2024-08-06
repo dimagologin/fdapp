@@ -1,9 +1,9 @@
 import { h2ClassName } from "../reusable/styles"
 
 const proxyPoolList = [
-  { name: 'Mobile proxy pool (system)', title: 'mobile', traficGb: 12, pricePerGb: 2.95, priceTotal: 35.4 },
-  { name: 'Residential proxy pool (system)', title: 'residential', traficGb: 0, pricePerGb: 2.95, priceTotal: 0 },
-  { name: 'Data center proxy pool (system)', title: 'data center', traficGb: 0, pricePerGb: 0.89, priceTotal: 0 },
+  { name: 'Mobile proxy pool (system)', title: 'mobile', trafficGb: 12, pricePerGb: 2.95, priceTotal: 35.4 },
+  { name: 'Residential proxy pool (system)', title: 'residential', trafficGb: 0, pricePerGb: 2.95, priceTotal: 0 },
+  { name: 'Data center proxy pool (system)', title: 'data center', trafficGb: 0, pricePerGb: 0.89, priceTotal: 0 },
   // More people...
 ]
 
@@ -16,7 +16,7 @@ export default function TraficUsageTable() {
             Trafic this month
           </h2>
           <p className="mt-2 text-sm text-gray-700">
-            This month trafic usage. <time dateTime="2022-08-01">August 1, 2024</time> to{' '}
+            This month traffic usage. <time dateTime="2022-08-01">August 1, 2024</time> to{' '}
             <time dateTime="2022-08-31">August 12, 2024</time>.
           </p>
         </div>
@@ -25,7 +25,7 @@ export default function TraficUsageTable() {
             type="button"
             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Buy more trafic
+            Buy more traffic
           </button>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function TraficUsageTable() {
                   <div className="mt-1 truncate text-gray-500">{proxyPool.description}</div>
                 </td>
                 <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${proxyPool.pricePerGb}</td>
-                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{proxyPool.traficGb} GB</td>
+                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{proxyPool.trafficGb} GB</td>
                 <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${proxyPool.priceTotal}</td>
               </tr>
             ))}

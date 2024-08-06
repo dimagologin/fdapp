@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { LucideCircleCheckBig } from "lucide-react";
-import { setTrafic, traficTiers, TraficTierType, useTrafic } from "../model/trafic";
+import { setTrafic, trafficTiers, TraficTierType, useTrafic } from "../model/traffic";
 import { GbInput } from "../pages/DashboardPage";
+import { h2ClassName } from "../reusable/styles";
 import { MonthlySubcribtionCheckbox } from "./MonthlySubscriptionCheckbox";
 import { CalculatorProxyKindSelector } from "./ProxyKindSelector";
-import { h2ClassName } from "../reusable/styles";
 
 
 export function MoneyAmount({ children }) {
@@ -13,24 +13,24 @@ export function MoneyAmount({ children }) {
   </span>
 }
 type TrafficAmountBoxParams = {
-  traficTier: TraficTierType,
+  trafficTier: TraficTierType,
   description: string
 }
-function TrafficAmountBox({ traficTier, description }: TrafficAmountBoxParams) {
-  const trafic = useTrafic();
-  const isActive = trafic === traficTier.amountGb;
+function TrafficAmountBox({ trafficTier, description }: TrafficAmountBoxParams) {
+  const traffic = useTrafic();
+  const isActive = traffic === trafficTier.amountGb;
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1 rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
     "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
     "border-transparent  ring-indigo-500": isActive,
   })}
-    onClick={() => setTrafic(traficTier.amountGb)}
+    onClick={() => setTrafic(trafficTier.amountGb)}
   >
     <span className="flex-1 ">
-      <span className="text-gray-900 font-medium">{traficTier.amountGb} GB<br /></span>
+      <span className="text-gray-900 font-medium">{trafficTier.amountGb} GB<br /></span>
       <div>
-        {traficTier.discountPct}% discount
+        {trafficTier.discountPct}% discount
       </div>
 
     </span>
@@ -44,24 +44,24 @@ export function CalculatorForm() {
   return <div>
     <div className="mt-5">
       <h2 className={h2ClassName}>
-        Monthly trafic volume and discount
+        Monthly traffic volume and discount
       </h2>
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <TrafficAmountBox
-            traficTier={traficTiers[0]}
+            trafficTier={trafficTiers[0]}
             description="Startup"
           />
           <TrafficAmountBox
-            traficTier={traficTiers[1]}
+            trafficTier={trafficTiers[1]}
             description="Business"
           />
           <TrafficAmountBox
-            traficTier={traficTiers[2]}
+            trafficTier={trafficTiers[2]}
             description="Business"
           />
           <TrafficAmountBox
-            traficTier={traficTiers[3]}
+            trafficTier={trafficTiers[3]}
             description="Enterprize"
           />
         </div>
@@ -85,7 +85,7 @@ export function CalculatorForm() {
     </div>
     <div className="mt-5">
       <h2 className={h2ClassName + " "}>
-        Need more trafic?
+        Need more traffic?
       </h2>
       <p className="text-gray-500 mb-2">
         Specify amount you need
