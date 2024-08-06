@@ -47,6 +47,19 @@ export type ProxyType = {
 export type ProxyKind =
   (typeof ProxyKindsByName)[keyof typeof ProxyKindsByName];
 
+export const getProxyKindByName = (tag_name: string) => {
+  if (tag_name.endsWith('_m')) {
+    return mobile;
+  }
+  if (tag_name.endsWith('_r')) {
+    return mobile;
+  }
+  if (tag_name.endsWith('_dc')) {
+    return mobile;
+  }
+  return mobile;
+}
+
 const calculatorProxyKindCharm = charm<ProxyKind>(mobile);
 export const setProxyKind = (value: ProxyKind) =>
   calculatorProxyKindCharm.set(value);

@@ -1,13 +1,16 @@
+import { useEffect, useState } from "react"
+import { getUsageByProxyPools, ProxyMonthlyUsage } from "../api/proxyPools"
+import { ProxyPoolName } from "../reusable/ProxyTypeName"
 import { h2ClassName } from "../reusable/styles"
 
-const proxyPoolList = [
-  { name: 'Mobile proxy pool (system)', title: 'mobile', trafficGb: 12, pricePerGb: 2.95, priceTotal: 35.4 },
-  { name: 'Residential proxy pool (system)', title: 'residential', trafficGb: 0, pricePerGb: 2.95, priceTotal: 0 },
-  { name: 'Data center proxy pool (system)', title: 'data center', trafficGb: 0, pricePerGb: 0.89, priceTotal: 0 },
-  // More people...
-]
 
 export default function TraficUsageTable() {
+  const [proxyPoolList, setProxyPoolList] = useState<ProxyMonthlyUsage[]>([])
+  useEffect(() => {
+    getUsageByProxyPools().then(setProxyPoolList)
+  }, [])
+
+
   return (
     <div className="">
       <div className="sm:flex sm:items-center">
@@ -44,6 +47,12 @@ export default function TraficUsageTable() {
               </th>
               <th
                 scope="col"
+                className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
+              >
+                Type
+              </th>
+              <th
+                scope="col"
                 className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell"
               >
                 Price, per GB
@@ -60,15 +69,17 @@ export default function TraficUsageTable() {
             </tr>
           </thead>
           <tbody>
-            {proxyPoolList.map((proxyPool) => (
-              <tr key={proxyPool.id} className="border-b border-gray-200">
+            {proxyPoolList.map((pool) => (
+              <tr key={pool.id} className="border-b border-gray-200">
                 <td className="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
-                  <div className="font-medium text-gray-900">{proxyPool.name}</div>
-                  <div className="mt-1 truncate text-gray-500">{proxyPool.description}</div>
+                  <div className="font-medium text-gray-900">
+                    <ProxyPoolName tag_name={pool.tag_name} /> {pool.tag_name}</div>
+                  <div className="mt-1 truncate text-gray-500">{pool.description}</div>
                 </td>
-                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${proxyPool.pricePerGb}</td>
-                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{proxyPool.trafficGb} GB</td>
-                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${proxyPool.priceTotal}</td>
+                <td className="hidden px-3 py-5  text-sm text-gray-500 sm:table-cell">{pool.kind.name}</td>
+                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${pool.pricePerGb}</td>
+                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{pool.usedGb}GB</td>
+                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${pool.priceTotal}</td>
               </tr>
             ))}
           </tbody>

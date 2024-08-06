@@ -1,5 +1,5 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
-import { generateMultipleProxies } from "../api/createProxyPool";
+import { generateMultipleProxies } from "../api/proxyPools";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
 import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";

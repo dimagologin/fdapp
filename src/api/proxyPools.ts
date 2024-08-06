@@ -1,5 +1,4 @@
-import { dateToString } from "../model/dateToString";
-import { dataCenter, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
+import { dataCenter, getProxyKindByName, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
 import { setProxyList } from "../model/proxyList";
 import { httpApi } from "./api";
 import { getUserFromLocalStorage } from "./auth";
@@ -23,25 +22,60 @@ export const createDefaultProxyPool = async (kind: ProxyKind) => {
   return await createEmptyProxyPool(getUserFromLocalStorage()?.email + kind.postfix)
 }
 
-export const listAllProxyPools = async () => {
+export type RawProxyPool = {
+  "id": number,
+  "tag_name": string,
+  "repeat_interval": "monthly",
+  "valid_from": string,
+  "valid_till": string
+}
+export const listAllProxyPools = async (): Promise<RawProxyPool[]> => {
   return await httpApi('user/tag_list', {});
 }
 
-const createEmptyProxyPool = async (name: string) => {
-  //     "valid_from": "0001-01-01T00:00:00Z",
+export type TrafficResponseType = {
+  bytes_used: number,
+  bytes_allowed: number,
+}
 
-  return await httpApi('tags/create', {
-    "proxy_username": getUserFromLocalStorage()?.email,
-    "tag_name": name,
-    "repeat_interval": "hourly",
-    "valid_from": dateToString(new Date()),
-    "valid_till": dateToString(new Date("2050-01-01")),
-    "tag_values": [
-      {
-      }
-    ]
+export const getTraffic = async (tag_name: string): Promise<TrafficResponseType> => {
+  return await httpApi('tags/traffic', {
+    tag_name
   });
 }
+
+export type ProxyMonthlyUsage = {
+  tag_name: string;
+  usedGb: number;
+  kind: ProxyKind
+}
+
+export const getUsageByProxyPools = async () => {
+  const pools = await listAllProxyPools();
+  const result = new Array<ProxyMonthlyUsage>()
+
+  for (const pool of pools) {
+    const item: ProxyMonthlyUsage = {
+      tag_name: pool.tag_name,
+      kind: getProxyKindByName(pool.tag_name),
+      usedGb: 0,
+    };
+    try {
+      const traffic = await getTraffic(pool.tag_name);
+      item.usedGb = traffic.bytes_used;
+    } catch (e) {
+      console.error(e);
+    }
+    result.push(item);
+  }
+  console.log({ pools })
+  return result;
+}
+ 
+const createEmptyProxyPool = async (name: string) => {
+   
+}
+
 
 export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryCode: string, quantity: number):
   Promise<PROXY_GENERATE_BATCH_ResponseType> {
@@ -53,11 +87,12 @@ export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryC
     "number": quantity,
     "tags": [
       {
-        "tag_name": proxyKind.httpTagName
+        "tag_name": getUserFromLocalStorage()?.email + proxyKind.postfix
       }
     ]
   }) as PROXY_GENERATE_BATCH_ResponseType;
 }
+
 export async function httpGenerateMultipleProxies2(proxyKind: ProxyKind, countryCode: string, quantity: number) {
   return generateProxiesResponseSample;
 }

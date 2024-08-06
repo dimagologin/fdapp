@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { listAllProxyPools } from "../api/createProxyPool";
 import { debugAddTenBucks } from "../api/debugFulfillBalance";
 import { loadPaidTraficUsageInfo } from "../api/loadPaidTraficUsageInfo";
 import { loadTraficUsageInfo } from "../api/loadTraficUsageInfo";
+import { getTraffic, listAllProxyPools } from "../api/proxyPools";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { dataCenter, mobile, residential } from "../model/proxyKind";
 import { useUser } from "../model/user";
 import { h2ClassName, linkClassName } from "../reusable/styles";
+
+
 
 export function DebugRequestBlock({ title, request }) {
   const [value, setValue] = useState("")
@@ -58,6 +60,7 @@ export function DebugPage() {
       </div>
 
       <DebugRequestBlock title="List all proxy pools" request={() => listAllProxyPools()} />
+      <DebugRequestBlock title="Get trafic" request={async () => await getTraffic("demo_tag_r")} />
 
       <DebugRequestBlock title="Load residential traffic info" request={() => loadTraficUsageInfo(residential)} />
       <DebugRequestBlock title="Load mobile traffic info" request={() => loadTraficUsageInfo(mobile)} />
