@@ -9,6 +9,7 @@ import { CheckoutPage } from "./pages/CheckoutPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { DebugPage } from "./pages/DebugPage";
 import { GenerateProxiesPage } from "./pages/GenerateProxiesPage";
+import { ProxyDetailsPage } from "./pages/ProxyDetailsPage";
 import { ZeroBalancePage } from "./pages/ZeroBalancePage";
 
 /*
@@ -30,31 +31,36 @@ import { ZeroBalancePage } from "./pages/ZeroBalancePage";
 const router = createBrowserRouter([{
   element: <AppLayout />,
   children: [
-  {
-    path: "/",
-    element: <DashboardPage />,
-    errorElement: <ErrorBoundary />
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPage />,
-    errorElement: <ErrorBoundary />
-  },
-  {
-    path: "/checkout",
-    element: <CheckoutPage />,
-    errorElement: <ErrorBoundary />
-  },
-  {
-    path: "/proxies/buy",
-    element: <ZeroBalancePage />,
-    errorElement: <ErrorBoundary />
-  },
-  {
-    path: "/proxies/generate",
-    element: <GenerateProxiesPage />,
-    errorElement: <ErrorBoundary />
-  },
+    {
+      path: "/",
+      element: <DashboardPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/checkout",
+      element: <CheckoutPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/proxies/buy",
+      element: <ZeroBalancePage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/proxies/:proxyPoolId",
+      element: <ProxyDetailsPage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/proxies/generate",
+      element: <GenerateProxiesPage />,
+      errorElement: <ErrorBoundary />
+    },
     {
       path: "/account/login",
       element: <AccountLoginPage />,

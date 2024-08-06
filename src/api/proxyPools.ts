@@ -1,99 +1,130 @@
-import { dataCenter, getProxyKindByName, mobile, ProxyKind, ProxyType } from "../model/proxyKind";
-import { setProxyList } from "../model/proxyList";
-import { httpApi } from "./api";
-import { getUserFromLocalStorage } from "./auth";
+import { getUserFromLocalStorage } from '../auth/auth';
+import {
+  dataCenter,
+  getProxyKindByName,
+  mobile,
+  ProxyKind,
+  ProxyType,
+} from '../model/proxyKind';
+import { setProxyList } from '../model/proxyList';
+import { httpApi } from './api';
 
-export async function generateMultipleProxies(proxyKind: ProxyKind, countryCode: string, amount: number) {
-  const result = await httpGenerateMultipleProxies(proxyKind, countryCode, amount)
+export async function generateMultipleProxies(
+  proxyKind: ProxyKind,
+  countryCode: string,
+  amount: number,
+) {
+  const result = await httpGenerateMultipleProxies(
+    proxyKind,
+    countryCode,
+    amount,
+  );
   if (!result.success) {
-    throw new Error("Failed to create proxies")
+    throw new Error('Failed to create proxies');
   }
-  setProxyList(result.proxies)
+  setProxyList(result.proxies);
 }
 
 export type PROXY_GENERATE_BATCH_ResponseType = {
-  "success": true,
-  "countryCode": "US",
-  "isWifi": true,
-  proxies: ProxyType[]
-}
+  success: true;
+  countryCode: 'US';
+  isWifi: true;
+  proxies: ProxyType[];
+};
 
 export const createDefaultProxyPool = async (kind: ProxyKind) => {
-  return await createEmptyProxyPool(getUserFromLocalStorage()?.email + kind.postfix)
-}
+  return await createEmptyProxyPool(
+    getUserFromLocalStorage()?.email + kind.postfix,
+  );
+};
 
 export type RawProxyPool = {
-  "id": number,
-  "tag_name": string,
-  "repeat_interval": "monthly",
-  "valid_from": string,
-  "valid_till": string
-}
+  id: number;
+  tag_name: string;
+  repeat_interval: 'monthly';
+  valid_from: string;
+  valid_till: string;
+};
 export const listAllProxyPools = async (): Promise<RawProxyPool[]> => {
   return await httpApi('user/tag_list', {});
-}
+};
 
 export type TrafficResponseType = {
-  bytes_used: number,
-  bytes_allowed: number,
-}
+  bytes_used: number;
+  bytes_allowed: number;
+};
 
-export const getTraffic = async (tag_name: string): Promise<TrafficResponseType> => {
+export const getTrafficByPoolName = async (
+  tag_name: string,
+): Promise<TrafficResponseType> => {
   return await httpApi('tags/traffic', {
-    tag_name
+    tag_name,
   });
-}
+};
+export const getTrafficByPoolId = async (
+  tag_id: number,
+): Promise<TrafficResponseType> => {
+  return await httpApi('tags/traffic', {
+    tag_id,
+  });
+};
 
 export type ProxyMonthlyUsage = {
+  id: number,
   tag_name: string;
   usedGb: number;
-  kind: ProxyKind
-}
+  kind: ProxyKind;
+};
 
 export const getUsageByProxyPools = async () => {
   const pools = await listAllProxyPools();
-  const result = new Array<ProxyMonthlyUsage>()
+  const result = new Array<ProxyMonthlyUsage>();
 
   for (const pool of pools) {
     const item: ProxyMonthlyUsage = {
+      id: pool.id,
       tag_name: pool.tag_name,
       kind: getProxyKindByName(pool.tag_name),
       usedGb: 0,
     };
     try {
-      const traffic = await getTraffic(pool.tag_name);
+      const traffic = await getTrafficByPoolName(pool.tag_name);
       item.usedGb = traffic.bytes_used;
     } catch (e) {
       console.error(e);
     }
     result.push(item);
   }
-  console.log({ pools })
+  console.log({ pools });
   return result;
-}
- 
-const createEmptyProxyPool = async (name: string) => {
-   
-}
+};
 
+const createEmptyProxyPool = async (name: string) => { };
 
-export async function httpGenerateMultipleProxies(proxyKind: ProxyKind, countryCode: string, quantity: number):
-  Promise<PROXY_GENERATE_BATCH_ResponseType> {
-  return await httpApi('proxy/generate_batch', {
-    "countryCode": countryCode,
-    "isDC": proxyKind === dataCenter,
-    "isMobile": proxyKind === mobile,
+export async function httpGenerateMultipleProxies(
+  proxyKind: ProxyKind,
+  countryCode: string,
+  quantity: number,
+): Promise<PROXY_GENERATE_BATCH_ResponseType> {
+  return (await httpApi('proxy/generate_batch', {
+    countryCode: countryCode,
+    isDC: proxyKind === dataCenter,
+    isMobile: proxyKind === mobile,
     // "provider": "dataimpulse",
-    "number": quantity,
-    "tags": [
+    number: quantity,
+    tags: [
       {
-        "tag_name": getUserFromLocalStorage()?.email + proxyKind.postfix
-      }
-    ]
-  }) as PROXY_GENERATE_BATCH_ResponseType;
+        tag_name: getUserFromLocalStorage()?.email + proxyKind.postfix,
+      },
+    ],
+  })) as PROXY_GENERATE_BATCH_ResponseType;
 }
 
-export async function httpGenerateMultipleProxies2(proxyKind: ProxyKind, countryCode: string, quantity: number) {
+export async function httpGenerateMultipleProxies2(
+  proxyKind: ProxyKind,
+  countryCode: string,
+  quantity: number,
+) {
   return generateProxiesResponseSample;
 }
 

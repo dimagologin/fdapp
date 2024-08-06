@@ -1,5 +1,6 @@
 import { LucideArrowRight } from "lucide-react"
 import { NavLink } from "react-router-dom"
+import { GoogleButton } from "../auth/GoogleButton"
 import { useBalance } from "../model/balance"
 import { useUser } from "../model/user"
 import { hardButtonStyles } from "../reusable/HardButton"
@@ -13,6 +14,10 @@ export function NoAccountInfoBlock() {
         <h2 className={"font-medium text-text-orange-800 text-lg mb-3"}>
           You are not logged in
         </h2>
+
+        <div className="py-4 inline-block">
+          <GoogleButton />
+        </div>
 
         <p>
           Start by selecting proxies you want to use.

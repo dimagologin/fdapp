@@ -1,7 +1,8 @@
-
 export const isLocalhost = window.location.hostname === 'localhost';
 export const isProd = window.location.hostname === 'floppydata.com';
-const base = isProd ? 'https://api.floppydata.com/v1/' : 'http://139.162.187.132:10082/v1/';
+const base = isProd
+  ? 'https://api.floppydata.com/v1/'
+  : 'http://139.162.187.132:10082/v1/';
 
 export const httpApi = async (
   uri = '',
@@ -20,7 +21,7 @@ export const httpApi = async (
     headers.Authorization = `Bearer ${token}`;
     // headers['Access-Control-Allow-Headers'] = 'Authorization'
   }
-  console.info(auth, headers)
+  console.info(auth, headers);
 
   // const mode = isProd ? 'cors' : 'no-cors';
   const mode = 'cors';
@@ -33,8 +34,8 @@ export const httpApi = async (
   if (resp.status >= 400) {
     try {
       console.error(resp.statusText);
-      console.error(resp.text);      
-      console.error(resp.headers);      
+      console.error(resp.text);
+      console.error(resp.headers);
     } catch (e) {
       // intentionally ignore
     }

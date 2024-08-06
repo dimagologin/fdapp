@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { signin } from "../api/auth";
 import { generateSingleProxy } from "../api/generateSingleProxy";
 import { loadCountryList } from "../api/loadCountryList";
+import { signin } from "../auth/auth";
 import { useUser } from "../model/user";
 import { linkClassName } from "../reusable/styles";
 

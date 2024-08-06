@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { AppRouter } from './Router'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { StrictMode } from 'react';
+import { AppRouter } from './Router';
+import { oAuthConfig } from './auth/config';
 
 function App() {
 
   return <StrictMode>
-    <AppRouter />
+    <GoogleOAuthProvider clientId={oAuthConfig.googleOAuthClientId}>
+      <AppRouter />
+    </GoogleOAuthProvider>
   </StrictMode>
 }
 

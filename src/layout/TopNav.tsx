@@ -2,6 +2,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
 import { isLocalhost } from '../api/api'
+import { logout } from '../auth/logout'
 import { clearUser, useUser } from '../model/user'
 import { pageMainColumnClassName } from './AppLayout'
 import { Logo } from './Logo'
@@ -95,7 +96,7 @@ export function TopNav() {
                   </MenuItem>
                   <MenuItem>
                     <a href="#"
-                      onClick={clearUser}
+                      onClick={logout}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                     >
                       Sign out

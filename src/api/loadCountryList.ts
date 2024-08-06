@@ -1,4 +1,4 @@
-import { httpApi } from "./api";
+import { httpApi } from './api';
 
 export const loadCountryList = async (
   { proxyKind = 'mobile' } = { proxyKind: 'mobile' },

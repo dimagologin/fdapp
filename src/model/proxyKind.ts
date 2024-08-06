@@ -38,10 +38,10 @@ export const ProxyKindsByName = {
 } as const;
 
 export type ProxyType = {
-  username: string,
-  password: string,
-  port: number,
-  host: string,
+  username: string;
+  password: string;
+  port: number;
+  host: string;
 };
 
 export type ProxyKind =
@@ -58,7 +58,7 @@ export const getProxyKindByName = (tag_name: string) => {
     return mobile;
   }
   return mobile;
-}
+};
 
 const calculatorProxyKindCharm = charm<ProxyKind>(mobile);
 export const setProxyKind = (value: ProxyKind) =>

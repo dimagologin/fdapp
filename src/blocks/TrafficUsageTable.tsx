@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { NavLink } from "react-router-dom"
 import { getUsageByProxyPools, ProxyMonthlyUsage } from "../api/proxyPools"
 import { ProxyPoolName } from "../reusable/ProxyTypeName"
 import { h2ClassName } from "../reusable/styles"
@@ -73,7 +74,11 @@ export default function TraficUsageTable() {
               <tr key={pool.id} className="border-b border-gray-200">
                 <td className="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
                   <div className="font-medium text-gray-900">
-                    <ProxyPoolName tag_name={pool.tag_name} /> {pool.tag_name}</div>
+                    <NavLink to={`/proxies/${pool.id}`}>
+
+                      <ProxyPoolName tag_name={pool.tag_name} />
+                    </NavLink>
+                  </div>
                   <div className="mt-1 truncate text-gray-500">{pool.description}</div>
                 </td>
                 <td className="hidden px-3 py-5  text-sm text-gray-500 sm:table-cell">{pool.kind.name}</td>
@@ -113,6 +118,6 @@ export default function TraficUsageTable() {
           </tfoot>
         </table>
       </div>
-    </div>
+    </div >
   )
 }

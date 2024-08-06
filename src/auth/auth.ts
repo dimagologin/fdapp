@@ -1,5 +1,5 @@
+import { httpApi } from '../api/api';
 import { authentificateUser } from '../model/user';
-import { httpApi } from './api';
 
 export const signup = async (
   username: string,
@@ -77,7 +77,7 @@ export const signin = async (username: string, password: string) => {
 };
 
 export const getAuthStorage = () => {
-  const auth = localStorage?.auth
+  const auth = localStorage?.auth;
   return auth ? JSON.parse(auth) : undefined;
 };
 export const getUsername = () => {
@@ -85,5 +85,5 @@ export const getUsername = () => {
 };
 export const getUserFromLocalStorage = () => {
   const auth = getAuthStorage();
-  return (auth && auth.username) ? { email: auth.username } : undefined;
-}
+  return auth && auth.username ? { email: auth.username } : undefined;
+};

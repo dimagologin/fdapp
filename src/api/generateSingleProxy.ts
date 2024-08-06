@@ -1,4 +1,3 @@
-
 export const generateSingleProxy = async ({
   countryCode = 'DE',
   proxyKind = 'mobile',
