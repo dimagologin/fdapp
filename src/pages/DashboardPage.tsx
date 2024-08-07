@@ -1,10 +1,10 @@
+import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { QuickActionsBox } from "../blocks/QuickActionsBox";
 import TraficUsageTable from "../blocks/TrafficUsageTable";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
 import { setTrafic, useTrafic } from "../model/traffic";
-import { useUser } from "../model/user";
 import { h2ClassName } from "../reusable/styles";
 
 export function GbInput() {

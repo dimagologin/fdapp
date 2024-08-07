@@ -1,5 +1,6 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
 import { generateMultipleProxies } from "../api/proxyPools";
+import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
 import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";
@@ -9,7 +10,6 @@ import { getProxyCountry } from "../model/proxyCountry";
 import { getProxyKind, ProxyType } from "../model/proxyKind";
 import { useProxyList } from "../model/proxyList";
 import { useTrafic } from "../model/traffic";
-import { useUser } from "../model/user";
 import { HardButton } from "../reusable/HardButton";
 import { SoftButton } from "../reusable/SoftButton";
 import { h2ClassName } from "../reusable/styles";
@@ -19,7 +19,7 @@ import { h2ClassName } from "../reusable/styles";
   password: 'cl6bBsh1Njm62pTm',
   port: 10080,
   host: 'geo-dc.floppydata.com',
-*/  
+*/
 const proxyListToString = (proxyList: ProxyType[]) => {
   return proxyList.map(
     proxy => `https://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}/`

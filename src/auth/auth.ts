@@ -1,31 +1,25 @@
 import { httpApi } from '../api/api';
-import { authentificateUser } from '../model/user';
+import { authentificateUser, GoogleProfile, UserType } from './user';
 
 export const signup = async (
-  username: string,
+  email: string,
   password: string,
   password_confirmation: string,
 ) => {
-  const result = await httpApi(
-    'user/signup',
-    {
-      username,
-      password,
-      password_confirmation,
-    },
-    {
-      auth: false,
-    },
-  );
+  const result = await httpApi('user/signup', {
+    username: email,
+    password,
+    password_confirmation,
+  }, { auth: false, },);
   if (result.token) {
-    localStorage.auth = JSON.stringify({
-      username,
+    saveAuthStorage({
+      user: { email },
       token: result.token,
-    });
-    authentificateUser(username);
+    })
+    authentificateUser({ email });
     return {
       ok: 1,
-      username,
+      username: email,
     };
   } else {
     return {
@@ -35,26 +29,20 @@ export const signup = async (
   }
 };
 
-export const login = async (username: string, password: string) => {
-  const result = await httpApi(
-    'user/signin',
-    {
-      username,
-      password,
-    },
-    {
-      auth: false,
-    },
-  );
+export const login = async (email: string, password: string) => {
+  const result = await httpApi('user/signin', {
+    username: email,
+    password,
+  }, { auth: false, },);
   if (result.token) {
-    localStorage.auth = JSON.stringify({
-      username,
+    saveAuthStorage({
+      user: { email },
       token: result.token,
-    });
-    authentificateUser(username);
+    })
+    authentificateUser({ email });
     return {
       ok: 1,
-      username,
+      username: email,
     };
   } else {
     return {
@@ -64,26 +52,42 @@ export const login = async (username: string, password: string) => {
   }
 };
 
-export const signin = async (username: string, password: string) => {
+export const signin = async (email: string, password: string) => {
   try {
-    const result = await signup(username, password, password);
+    const result = await signup(email, password, password);
     if (result.ok) {
       return result;
     }
   } catch (e) {
     console.error(e);
   }
-  return await login(username, password);
+  return await login(email, password);
 };
 
-export const getAuthStorage = () => {
-  const auth = localStorage?.auth;
+export type AuthType = {
+  user: UserType,
+  token: string
+}
+
+export function saveAuthStorage(auth: AuthType | undefined) {
+  return localStorage.auth = JSON.stringify(auth);
+};
+
+export function loadAuthStorage(): AuthType | undefined {
+  const auth = localStorage.auth;
   return auth ? JSON.parse(auth) : undefined;
 };
-export const getUsername = () => {
-  return getAuthStorage().username;
-};
-export const getUserFromLocalStorage = () => {
-  const auth = getAuthStorage();
-  return auth && auth.username ? { email: auth.username } : undefined;
+export function appendGoogleProfileInfo(googleProfile: GoogleProfile) {
+  const basic = loadAuthStorage()
+  if (!basic) {
+    throw new Error("Failed appendGoogleProfileInfo, no basic profile")
+  }
+  basic.user.googleProfile = googleProfile
+  saveAuthStorage(basic)
+}
+
+
+export const getUserFromLocalStorage = (): UserType | undefined => {
+  const auth = loadAuthStorage();
+  return auth?.user;
 };

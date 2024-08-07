@@ -1,9 +1,9 @@
 import { GoogleButton } from "../auth/GoogleButton";
+import { useUser } from "../auth/user";
 import { CreateAccountForm } from "../blocks/CreateAccountForm";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { QuickActionsBox } from "../blocks/QuickActionsBox";
 import { PageBody, PageHeading } from "../layout/AppLayout";
-import { useUser } from "../model/user";
 import { h2ClassName } from "../reusable/styles";
 
 export function AccountLoginPage() {

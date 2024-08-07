@@ -1,10 +1,10 @@
 import { LucideX } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../auth/user";
 import { CreateAccountForm } from "../blocks/CreateAccountForm";
 import { ExpandableOrderSummary } from "../blocks/ExpandableOrderSummary";
 import { PaymentForm } from "../blocks/Outdated_PaymentForm";
 import { PageBody, PageHeading } from "../layout/AppLayout";
-import { useUser } from "../model/user";
 
 export function CheckoutPage() {
   const user = useUser()

@@ -1,5 +1,5 @@
 import { googleLogout } from "@react-oauth/google";
-import { clearUser } from "../model/user";
+import { clearUser } from "./user";
 
 export async function logout() {
   delete localStorage.auth;

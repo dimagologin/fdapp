@@ -7,7 +7,7 @@ const base = isProd
 export const httpApi = async (
   uri = '',
   params = {},
-  { method = 'POST', auth = true } = { method: 'POST', auth: true },
+  { method = 'POST', auth = true } = { method: 'POST', auth: true } as { method?: "POST" | "GET", auth?: boolean },
 ) => {
   if (!uri) {
     throw new Error('!uri');

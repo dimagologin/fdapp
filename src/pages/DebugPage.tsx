@@ -3,9 +3,9 @@ import { debugAddTenBucks } from "../api/debugFulfillBalance";
 import { loadPaidTraficUsageInfo } from "../api/loadPaidTraficUsageInfo";
 import { loadTraficUsageInfo } from "../api/loadTraficUsageInfo";
 import { getTrafficByPoolName, listAllProxyPools } from "../api/proxyPools";
+import { useUser } from "../auth/user";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { dataCenter, mobile, residential } from "../model/proxyKind";
-import { useUser } from "../model/user";
 import { h2ClassName, linkClassName } from "../reusable/styles";
 
 

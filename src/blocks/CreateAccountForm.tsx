@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { generateSingleProxy } from "../api/generateSingleProxy";
-import { loadCountryList } from "../api/loadCountryList";
 import { signin } from "../auth/auth";
-import { useUser } from "../model/user";
+import { useUser } from "../auth/user";
 import { linkClassName } from "../reusable/styles";
 
 export function CreateAccountForm() {
@@ -79,8 +77,6 @@ export function CreateAccountForm() {
             if (!result.ok) {
               setErrorMesage(result.message)
             }
-            console.log(await loadCountryList({}))
-            console.log(await generateSingleProxy({}))
           }}
         >
           Sign in

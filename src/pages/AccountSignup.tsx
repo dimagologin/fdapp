@@ -1,6 +1,6 @@
+import { useUser } from "../auth/user";
 import { CreateAccountForm } from "../blocks/CreateAccountForm";
 import { PageBody, PageHeading } from "../layout/AppLayout";
-import { useUser } from "../model/user";
 
 export function AccountLoginPage() {
   const user = useUser()

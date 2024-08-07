@@ -1,8 +1,8 @@
 import { LucideArrowRight } from "lucide-react"
 import { NavLink } from "react-router-dom"
 import { GoogleButton } from "../auth/GoogleButton"
+import { useUser } from "../auth/user"
 import { useBalance } from "../model/balance"
-import { useUser } from "../model/user"
 import { hardButtonStyles } from "../reusable/HardButton"
 
 
