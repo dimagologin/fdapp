@@ -1,6 +1,6 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import { signin } from './auth';
+import { appendGoogleProfileInfo, signin } from './auth';
 import { GoogleProfile } from './user';
 
 export function GoogleButton() {
@@ -17,8 +17,9 @@ export function GoogleButton() {
           // TODO smth
           return;
         }
-        const email = googleProfile.email
-        await signin(email, email)
+        const email = googleProfile.email;
+        await signin(email, email);
+        appendGoogleProfileInfo(googleProfile);
       }}
       onError={() => {
         console.error('Login Failed');
