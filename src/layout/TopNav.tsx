@@ -1,5 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { LucideUserCircle2 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { isLocalhost } from '../api/api'
 import { logout } from '../auth/logout'
@@ -84,14 +85,20 @@ export function TopNav() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    alt=""
-                    src={
-                      user?.googleProfile?.picture ||
-                      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    }
-                    className="h-8 w-8 rounded-full"
-                  />
+                  {!user?.googleProfile?.picture &&
+                    <LucideUserCircle2 className="inline-block h-8 w-8 stroke-[1.5px] stroke-white rounded-full"
+                    />
+                  }
+                  {user?.googleProfile?.picture &&
+                    <img
+                      alt=""
+                      src={
+                        user?.googleProfile?.picture ||
+                        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      }
+                      className="h-8 w-8 rounded-full"
+                    />
+                  }
                 </MenuButton>
               </div>
               {!!user &&
