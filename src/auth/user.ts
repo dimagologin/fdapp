@@ -18,6 +18,25 @@ export type GoogleProfile = {
   "jti": string
 }
 
+// {
+//     "googleProfile": {
+//         "iss": "https://accounts.google.com",
+//         "azp": "000000000000-0123456789abc0000000000000000000.apps.googleusercontent.com",
+//         "aud": "123492348192-0123456789abc0000000000000000000.apps.googleusercontent.com",
+//         "sub": "012345678912-12341234",
+//         "email": "dima.kaigorodov@gmail.com",
+//         "email_verified": true,
+//         "nbf": 1348756123,
+//         "name": "Dmitry Kaigorodov",
+//         "picture": "https://lh3.googleusercontent.com/a/aajklsdflasdkfasldfjkasldfjkasdlfkasdlfaskdlk=s96-c",
+//         "given_name": "Dmitry",
+//         "family_name": "Kaigorodov",
+//         "iat": 1238946781,
+//         "exp": 6892789789,
+//         "jti": "fklasdjflaksdflasdkjflasdfkasldfjkalsd"
+//     }
+// }
+
 export type UserType = {
   email: string;
   googleProfile?: GoogleProfile;
