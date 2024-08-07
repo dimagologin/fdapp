@@ -7,14 +7,25 @@ import { clearUser, useUser } from '../model/user'
 import { pageMainColumnClassName } from './AppLayout'
 import { Logo } from './Logo'
 
-const navigation = [
+const anonNavigation = [
+  { name: 'Buy proxies', href: '/proxies/buy' },
+  { name: 'Account', href: '/account/login' },
+];
+const customerNavigation = [
   { name: 'Dashboard', href: '/' },
   { name: 'Buy proxies', href: '/proxies/buy' },
   { name: 'Setup proxies', href: '/proxies/generate' },
   { name: 'Account', href: '/account/login' },
 ];
-if (isLocalhost) {
-  navigation.push({ name: 'Debug', href: '/debug' })
+
+const useNavigation = () => {
+  const user = useUser()
+  let navigation = !!user ? customerNavigation : anonNavigation;
+
+  if (user && isLocalhost) {
+    navigation = [...navigation, { name: 'Debug', href: '/debug' }]
+  }
+  return navigation
 }
 
 function classNames(...classes) {
@@ -23,6 +34,7 @@ function classNames(...classes) {
 
 export function TopNav() {
   const user = useUser();
+  const navigation = useNavigation()
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -136,7 +148,7 @@ export function TopNav() {
 
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
+          {customerNavigation.map((item) => (
             <DisclosureButton
               key={item.name}
               as="a"

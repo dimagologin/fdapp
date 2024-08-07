@@ -15,9 +15,7 @@ export function NoAccountInfoBlock() {
           You are not logged in
         </h2>
 
-        <div className="py-4 inline-block">
-          <GoogleButton />
-        </div>
+        <GoogleButton />
 
         <p>
           Start by selecting proxies you want to use.

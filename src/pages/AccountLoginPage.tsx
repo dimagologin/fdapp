@@ -1,3 +1,4 @@
+import { GoogleButton } from "../auth/GoogleButton";
 import { CreateAccountForm } from "../blocks/CreateAccountForm";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { QuickActionsBox } from "../blocks/QuickActionsBox";
@@ -26,6 +27,7 @@ export function AccountLoginPage() {
   return <>
     <PageHeading>Login</PageHeading>
     <PageBody>
+      <GoogleButton />
       <CreateAccountForm />
     </PageBody>
   </>

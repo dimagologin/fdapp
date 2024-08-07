@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { GoogleButton } from "../auth/GoogleButton";
 import { CalculatorForm } from "../blocks/CalculatorForm";
 import { OrderSummary } from "../blocks/OrderSummary";
 import { PageBody, PageHeading } from "../layout/AppLayout";
@@ -55,6 +56,8 @@ export function ZeroBalancePage() {
           }
         </div>
       </div>
+      <GoogleButton />
+
     </PageBody>
 
   </>
