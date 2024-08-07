@@ -84,6 +84,7 @@ export function appendGoogleProfileInfo(googleProfile: GoogleProfile) {
   }
   basic.user.googleProfile = googleProfile
   saveAuthStorage(basic)
+  authentificateUser(basic.user)
 }
 
 
