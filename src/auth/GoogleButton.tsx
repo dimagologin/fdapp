@@ -18,7 +18,7 @@ export function GoogleButton() {
           return;
         }
         const email = googleProfile.email;
-        await signin(email, email);
+        await signin(email, googleProfile.sub);
         appendGoogleProfileInfo(googleProfile);
       }}
       onError={() => {
