@@ -23,18 +23,14 @@ export const httpApi = async (
   if (auth) {
     const token = JSON.parse(localStorage.auth).token;
     headers.Authorization = `Bearer ${token}`;
-    // headers['Access-Control-Allow-Headers'] = 'Authorization'
   }
-  console.info(auth, headers);
 
-  // const mode = isProd ? 'cors' : 'no-cors';
-  const mode = 'cors';
   const resp = await fetch(`${base}${uri}`, {
     method,
-    mode,
     headers,
     body: JSON.stringify(params),
   });
+
   if (resp.status >= 400) {
     try {
       console.error(resp.statusText);

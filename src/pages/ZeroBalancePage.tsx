@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { GoogleButton } from "../auth/GoogleButton";
 import { CalculatorForm } from "../blocks/CalculatorForm";
 import { OrderSummary } from "../blocks/OrderSummary";
@@ -6,6 +5,9 @@ import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useIsBalancePositive } from "../model/balance";
 import { hardButtonStyles } from "../reusable/HardButton";
 import { h2ClassName } from "../reusable/styles";
+import { createSubscriptionCommand } from "./CheckoutPage";
+
+
 
 export function ZeroBalancePage() {
   const isBalancePositive = useIsBalancePositive()
@@ -30,12 +32,12 @@ export function ZeroBalancePage() {
           <div className=" pb-6 px-6 border bg-white rounded-xl">
 
             <OrderSummary />
-            <NavLink
+            <button
               className={"block w-full text-center " + hardButtonStyles}
-              to={'/checkout'}
+              onClick={createSubscriptionCommand}
             >
               PROCEED TO CHECKOUT
-            </NavLink>
+            </button>
           </div>
 
           {
