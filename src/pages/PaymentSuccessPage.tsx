@@ -12,7 +12,10 @@ export function PaymentSuccessPage() {
     <PageBody>
       <div className="">
         <div>
-          <h1 className={h2ClassName}>Payment successful</h1>
+          <h1 className={h2ClassName}>Congratulations! Payment successful</h1>
+          <p>
+            Create account to manage your proxies.
+          </p>
         </div>
         <div>
         </div>
