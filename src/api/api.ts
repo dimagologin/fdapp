@@ -8,30 +8,43 @@ const base = isProd
   ? 'https://api.floppydata.com/v1/'
   : 'http://139.162.187.132:10082/v1/';
 
+export const authHttpApi = async (
+  uri: string,
+  params: any,
+) => {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json; charset=utf-8',
+    // no Authorization header, as we doing signin/signup
+  };
+  return await basicHttpApi(uri, params, headers, 'POST')
+}
+
 export const httpApi = async (
   uri = '',
+  params: any,
+  method: 'POST' | 'GET' = 'POST',
+) => {
+  const token = JSON.parse(localStorage.auth).token;
+
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json; charset=utf-8',
+    Authorization: `Bearer ${token}`
+  };
+  return await basicHttpApi(uri, params, headers, method)
+}
+
+export const basicHttpApi = async (
+  uri = '',
   params = {},
-  { method = 'POST', auth = true } = { method: 'POST', auth: true } as { method?: "POST" | "GET", auth?: boolean },
+  headers: HeadersInit,
+  method: 'POST' | 'GET',
 ) => {
   if (!uri) {
     throw new Error('!uri');
   }
 
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json; charset=utf-8',
-  };
-  if (auth) {
-    const token = JSON.parse(localStorage.auth).token;
-    headers.Authorization = `Bearer ${token}`;
-    // headers['Access-Control-Allow-Headers'] = 'Authorization'
-  }
-  console.info(auth, headers);
-
-  // const mode = isProd ? 'cors' : 'no-cors';
-  const mode = 'cors';
   const resp = await fetch(`${base}${uri}`, {
     method,
-    mode,
     headers,
     body: JSON.stringify(params),
   });

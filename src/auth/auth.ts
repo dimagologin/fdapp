@@ -1,4 +1,4 @@
-import { httpApi } from '../api/api';
+import { authHttpApi } from '../api/api';
 import { authentificateUser, GoogleProfile, UserType } from './user';
 
 export type AuthResult = {
@@ -13,11 +13,11 @@ export const signup = async (
   password: string,
   password_confirmation: string,
 ): Promise<AuthResult> => {
-  const result = await httpApi('user/signup', {
+  const result = await authHttpApi('user/signup', {
     username: email,
     password,
     password_confirmation,
-  }, { auth: false, },);
+  });
   if (result.token) {
     saveAuthStorage({
       user: { email },
@@ -37,10 +37,10 @@ export const signup = async (
 };
 
 export const login = async (email: string, password: string): Promise<AuthResult> => {
-  const result = await httpApi('user/signin', {
+  const result = await authHttpApi('user/signin', {
     username: email,
     password,
-  }, { auth: false, },);
+  });
   if (result.token) {
     saveAuthStorage({
       user: { email },
