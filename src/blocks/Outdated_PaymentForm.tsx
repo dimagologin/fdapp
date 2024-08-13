@@ -1,4 +1,5 @@
-import { HardButton } from "../reusable/HardButton"
+import { NavLink } from "react-router-dom"
+import { h2ClassName, hardButtonClassName } from "../reusable/styles"
 
 const paymentMethods = [
   { id: 'credit-card', title: 'Credit card' },
@@ -7,8 +8,9 @@ const paymentMethods = [
 
 
 export function PaymentForm() {
+  h2ClassName
   return <div className="mt-6">
-    <h2 className="text-lg font-medium text-gray-900">Payment</h2>
+    <h2 className="text-lg font-medium text-gray-900">Buy proxies</h2>
 
     <fieldset className="mt-4">
       <legend className="sr-only">Payment type</legend>
@@ -103,9 +105,9 @@ export function PaymentForm() {
 
     </div>
     <div className="mt-4">
-      <HardButton>
+      <NavLink className={hardButtonClassName} to={"/payment/success"}>
         PAY NOW
-      </HardButton>
+      </NavLink>
     </div>
   </div>
 }

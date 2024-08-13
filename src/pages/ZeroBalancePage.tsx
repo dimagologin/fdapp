@@ -32,7 +32,7 @@ export function ZeroBalancePage() {
             <OrderSummary />
             <NavLink
               className={"block w-full text-center " + hardButtonStyles}
-              to={'/checkout'}
+              to={'/payment/start'}
             >
               PROCEED TO CHECKOUT
             </NavLink>

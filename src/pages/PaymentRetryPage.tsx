@@ -6,7 +6,7 @@ import { ExpandableOrderSummary } from "../blocks/ExpandableOrderSummary";
 import { PaymentForm } from "../blocks/Outdated_PaymentForm";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 
-export function CheckoutPage() {
+export function PaymentRetryPage() {
   const user = useUser()
   return <>
     <PageHeading right={
