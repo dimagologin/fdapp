@@ -1,4 +1,5 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
+import { useState } from "react";
 import { generateMultipleProxies } from "../api/proxyPools";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
@@ -31,6 +32,8 @@ export function GenerateProxiesPage() {
   const traffic = useTrafic()
   const balance = useBalance()
   const proxyList = useProxyList()
+  const [proxyAmount, setProxyAmount] = useState(20)
+  const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
 
   return <>
     <PageHeading>Generate proxy pool</PageHeading>
@@ -46,6 +49,24 @@ export function GenerateProxiesPage() {
       </p>
 
       <div>
+        <div className="mb-4">
+          <h2 className={h2ClassName}>
+            Proxy pool name
+          </h2>
+          <div>
+            <label htmlFor="proxyAmount" className="block text-sm font-medium leading-6 text-gray-900">
+              Give proxy pool name which would destinguish it among others.
+            </label>
+          </div>
+
+          <div>
+            <input
+              className="mt-2 py-1.5 px-3 border rounded text-sm text-gray-900"
+              id="proxyPoolName" minLength={1} maxLength={40} value={proxyPoolName}
+              onChange={e => setProxyPoolName(e.target.value)} />
+          </div>
+        </div>
+
         <h2 className={h2ClassName}>Proxy type</h2>
         <div className="mt-2 mb-4">
           <GeneratorProxyKindSelector />
@@ -57,6 +78,23 @@ export function GenerateProxiesPage() {
 
           <div>
             <LocationPicker />
+          </div>
+        </div>
+        <div className="mb-4">
+          <h2 className={h2ClassName}>
+            Amount of unique IP-addresses
+          </h2>
+          <div>
+            <label htmlFor="proxyAmount" className="block text-sm font-medium leading-6 text-gray-900">
+              How many proxies do you want to generate right now?
+            </label>
+          </div>
+
+          <div>
+            <input
+              className="py-1.5 px-3 border rounded text-sm text-gray-900"
+              id="proxyAmount" type="number" min={1} max={999} value={proxyAmount}
+              onChange={e => setProxyAmount(e.target.value)} />
           </div>
         </div>
 

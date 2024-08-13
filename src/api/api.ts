@@ -1,7 +1,8 @@
 export const isLocalhost = window.location.hostname === 'localhost';
 export const isProd =
   window.location.hostname === 'floppydata.com' ||
-  window.location.hostname === 'fdapp.pages.dev' // because staging does not work with httpS
+  window.location.hostname === 'fdapp.pages.dev'
+  // because staging does not work with httpS
   ;
 
 const base = isProd

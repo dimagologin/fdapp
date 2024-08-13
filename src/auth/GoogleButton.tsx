@@ -1,9 +1,15 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import { appendGoogleProfileInfo, signin } from './auth';
-import { GoogleProfile } from './user';
+import { GoogleProfile, useUser } from './user';
 
 export function GoogleButton() {
+  const user = useUser();
+  if (user) {
+    // already logged in, don't bother
+    return <></>
+  }
+
   return <div className='inline-block py-4'>
     <GoogleLogin
       onSuccess={async (credentialResponse) => {
