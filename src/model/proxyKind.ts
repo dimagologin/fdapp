@@ -44,6 +44,7 @@ export type ProxyType = {
   host: string;
 };
 
+export type ProxyKindName = keyof typeof ProxyKindsByName;
 export type ProxyKind =
   (typeof ProxyKindsByName)[keyof typeof ProxyKindsByName];
 
