@@ -35,7 +35,7 @@ export const httpApi = async (
 
 export const basicHttpApi = async (
   uri = '',
-  params = {},
+  params: string | undefined,
   headers: HeadersInit,
   method: 'POST' | 'GET',
 ) => {
@@ -46,7 +46,7 @@ export const basicHttpApi = async (
   const resp = await fetch(`${base}${uri}`, {
     method,
     headers,
-    body: JSON.stringify(params),
+    body: (params ? JSON.stringify(params) : undefined),
   });
   if (resp.status >= 400) {
     try {
