@@ -3,6 +3,7 @@ import { getPaymentPeriod, PaymentPeriodList } from '../model/paymentPeriod';
 import { getProxyKind, ProxyKind } from '../model/proxyKind';
 import { getTrafic } from '../model/traffic';
 import { httpApi } from './api';
+import { getSubscriptionList } from './getSubscriptionList';
 
 export type CreateSubscriptionParams = {
   proxyKind: ProxyKind,
@@ -18,12 +19,13 @@ export const createSubscription = async (params: CreateSubscriptionParams) => {
     isRenewable,
     trafficGb
   } = params;
-  return await httpApi('subscriptions/create', {
-    "proxy_type": proxyKind,
+  const createdSubscription_asForNowItsJustEmpty = await httpApi('subscriptions/create', {
+    "proxy_type": proxyKind.name,
     "paid_until": formatDateToBackend(paidUntilDate),
     "is_renewable": isRenewable,
     "traffic_monthly": trafficGb
   });
+  return
 };
 
 export const calculatePaidUntilDate = () => {
@@ -39,7 +41,10 @@ export const nicelyCreateSubscription = async () => {
     isRenewable: getPaymentPeriod() !== PaymentPeriodList.oneTime,
     trafficGb: getTrafic()
   });
-  console.log({ subscription });
+  const subscriptionList = await getSubscriptionList();
+  console.log({ subscription, subscriptionList });
+
+
   return subscription;
 }
 

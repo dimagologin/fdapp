@@ -58,6 +58,7 @@ export const basicHttpApi = async (
     }
     throw new Error('Request failed: ' + resp.status);
   }
-  const result = await resp.json();
+  const result = resp.headers.get("Content-Length") !== '0' ?
+    await resp.json() : {}
   return result;
 };
