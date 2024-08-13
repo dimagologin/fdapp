@@ -33,5 +33,6 @@ export type PaymentPeriodType =
 
 const calculatorProxyKindCharm = charm<PaymentPeriodType>(annualSubscription);
 export const setPaymentPeriod = (value: PaymentPeriodType) => calculatorProxyKindCharm.set(value);
+export const getPaymentPeriod = () => calculatorProxyKindCharm.get();
 export const usePaymentPeriod = () => useCharm(calculatorProxyKindCharm);
 

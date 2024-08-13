@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { nicelyCreateSubscription } from "../api/createSubscription";
 import { GoogleButton } from "../auth/GoogleButton";
 import { CalculatorForm } from "../blocks/CalculatorForm";
 import { OrderSummary } from "../blocks/OrderSummary";
@@ -31,11 +32,17 @@ export function ZeroBalancePage() {
 
             <OrderSummary />
             <NavLink
-              className={"block w-full text-center " + hardButtonStyles}
+              className={"mb-8 block w-full text-center " + hardButtonStyles}
               to={'/payment/start'}
             >
               PROCEED TO CHECKOUT
             </NavLink>
+            <button
+              className={"mb-8 block w-full text-center " + hardButtonStyles}
+              onClick={nicelyCreateSubscription}
+            >
+              TEST CREATE SUBSCRIPTION
+            </button>
           </div>
 
           {

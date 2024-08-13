@@ -1,5 +1,7 @@
 import { formatDateToBackend } from '../model/formatDateToBackend';
-import { ProxyKind } from '../model/proxyKind';
+import { getPaymentPeriod, PaymentPeriodList } from '../model/paymentPeriod';
+import { getProxyKind, ProxyKind } from '../model/proxyKind';
+import { getTrafic } from '../model/traffic';
 import { httpApi } from './api';
 
 export type CreateSubscriptionParams = {
@@ -23,6 +25,23 @@ export const createSubscription = async (params: CreateSubscriptionParams) => {
     "traffic_monthly": trafficGb
   });
 };
+
+export const calculatePaidUntilDate = () => {
+  let date = new Date();
+  const monthsPaid = getPaymentPeriod() === PaymentPeriodList.annual ? 12 : 1;
+  return new Date(date.setMonth(date.getMonth() + monthsPaid));
+}
+
+export const nicelyCreateSubscription = async () => {
+  const subscription = await createSubscription({
+    proxyKind: getProxyKind(),
+    paidUntilDate: calculatePaidUntilDate(),
+    isRenewable: getPaymentPeriod() !== PaymentPeriodList.oneTime,
+    trafficGb: getTrafic()
+  });
+  console.log({ subscription });
+  return subscription;
+}
 
 /*
 
