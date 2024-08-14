@@ -7,30 +7,14 @@ import { AppLayout } from "./layout/AppLayout";
 import { AccountLoginPage } from "./pages/AccountLoginPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { DebugPage } from "./pages/DebugPage";
-import { GenerateProxiesPage } from "./pages/GenerateProxiesPage";
 import { PaymentRetryPage } from "./pages/PaymentRetryPage";
 import { PaymentStartPage } from "./pages/PaymentStartPage";
 import { PaymentSuccessPage } from "./pages/PaymentSuccessPage";
 import { PaymentTestPaymentFormPage } from "./pages/PaymentTestPaymentFormPage";
-import { ProxyDetailsPage } from "./pages/ProxyDetailsPage";
+import { ProxyPoolCreatePage } from "./pages/ProxyPoolCreatePage";
+import { ProxyPoolDetailsPage } from "./pages/ProxyPoolDetailsPage";
 import { ZeroBalancePage } from "./pages/ZeroBalancePage";
 
-/*
-
-/dashboard
-/buy-proxies
-/current-month
-/subscription
-
-/proxies/
-/proxies/generate
-/account
-/account/new
-/account/change-password
-/account/logout
-/account/invite
-
-*/
 const router = createBrowserRouter([{
   element: <AppLayout />,
   children: [
@@ -50,13 +34,23 @@ const router = createBrowserRouter([{
       errorElement: <ErrorBoundary />
     },
     {
-      path: "/proxies/:proxyPoolId",
-      element: <ProxyDetailsPage />,
+      path: "/proxy-pool/setup",
+      element: <ProxyPoolCreatePage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/proxy-pool/create",
+      element: <ProxyPoolCreatePage />,
+      errorElement: <ErrorBoundary />
+    },
+    {
+      path: "/proxy-pool/:proxyPoolId",
+      element: <ProxyPoolDetailsPage />,
       errorElement: <ErrorBoundary />
     },
     {
       path: "/proxies/generate",
-      element: <GenerateProxiesPage />,
+      element: <ProxyPoolCreatePage />,
       errorElement: <ErrorBoundary />
     },
     {

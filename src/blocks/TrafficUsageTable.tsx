@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
-import { getUsageByProxyPools, ProxyMonthlyUsage } from "../api/proxyPools"
+import { ProxyMonthlyUsage } from "../api/proxyPools"
 import { ProxyPoolName } from "../reusable/ProxyTypeName"
 import { h2ClassName } from "../reusable/styles"
 
 
 export default function TraficUsageTable() {
   const [proxyPoolList, setProxyPoolList] = useState<ProxyMonthlyUsage[]>([])
-  useEffect(() => {
-    getUsageByProxyPools().then(setProxyPoolList)
-  }, [])
+  // useEffect(() => {
+  //   getUsageByProxyPools().then(setProxyPoolList)
+  // }, [])
 
 
   return (

@@ -1,10 +1,9 @@
 import { getUserFromLocalStorage } from '../auth/auth';
 import {
   dataCenter,
-  getProxyKindByName,
   mobile,
   ProxyKind,
-  ProxyType,
+  ProxyType
 } from '../model/proxyKind';
 import { setProxyList } from '../model/proxyList';
 import { httpApi } from './api';
@@ -32,27 +31,27 @@ export type PROXY_GENERATE_BATCH_ResponseType = {
   proxies: ProxyType[];
 };
 
-export const createDefaultProxyPool = async (kind: ProxyKind) => {
-  return await createEmptyProxyPool(
-    getUserFromLocalStorage()?.email + kind.postfix,
-  );
-};
+// export const createDefaultProxyPool = async (kind: ProxyKind) => {
+//   return await createEmptyProxyPool(
+//     getUserFromLocalStorage()?.email + kind.postfix,
+//   );
+// };
 
-export type RawProxyPool = {
-  id: number;
-  tag_name: string;
-  repeat_interval: 'monthly';
-  valid_from: string;
-  valid_till: string;
-};
-export const listAllProxyPools = async (): Promise<RawProxyPool[]> => {
-  return await httpApi('user/tag_list', {});
-};
+// export type RawProxyPool = {
+//   id: number;
+//   tag_name: string;
+//   repeat_interval: 'monthly';
+//   valid_from: string;
+//   valid_till: string;
+// };
+// export const listAllProxyPools = async (): Promise<RawProxyPool[]> => {
+//   return await httpApi('user/tag_list', {});
+// };
 
-export type TrafficResponseType = {
-  bytes_used: number;
-  bytes_allowed: number;
-};
+// export type TrafficResponseType = {
+//   bytes_used: number;
+//   bytes_allowed: number;
+// };
 
 export const getTrafficByPoolName = async (
   tag_name: string,
@@ -76,28 +75,28 @@ export type ProxyMonthlyUsage = {
   kind: ProxyKind;
 };
 
-export const getUsageByProxyPools = async () => {
-  const pools = await listAllProxyPools();
-  const result = new Array<ProxyMonthlyUsage>();
+// export const getUsageByProxyPools = async () => {
+//   const pools = await listAllProxyPools();
+//   const result = new Array<ProxyMonthlyUsage>();
 
-  for (const pool of pools) {
-    const item: ProxyMonthlyUsage = {
-      id: pool.id,
-      tag_name: pool.tag_name,
-      kind: getProxyKindByName(pool.tag_name),
-      usedGb: 0,
-    };
-    try {
-      const traffic = await getTrafficByPoolName(pool.tag_name);
-      item.usedGb = traffic.bytes_used;
-    } catch (e) {
-      console.error(e);
-    }
-    result.push(item);
-  }
-  console.log({ pools });
-  return result;
-};
+//   for (const pool of pools) {
+//     const item: ProxyMonthlyUsage = {
+//       id: pool.id,
+//       tag_name: pool.tag_name,
+//       kind: getProxyKindByName(pool.tag_name),
+//       usedGb: 0,
+//     };
+//     try {
+//       const traffic = await getTrafficByPoolName(pool.tag_name);
+//       item.usedGb = traffic.bytes_used;
+//     } catch (e) {
+//       console.error(e);
+//     }
+//     result.push(item);
+//   }
+//   console.log({ pools });
+//   return result;
+// };
 
 const createEmptyProxyPool = async (name: string) => { };
 

@@ -1,11 +1,11 @@
 import { PoolType } from "../model/PoolType";
 import { httpApi } from "./api";
-import { HttpSubscriptionType } from "./getSubscriptionList";
+import { SubscriptionType } from "./loadSubscriptionList";
 
-export const generatePoolProxy = async (subscription: HttpSubscriptionType, poolName: string, countriesList: string[])
+export const createProxyPool = async (subscription: SubscriptionType, poolName: string, countriesList: string[])
   : Promise<PoolType> => {
   const result = await httpApi('pools/create', {
-    subscription_id: subscription.ID,
+    subscription_id: subscription.id,
     pool_name: poolName,
     countries_list: countriesList
   });

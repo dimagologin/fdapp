@@ -2,7 +2,7 @@ import { useState } from "react";
 import { debugAddTenBucks } from "../api/debugFulfillBalance";
 import { loadPaidTraficUsageInfo } from "../api/loadPaidTraficUsageInfo";
 import { loadTraficUsageInfo } from "../api/loadTraficUsageInfo";
-import { getTrafficByPoolName, listAllProxyPools } from "../api/proxyPools";
+import { getTrafficByPoolName } from "../api/proxyPools";
 import { useUser } from "../auth/user";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { dataCenter, mobile, residential } from "../model/proxyKind";
@@ -59,7 +59,7 @@ export function DebugPage() {
         {!user && <a className={linkClassName} href="/account/login" >Login</a>}
       </div>
 
-      <DebugRequestBlock title="List all proxy pools" request={() => listAllProxyPools()} />
+      {/* <DebugRequestBlock title="List all proxy pools" request={() => listAllProxyPools()} /> */}
       <DebugRequestBlock title="Get trafic" request={async () => await getTrafficByPoolName("demo_tag_r")} />
 
       <DebugRequestBlock title="Load residential traffic info" request={() => loadTraficUsageInfo(residential)} />

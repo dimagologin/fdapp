@@ -14,9 +14,9 @@ const anonNavigation = [
 ];
 const customerNavigation = [
   { name: 'Dashboard', href: '/' },
-  { name: 'Buy proxies', href: '/proxies/buy' },
-  { name: 'Setup proxies', href: '/proxies/generate' },
+  { name: 'Setup proxies', href: '/proxy-pool/create' },
   { name: 'Account', href: '/account/login' },
+  { name: 'Buy more proxies', href: '/proxies/buy' },
 ];
 
 const useNavigation = () => {

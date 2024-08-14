@@ -1,15 +1,16 @@
 import clsx from "clsx";
-import { dataCenter, mobile, residential, setProxyKind, useProxyKind } from "../model/proxyKind";
+import { dataCenter, mobile, ProxyKind, residential, setProxyKind, useProxyKind } from "../model/proxyKind";
 
-export function ProxyKindRadioBox({ proxyKind, selectedProxyKind, setProxyKind }) {
+export function ProxyKindRadioBox({ readonly = false, proxyKind, selectedProxyKind }) {
   const isActive = proxyKind === selectedProxyKind;
+  const selectThisProxyKind = readonly ? () => { } : () => setProxyKind(proxyKind);
 
   return <div className={clsx({
     "flex p-4 bg-white border border-1  rounded-lg cursor-pointer ring-2 -ring-offset-1": 1,
     "border-gray-200 ring-transparent hover:border-transparent hover:ring-indigo-500/50": !isActive,
     "border-transparent  ring-indigo-500": isActive,
   })}
-    onClick={() => setProxyKind(proxyKind)}
+    onClick={selectThisProxyKind}
   >
     <span className="flex-1">
       <span className="font-semibold text-gray-800">{proxyKind.title}</span>
@@ -23,20 +24,25 @@ export function ProxyKindRadioBox({ proxyKind, selectedProxyKind, setProxyKind }
   </div>
 }
 
-export function ProxyKindSelector({ selectedProxyKind, setProxyKind }) {
+export type ProxyKindSelectorParams = {
+  readonly: boolean,
+  selectedProxyKind: ProxyKind,
+};
+
+export function ProxyKindSelector({ readonly = false, selectedProxyKind }: ProxyKindSelectorParams) {
   return <div className="grid grid-cols-1 md:grid-cols-3  gap-4">
-    <ProxyKindRadioBox proxyKind={mobile} selectedProxyKind={selectedProxyKind} setProxyKind={setProxyKind} />
-    <ProxyKindRadioBox proxyKind={residential} selectedProxyKind={selectedProxyKind} setProxyKind={setProxyKind} />
-    <ProxyKindRadioBox proxyKind={dataCenter} selectedProxyKind={selectedProxyKind} setProxyKind={setProxyKind} />
+    <ProxyKindRadioBox readonly={readonly} proxyKind={mobile} selectedProxyKind={selectedProxyKind} />
+    <ProxyKindRadioBox readonly={readonly} proxyKind={residential} selectedProxyKind={selectedProxyKind} />
+    <ProxyKindRadioBox readonly={readonly} proxyKind={dataCenter} selectedProxyKind={selectedProxyKind} />
   </div>
 }
 
-export function CalculatorProxyKindSelector({ }) {
+export function CalculatorProxyKindSelector({ readonly = false }: { readonly: boolean }) {
   const proxyKind = useProxyKind();
 
   return <ProxyKindSelector
     selectedProxyKind={proxyKind}
-    setProxyKind={setProxyKind}
+    readonly={readonly}
   />
 }
 export const GeneratorProxyKindSelector = CalculatorProxyKindSelector;

@@ -1,5 +1,9 @@
 export function parseDateFromBackend(dateString: string) {
-  const [datePart, timePart] = dateString.split(' ');
+  if (!dateString) {
+    console.error("parseDateFromBackend", { dateString });
+    return undefined;
+  }
+  const [datePart, timePart] = dateString.split('T');
 
   const [year, month, day] = datePart.split('-').map(Number);
   const [hours, minutes, seconds] = timePart.split(':').map(Number);

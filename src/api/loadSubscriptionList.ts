@@ -1,4 +1,5 @@
 import { parseDateFromBackend } from '../model/parseDateFromBackend';
+import { parseDateTimeFromBackend } from '../model/parseDateTimeFromBackend';
 import { ProxyKind, ProxyKindName, ProxyKindsByName } from '../model/proxyKind';
 import { httpApi } from './api';
 
@@ -23,7 +24,7 @@ export type SubscriptionType = {
   subscriptionCostUsd: number,
 }
 
-export const getSubscriptionList = async (): Promise<SubscriptionType[]> => {
+export const loadSubscriptionList = async (): Promise<SubscriptionType[]> => {
   const resp: Array<HttpSubscriptionType> = await httpApi('subscriptions/list', undefined, 'GET')
   console.log({ resp });
   const result = resp.map(raw => ({
@@ -31,7 +32,7 @@ export const getSubscriptionList = async (): Promise<SubscriptionType[]> => {
     proxyKind: ProxyKindsByName[raw.proxy_type],
     tierId: raw.tier_id,
     paidUntilDate: parseDateFromBackend(raw.paid_until),
-    startedAtDateTime: parseDateFromBackend(raw.started_at),
+    startedAtDateTime: parseDateTimeFromBackend(raw.started_at),
     isRenewable: raw.is_renewable,
     trafficGb: raw.traffic_monthly,
     subscriptionCostUsd: raw.amount_monthly

@@ -14,9 +14,9 @@ export function AccountLoginPage() {
     return <>
       <PageHeading>Logged in successfully</PageHeading>
       <PageBody>
-        <p>
+        <div>
           <h2 className={h2ClassName}>{user.email}</h2>
-        </p>
+        </div>
         <OnboardingBlock />
         <QuickActionsBox />
 

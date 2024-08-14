@@ -3,7 +3,7 @@ import { getPaymentPeriod, PaymentPeriodList } from '../model/paymentPeriod';
 import { getProxyKind, ProxyKind } from '../model/proxyKind';
 import { getTrafic } from '../model/traffic';
 import { httpApi } from './api';
-import { getSubscriptionList } from './getSubscriptionList';
+import { loadSubscriptionList } from './loadSubscriptionList';
 
 export type CreateSubscriptionParams = {
   proxyKind: ProxyKind,
@@ -41,7 +41,7 @@ export const nicelyCreateSubscription = async () => {
     isRenewable: getPaymentPeriod() !== PaymentPeriodList.oneTime,
     trafficGb: getTrafic()
   });
-  const subscriptionList = await getSubscriptionList();
+  const subscriptionList = await loadSubscriptionList();
   console.log({ subscription, subscriptionList });
 
 

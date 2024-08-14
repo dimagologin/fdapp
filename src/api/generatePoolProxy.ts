@@ -2,8 +2,9 @@ import { PoolType } from "../model/PoolType";
 import { ProxyType } from "../model/proxyKind";
 import { httpApi } from "./api";
 
-export const generatePoolProxy = async (pool: PoolType, num: number): Promise<ProxyType[]> => {
-  const result = await httpApi('subscriptions/create', {
+export const generatePoolProxies = async (pool: PoolType, num: number): Promise<ProxyType[]> => {
+  const result = await httpApi('pools/generate-proxies', {
+    pool_id: pool.id,
     pool_name: pool.name,
     number: num
   });

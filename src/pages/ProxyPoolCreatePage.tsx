@@ -1,6 +1,6 @@
-import { LucideCopy, LucideDownload } from "lucide-react";
 import { useState } from "react";
-import { generateMultipleProxies } from "../api/proxyPools";
+import { NavLink, useNavigate } from "react-router-dom";
+import { nicelyCreateNewProxyPoolAndGenerateProxies } from "../api/nicelyCreateNewProxyPoolAndGenerateProxies";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
@@ -8,45 +8,44 @@ import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
 import { getProxyCountry } from "../model/proxyCountry";
-import { getProxyKind, ProxyType } from "../model/proxyKind";
+import { getProxyKind, useProxyKind } from "../model/proxyKind";
 import { useProxyList } from "../model/proxyList";
+import { useHasActiveSubscriptionsForProxyKind, useSubscriptions } from "../model/subscriptions";
 import { useTrafic } from "../model/traffic";
 import { HardButton } from "../reusable/HardButton";
-import { SoftButton } from "../reusable/SoftButton";
-import { h2ClassName } from "../reusable/styles";
+import { h2ClassName, linkClassName } from "../reusable/styles";
 
-/*
-  username: 'XLpraELOLNYEAD7W',
-  password: 'cl6bBsh1Njm62pTm',
-  port: 10080,
-  host: 'geo-dc.floppydata.com',
-*/
-const proxyListToString = (proxyList: ProxyType[]) => {
-  return proxyList.map(
-    proxy => `https://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}/`
-  ).join("\n");
-}
 
-export function GenerateProxiesPage() {
+
+export function ProxyPoolCreatePage() {
   const user = useUser()
   const traffic = useTrafic()
   const balance = useBalance()
   const proxyList = useProxyList()
+  const proxyKind = useProxyKind()
   const [proxyAmount, setProxyAmount] = useState(20)
   const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
+  const subscriptions = useSubscriptions()
+  const hasActiveSubscriptionsForProxyKind = useHasActiveSubscriptionsForProxyKind(proxyKind)
+  const navigate = useNavigate()
+  const doId = async () => {
+    const proxyPoolUrl: string = await nicelyCreateNewProxyPoolAndGenerateProxies(
+      proxyPoolName,
+      getProxyKind(),
+      [getProxyCountry().countryCode],
+      proxyAmount);
+    navigate(proxyPoolUrl)
+  }
+
 
   return <>
-    <PageHeading>Generate proxy pool</PageHeading>
+    <PageHeading>Create proxy pool</PageHeading>
     <PageBody>
       <OnboardingBlock />
 
       <h2 className={"mt-6 mb-4 " + h2ClassName}>
-        Generate proxy pool
+        Create new proxy pool and generate proxies
       </h2>
-
-      <p className="text-gray">
-        You have no proxy pools yet. Let's create your first proxy pool.
-      </p>
 
       <div>
         <div className="mb-4">
@@ -55,7 +54,8 @@ export function GenerateProxiesPage() {
           </h2>
           <div>
             <label htmlFor="proxyAmount" className="block text-sm font-medium leading-6 text-gray-900">
-              Give proxy pool name which would destinguish it among others.
+              Name helps distinguishing proxy pool amoung others when you have multiple proxy pools.
+              You can rename proxy pool when needed.
             </label>
           </div>
 
@@ -69,8 +69,21 @@ export function GenerateProxiesPage() {
 
         <h2 className={h2ClassName}>Proxy type</h2>
         <div className="mt-2 mb-4">
-          <GeneratorProxyKindSelector />
+          <GeneratorProxyKindSelector readonly={false} />
         </div>
+        {
+          !hasActiveSubscriptionsForProxyKind &&
+          <div className="px-8 pb-8 border border-2 border-amber-700 rounded-lg">
+            <h2 className={h2ClassName}>
+              You have no active {proxyKind.title.toLowerCase()} subscriptions
+            </h2>
+            <p>
+              <NavLink className={linkClassName} to={"/proxies/buy"}>
+                Buy {proxyKind.title.toLowerCase()} subscription
+              </NavLink> or change proxy type.
+            </p>
+          </div>
+        }
         <div className="mb-4">
           <h2 className={h2ClassName}>
             Proxy locations
@@ -87,6 +100,7 @@ export function GenerateProxiesPage() {
           <div>
             <label htmlFor="proxyAmount" className="block text-sm font-medium leading-6 text-gray-900">
               How many proxies do you want to generate right now?
+              You can add more proxies in this proxy pool when needed.
             </label>
           </div>
 
@@ -99,31 +113,10 @@ export function GenerateProxiesPage() {
         </div>
 
         <div>
-          <HardButton onClick={() => generateMultipleProxies(getProxyKind(), getProxyCountry().countryCode, 5)}>
-            Generate proxy
+          <HardButton onClick={async () => navigate(await nicelyCreateNewProxyPoolAndGenerateProxies(proxyPoolName, getProxyKind(), [getProxyCountry().countryCode], proxyAmount))}>
+            Create new proxy pool and generate proxies now
           </HardButton>
         </div>
-
-        <h2 className={h2ClassName}>List of proxy server (with credentials)</h2>
-
-        <textarea
-          className="my-2 p-2 w-full text-sm leading-7 font-mono border rounded"
-          rows={10} cols={40}
-          value={proxyListToString(proxyList)}
-        />
-
-        <div>
-          <SoftButton className="mr-4 ">
-            Copy proxy pool <LucideCopy className="inline-block h-4" />
-          </SoftButton>
-          <SoftButton className="mr-4 ">
-            Download as txt<LucideDownload className="inline-block h-4" />
-          </SoftButton>
-          {/* <SoftButton className="mr-4 ">
-          Share via email<LucideForward className="inline-block h-4" />
-        </SoftButton> */}
-        </div>
-
 
       </div>
     </PageBody>
