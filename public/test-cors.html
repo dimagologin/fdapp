@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Cors</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  </head>
+  <body>
+
+  <h1>CORS</h1>
+  <button onclick="test1()">api.floppydata.com</button>
+  <button onclick="test1()">139.162.187.132:10082</button>
+
+  <h2>Error:</h2>
+  <pre id="errorOutput">
+  </pre>
+
+  </body>
+  <h2>Response:</h2>
+  <pre id="fineOutput">
+  </pre>
+
+  </body>
+
+  <script>
+    const server1 = "https://api.floppydata.com/v1/user/signin";
+    const server2 = "http://139.162.187.132:10082/v1/user/signin";
+
+    async function tryCors(server) {
+      const username = password = 'dima.kaigorodov@gmail.com';
+      document.getElementById('errorOutput').innerText = ''
+      document.getElementById('fineOutput').innerText = ''
+
+      try {
+        let result = await fetch(server, {
+          method: 'POST',
+          body: JSON.stringify({
+            username,
+            password,
+          })
+        })
+        document.getElementById('fineOutput').innerText = await result.text()
+      } catch(e) {
+        const str = e?.message + "\n" + e?.stack +  "\n"  + JSON.stringify(e)
+        document.getElementById('errorOutput').innerText = str
+      }
+    }
+    async function test1() {
+      tryCors(server1)
+    }
+    async function test2() {
+      tryCors(server2)
+    }
+  </script>
+</html>
