@@ -23,7 +23,7 @@ export const nicelyCreateNewProxyPoolAndGenerateProxies = async (
   const proxies = await generatePoolProxies({
     id: proxyPool.id,
     name: poolName
-  }, amount)
+  }, amount);
   const proxyPoolUrl = `/proxy-pool/${proxyPool.id}`
   return { proxyPool, proxies, proxyPoolUrl }
 }

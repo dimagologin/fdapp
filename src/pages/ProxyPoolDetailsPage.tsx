@@ -1,6 +1,7 @@
 import { LucideCopy, LucideDownload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import { generatePoolProxies } from "../api/generatePoolProxy";
 import { loadPool } from "../api/loadPool";
 import { loadPoolProxies } from "../api/loadPoolProxies";
 import { loadSubscriptionList } from "../api/loadSubscriptionList";
@@ -10,7 +11,6 @@ import { ProxyKindRadioBox } from "../blocks/ProxyKindSelector";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
 import { ProxyType } from "../model/proxyKind";
-import { useProxyList } from "../model/proxyList";
 import { useHasActiveSubscriptionsForProxyKind, useSubscriptions } from "../model/subscriptions";
 import { useTrafic } from "../model/traffic";
 import { HardButton } from "../reusable/HardButton";
@@ -33,7 +33,6 @@ export function ProxyPoolDetailsPage() {
   const user = useUser()
   const traffic = useTrafic()
   const balance = useBalance()
-  const proxyList = useProxyList()
   const [proxyAmount, setProxyAmount] = useState(20)
   const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
   const subscriptions = useSubscriptions()
@@ -132,8 +131,15 @@ export function ProxyPoolDetailsPage() {
         </div>
 
         <div>
-          <HardButton onClick={() => 0}>
-            Generate proxies
+          <HardButton onClick={async () => {
+            const newProxies = await generatePoolProxies({
+              id: pool?.id,
+              name: pool?.pool_name
+            }, proxyAmount);
+            console.log(newProxies)
+            setProxies([...proxies, ...newProxies]);
+          }}>
+            Generate more proxies
           </HardButton>
         </div>
 
@@ -142,10 +148,8 @@ export function ProxyPoolDetailsPage() {
         <textarea
           className="my-2 p-2 w-full text-sm leading-7 font-mono border rounded"
           rows={10} cols={40}
-          value={proxyListToString(proxyList)}
-        >
-          {JSON.stringify(proxyList)}
-        </textarea>
+          value={proxyListToString(proxies)}
+        />
 
         <div>
           <SoftButton className="mr-4 ">
