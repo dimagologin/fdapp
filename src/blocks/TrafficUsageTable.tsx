@@ -1,38 +1,46 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
-import { ProxyMonthlyUsage } from "../api/proxyPools"
+import { loadProxyPoolsBySubscription } from "../api/loadProxyPoolsBySubscription"
+import { SubscriptionType } from "../api/loadSubscriptionList"
+import { tiers } from "../api/loadTiers"
+import { TrafficType } from "../api/loadTraffic"
+import { formatBytesToGb } from "../model/formatBytesToGb"
+import { PoolType } from "../model/PoolType"
+import { formatCurrency } from "../model/pricing"
 import { ProxyPoolName } from "../reusable/ProxyTypeName"
 import { h2ClassName } from "../reusable/styles"
 
 
-export default function TraficUsageTable() {
-  const [proxyPoolList, setProxyPoolList] = useState<ProxyMonthlyUsage[]>([])
-  // useEffect(() => {
-  //   getUsageByProxyPools().then(setProxyPoolList)
-  // }, [])
+export default function TraficUsageTable({ subscription, traffic }: { subscription: SubscriptionType, traffic: TrafficType }) {
+  const [proxyPoolList, setProxyPoolList] = useState<PoolType[]>([])
 
+  useEffect(() => {
+    loadProxyPoolsBySubscription(subscription.id).then(list => {
+      console.log("setProxyPoolList", { list });
+      setProxyPoolList(list);
+    });
+  }, [])
+
+  const tier = tiers[subscription.tierId];
 
   return (
     <div className="">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h2 className={"mt-6 mb-4 " + h2ClassName}>
-            Trafic this month
-          </h2>
-          <p className="mt-2 text-sm text-gray-700">
-            This month traffic usage. <time dateTime="2022-08-01">August 1, 2024</time> to{' '}
-            <time dateTime="2022-08-31">August 12, 2024</time>.
-          </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Buy more traffic
-          </button>
-        </div>
-      </div>
+      <h1 className={h2ClassName}>{subscription.proxyKind.title} proxy traffic subscription</h1>
+      <p>
+        This subscription includes {" "}
+        <strong>{formatBytesToGb(subscription.trafficGb)}GB</strong>{" "}
+        of{" "}
+        <strong>{subscription.proxyKind.title}</strong>{" "}
+        traffic and gives{" "}
+        <strong>{tier.DiscountPercent}%</strong> traffic cost discount.{" "}
+        1GB costs{" "}
+        <strong>{formatCurrency(tier.PricePerGB)}</strong> instead of{" "}
+        <s>{formatCurrency(subscription.proxyKind.price)}</s>{" "}
+        .
+      </p>
+      <p>
+        Traffic used: <strong>{formatBytesToGb(traffic?.bytes_used)}GB</strong>
+      </p>
       <div className="-mx-4 mt-8 flow-root sm:mx-0">
         <table className="min-w-full">
           <colgroup>
@@ -47,6 +55,12 @@ export default function TraficUsageTable() {
                 Proxy pool
               </th>
               <th
+                scope="col"
+                className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
+              >
+                Countries
+              </th>
+              {/* <th
                 scope="col"
                 className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
               >
@@ -66,7 +80,7 @@ export default function TraficUsageTable() {
               </th>
               <th scope="col" className="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">
                 Price
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -74,21 +88,23 @@ export default function TraficUsageTable() {
               <tr key={pool.id} className="border-b border-gray-200">
                 <td className="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
                   <div className="font-medium text-gray-900">
-                    <NavLink to={`/proxies/${pool.id}`}>
+                    {/* {JSON.stringify({ pool })} */}
+                    <NavLink to={`/proxy-pool/${pool.id}`}>
 
-                      <ProxyPoolName tag_name={pool.tag_name} />
+                      <ProxyPoolName tag_name={pool.pool_name} />
                     </NavLink>
                   </div>
-                  <div className="mt-1 truncate text-gray-500">{pool.description}</div>
+                  {/* <div className="mt-1 truncate text-gray-500"></div> */}
                 </td>
-                <td className="hidden px-3 py-5  text-sm text-gray-500 sm:table-cell">{pool.kind.name}</td>
+                <td className="hidden px-3 py-5  text-sm text-gray-500 sm:table-cell">{pool.countries.join(", ")}</td>
+                {/* <td className="hidden px-3 py-5  text-sm text-gray-500 sm:table-cell">{subscription.proxyKind.title}</td>
                 <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">${pool.pricePerGb}</td>
                 <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">{pool.usedGb}GB</td>
-                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${pool.priceTotal}</td>
+                <td className="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">${pool.priceTotal}</td> */}
               </tr>
             ))}
           </tbody>
-          <tfoot>
+          {/* <tfoot>
             <tr>
               <th
                 scope="row"
@@ -115,7 +131,7 @@ export default function TraficUsageTable() {
               </th>
               <td className="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">$64.60</td>
             </tr>
-          </tfoot>
+          </tfoot> */}
         </table>
       </div>
     </div >

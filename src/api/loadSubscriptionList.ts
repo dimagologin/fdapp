@@ -26,7 +26,7 @@ export type SubscriptionType = {
 
 export const loadSubscriptionList = async (): Promise<SubscriptionType[]> => {
   const resp: Array<HttpSubscriptionType> = await httpApi('subscriptions/list', undefined, 'GET')
-  console.log({ resp });
+  console.log('loadSubscriptionList', { resp });
   const result = resp.map(raw => ({
     id: raw.ID,
     proxyKind: ProxyKindsByName[raw.proxy_type],

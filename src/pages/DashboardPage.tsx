@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { loadSubscriptionList, SubscriptionType } from "../api/loadSubscriptionList";
+import { loadTraffic, TrafficType } from "../api/loadTraffic";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { QuickActionsBox } from "../blocks/QuickActionsBox";
@@ -47,23 +50,35 @@ function SectionHeading({ title }) {
 
 export function DashboardPage() {
   const user = useUser()
-  const traffic = useTrafic()
+  // const traffic = useTrafic()
   const balance = useBalance()
+  const [subscriptions, setSubscriptions] = useState<SubscriptionType[]>([]);
+  const [traffic, setTraffic] = useState(new Map<number, TrafficType>());
+  useEffect(() => {
+    loadSubscriptionList().then(value => setSubscriptions(value))
+  }, [])
+  useEffect(() => {
+    loadTraffic(subscriptions).then(value => setTraffic(value))
+  }, [subscriptions]);
 
   return <>
     <PageHeading>Dashboard</PageHeading>
     <PageBody>
       <OnboardingBlock />
-      <TraficUsageTable />
 
-      <div>
-        <h2 className={"mt-6 mb-4 " + h2ClassName}>
-          Subscription and discounts
-        </h2>
-        <p>
-          Currently, you are on <strong>120Gb</strong> subscription tier with <strong>30%</strong> traffic cost discount. Mobile traffic costs you <strong><s>$2.95</s></strong> <strong>$2.07</strong> per 1GB.
-        </p>
+      <div className="sm:flex sm:items-center">
+        <div className="sm:flex-auto">
+          <h2 className={"mt-6 mb-4 " + h2ClassName}>
+            Trafic usage this month
+          </h2>
+        </div>
       </div>
+
+      {
+        subscriptions.map(subscription =>
+          <TraficUsageTable subscription={subscription} traffic={traffic.get(subscription.id)} />
+        )
+      }
 
       <QuickActionsBox />
 
