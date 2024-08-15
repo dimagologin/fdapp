@@ -6,8 +6,3 @@ export const loadProxyPoolsBySubscription = async (subscriptionId: number) => {
   console.log(result);
   return result;
 }
-// const loadAllProxyPools = async (subscriptionId: number) => {
-
-//   const uri = `/subscriptions/pools/${subscriptionId}`;
-//   return await httpApi(uri, {}, 'GET')
-// }

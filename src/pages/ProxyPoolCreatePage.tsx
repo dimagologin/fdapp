@@ -1,6 +1,7 @@
+import { charm } from "@kaigorod/charm";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { nicelyCreateNewProxyPoolAndGenerateProxies } from "../api/nicelyCreateNewProxyPoolAndGenerateProxies";
+import { CreatePoolReturnType, nicelyCreateNewProxyPoolAndGenerateProxies } from "../api/nicelyCreateNewProxyPoolAndGenerateProxies";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
@@ -15,7 +16,7 @@ import { useTrafic } from "../model/traffic";
 import { HardButton } from "../reusable/HardButton";
 import { h2ClassName, linkClassName } from "../reusable/styles";
 
-
+export const poolAndProxiesCharm = charm<CreatePoolReturnType | undefined>(undefined)
 
 export function ProxyPoolCreatePage() {
   const user = useUser()
@@ -27,14 +28,17 @@ export function ProxyPoolCreatePage() {
   const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
   const subscriptions = useSubscriptions()
   const hasActiveSubscriptionsForProxyKind = useHasActiveSubscriptionsForProxyKind(proxyKind)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const doId = async () => {
-    const proxyPoolUrl: string = await nicelyCreateNewProxyPoolAndGenerateProxies(
+    const poolAndProxies: CreatePoolReturnType = await nicelyCreateNewProxyPoolAndGenerateProxies(
       proxyPoolName,
       getProxyKind(),
       [getProxyCountry().countryCode],
-      proxyAmount);
-    navigate(proxyPoolUrl)
+      proxyAmount
+    );
+    poolAndProxiesCharm.set(poolAndProxies);
+    navigate(poolAndProxies.proxyPoolUrl)
   }
 
 

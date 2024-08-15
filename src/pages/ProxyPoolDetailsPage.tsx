@@ -1,15 +1,14 @@
+import { useCharm } from "@kaigorod/charm";
 import { LucideCopy, LucideDownload } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { generateMultipleProxies } from "../api/proxyPools";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
 import { LocationPicker } from "../blocks/Outdated_LocationPicker";
-import { GeneratorProxyKindSelector } from "../blocks/ProxyKindSelector";
+import { ProxyKindRadioBox } from "../blocks/ProxyKindSelector";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
-import { getProxyCountry } from "../model/proxyCountry";
-import { getProxyKind, ProxyType, useProxyKind } from "../model/proxyKind";
+import { ProxyType, useProxyKind } from "../model/proxyKind";
 import { useProxyList } from "../model/proxyList";
 import { useHasActiveSubscriptionsForProxyKind, useSubscriptions } from "../model/subscriptions";
 import { useTrafic } from "../model/traffic";
@@ -39,6 +38,7 @@ export function ProxyPoolDetailsPage() {
   const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
   const subscriptions = useSubscriptions()
   const hasActiveSubscriptionsForProxyKind = useHasActiveSubscriptionsForProxyKind(proxyKind)
+  const poolAndProxies = useCharm(poolAndProxiesCharm)
 
   return <>
     <PageHeading>Proxy pool details</PageHeading>
@@ -67,7 +67,7 @@ export function ProxyPoolDetailsPage() {
 
         <h2 className={h2ClassName}>Proxy type</h2>
         <div className="mt-2 mb-4">
-          <GeneratorProxyKindSelector readonly={true} />
+          <ProxyKindRadioBox readonly={true} proxyKind={subscription} selectedProxyKind={selectedProxyKind} />
         </div>
         {
           !hasActiveSubscriptionsForProxyKind &&
@@ -111,8 +111,8 @@ export function ProxyPoolDetailsPage() {
         </div>
 
         <div>
-          <HardButton onClick={() => generateMultipleProxies(getProxyKind(), getProxyCountry().countryCode, 5)}>
-            Generate proxy
+          <HardButton onClick={() => 0}>
+            Generate proxies
           </HardButton>
         </div>
 

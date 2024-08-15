@@ -35,8 +35,7 @@ export default function TraficUsageTable({ subscription, traffic }: { subscripti
         <strong>{tier.DiscountPercent}%</strong> traffic cost discount.{" "}
         1GB costs{" "}
         <strong>{formatCurrency(tier.PricePerGB)}</strong> instead of{" "}
-        <s>{formatCurrency(subscription.proxyKind.price)}</s>{" "}
-        .
+        <s>{formatCurrency(subscription.proxyKind.price)}</s>.
       </p>
       <p>
         Traffic used: <strong>{formatBytesToGb(traffic?.bytes_used)}GB</strong>
