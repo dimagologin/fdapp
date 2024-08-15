@@ -1,14 +1,15 @@
-import { useCharm } from "@kaigorod/charm";
 import { LucideCopy, LucideDownload } from "lucide-react";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { loadPool } from "../api/loadPool";
+import { loadPoolProxies } from "../api/loadPoolProxies";
+import { loadSubscriptionList } from "../api/loadSubscriptionList";
 import { useUser } from "../auth/user";
 import { OnboardingBlock } from "../blocks/OnboardingBlock";
-import { LocationPicker } from "../blocks/Outdated_LocationPicker";
 import { ProxyKindRadioBox } from "../blocks/ProxyKindSelector";
 import { PageBody, PageHeading } from "../layout/AppLayout";
 import { useBalance } from "../model/balance";
-import { ProxyType, useProxyKind } from "../model/proxyKind";
+import { ProxyType } from "../model/proxyKind";
 import { useProxyList } from "../model/proxyList";
 import { useHasActiveSubscriptionsForProxyKind, useSubscriptions } from "../model/subscriptions";
 import { useTrafic } from "../model/traffic";
@@ -33,12 +34,28 @@ export function ProxyPoolDetailsPage() {
   const traffic = useTrafic()
   const balance = useBalance()
   const proxyList = useProxyList()
-  const proxyKind = useProxyKind()
   const [proxyAmount, setProxyAmount] = useState(20)
   const [proxyPoolName, setProxyPoolName] = useState("Default proxy pool")
   const subscriptions = useSubscriptions()
+  const [pool, setPool] = useState()
+  const [proxies, setProxies] = useState([])
+  const [subscription, setSubscription] = useState()
+  const params = useParams();
+  const poolId = Number(params["proxyPoolId"]);
+  const proxyKind = subscription?.proxyKind;
   const hasActiveSubscriptionsForProxyKind = useHasActiveSubscriptionsForProxyKind(proxyKind)
-  const poolAndProxies = useCharm(poolAndProxiesCharm)
+  // const poolAndProxies = useCharm(poolAndProxiesCharm);
+
+  useEffect(() => {
+    if (poolId) {
+      loadPool(poolId).then(setPool);
+      loadPoolProxies(poolId).then(setProxies);
+      loadSubscriptionList().then(list => {
+        const subscription = list.find(subscription => subscription.id === poolId);
+        setSubscription(subscription);
+      });
+    }
+  }, [poolId])
 
   return <>
     <PageHeading>Proxy pool details</PageHeading>
@@ -60,24 +77,28 @@ export function ProxyPoolDetailsPage() {
           <div>
             <input
               className="mt-2 py-1.5 px-3 border rounded text-sm text-gray-900"
-              id="proxyPoolName" minLength={1} maxLength={40} value={proxyPoolName}
-              onChange={e => setProxyPoolName(e.target.value)} />
+              id="proxyPoolName" minLength={1} maxLength={40} value={pool?.pool_name}
+              readOnly
+            />
           </div>
         </div>
 
         <h2 className={h2ClassName}>Proxy type</h2>
         <div className="mt-2 mb-4">
-          <ProxyKindRadioBox readonly={true} proxyKind={subscription} selectedProxyKind={selectedProxyKind} />
+          {
+            proxyKind &&
+            <ProxyKindRadioBox readonly={true} proxyKind={proxyKind} selectedProxyKind={proxyKind} />
+          }
         </div>
         {
           !hasActiveSubscriptionsForProxyKind &&
           <div className="px-8 pb-8 border border-2 border-amber-700 rounded-lg">
             <h2 className={h2ClassName}>
-              You have no active {proxyKind.title.toLowerCase()} subscriptions
+              You have no active {proxyKind?.title.toLowerCase()} subscriptions
             </h2>
             <p>
               <NavLink className={linkClassName} to={"/proxies/buy"}>
-                Buy {proxyKind.title.toLowerCase()} subscription
+                Buy {proxyKind?.title.toLowerCase()} subscription
               </NavLink> or change proxy type.
             </p>
           </div>
@@ -88,7 +109,7 @@ export function ProxyPoolDetailsPage() {
           </h2>
 
           <div>
-            <LocationPicker />
+            {pool?.countries?.join(", ")}
           </div>
         </div>
         <div className="mb-4">
@@ -122,7 +143,9 @@ export function ProxyPoolDetailsPage() {
           className="my-2 p-2 w-full text-sm leading-7 font-mono border rounded"
           rows={10} cols={40}
           value={proxyListToString(proxyList)}
-        />
+        >
+          {JSON.stringify(proxyList)}
+        </textarea>
 
         <div>
           <SoftButton className="mr-4 ">
